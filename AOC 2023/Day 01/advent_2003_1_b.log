@@ -1,0 +1,279 @@
+1701546902618615 - LOGGER INITIATED
+1701546902619616 - CALVAL INITIATED: two1nine
+1701546902620617 - CALVAL INITIATED: abcone2threexyz
+1701546902621614 - CALVAL INITIATED: 4nineeightseven2
+1701546902622615 - CALVAL INITIATED: 7pqrstsixteen
+1701546902623613 - CALVAL.ints_indexes(two1nine) RETURNS: dict_items([(3, '1')])
+1701546902624614 - CALVAL.digit_str(two1nine) RETURNS: 1
+1701546902625617 - CALVAL.ints_indexes(eightwothree) RETURNS: dict_items([])
+1701546902626615 - CALVAL.digit_str(eightwothree) RETURNS: 
+1701546902627615 - CALVAL.ints_indexes(abcone2threexyz) RETURNS: dict_items([(6, '2')])
+1701546902628614 - CALVAL.digit_str(abcone2threexyz) RETURNS: 2
+1701546902629615 - CALVAL.ints_indexes(xtwone3four) RETURNS: dict_items([(6, '3')])
+1701546902630615 - CALVAL.digit_str(xtwone3four) RETURNS: 3
+1701546902631614 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902632614 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902633616 - CALVAL.value(4nineeightseven2, part=A) RETURNS: 42
+1701546902634613 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902635615 - CALVAL.digit_str(zoneight234) RETURNS: 234
+1701546902636616 - CALVAL.ints_indexes(7pqrstsixteen) RETURNS: dict_items([(0, '7')])
+1701546902637615 - CALVAL.digit_str(7pqrstsixteen) RETURNS: 7
+1701546902638615 - solve_a() RETURNS: 209
+1701546902639616 - CALVAL.ints_indexes(two1nine) RETURNS: dict_items([(3, '1')])
+1701546902640613 - CALVAL.digit_str(two1nine) RETURNS: 1
+1701546902641614 - CALVAL.ints_indexes(two1nine) RETURNS: dict_items([(3, '1')])
+1701546902642615 - CALVAL.words_indexes(two1nine) RETURNS: dict_items([(0, '2'), (4, '9')])
+1701546902643616 - CALVAL.ints_indexes(two1nine) RETURNS: dict_items([(3, '1')])
+1701546902644616 - CALVAL.words_indexes(two1nine) RETURNS: dict_items([(0, '2'), (4, '9')])
+1701546902645616 - CALVAL.ints_indexes(two1nine) RETURNS: dict_items([(3, '1')])
+1701546902646614 - CALVAL.all_numbers(two1nine) RETURNS: {3: '1', 0: '2', 4: '9'}
+1701546902647615 - CALVAL.ints_indexes(two1nine) RETURNS: dict_items([(3, '1')])
+1701546902648618 - CALVAL.words_indexes(two1nine) RETURNS: dict_items([(0, '2'), (4, '9')])
+1701546902649635 - CALVAL.all_numbers(two1nine) RETURNS: {3: '1', 0: '2', 4: '9'}
+1701546902650620 - CALVAL.digit_str(two1nine) RETURNS: 219
+1701546902651618 - CALVAL.ints_indexes(eightwothree) RETURNS: dict_items([])
+1701546902652614 - CALVAL.ints_indexes(eightwothree) RETURNS: dict_items([])
+1701546902653616 - CALVAL.all_numbers(eightwothree) RETURNS: {4: '2', 7: '3', 0: '8'}
+1701546902654617 - CALVAL.words_indexes(eightwothree) RETURNS: dict_items([(4, '2'), (7, '3'), (0, '8')])
+1701546902655616 - CALVAL.ints_indexes(eightwothree) RETURNS: dict_items([])
+1701546902656614 - CALVAL.all_numbers(eightwothree) RETURNS: {4: '2', 7: '3', 0: '8'}
+1701546902657614 - CALVAL.words_indexes(eightwothree) RETURNS: dict_items([(4, '2'), (7, '3'), (0, '8')])
+1701546902658613 - CALVAL.all_numbers(eightwothree) RETURNS: {4: '2', 7: '3', 0: '8'}
+1701546902659618 - CALVAL.digit_str(eightwothree) RETURNS: 823
+1701546902661614 - CALVAL.ints_indexes(abcone2threexyz) RETURNS: dict_items([(6, '2')])
+1701546902662614 - CALVAL.digit_str(abcone2threexyz) RETURNS: 2
+1701546902663614 - CALVAL.words_indexes(abcone2threexyz) RETURNS: dict_items([(3, '1'), (7, '3')])
+1701546902664619 - CALVAL.all_numbers(abcone2threexyz) RETURNS: {6: '2', 3: '1', 7: '3'}
+1701546902665615 - CALVAL.words_indexes(abcone2threexyz) RETURNS: dict_items([(3, '1'), (7, '3')])
+1701546902666617 - CALVAL.all_numbers(abcone2threexyz) RETURNS: {6: '2', 3: '1', 7: '3'}
+1701546902667615 - CALVAL.ints_indexes(abcone2threexyz) RETURNS: dict_items([(6, '2')])
+1701546902668623 - CALVAL.words_indexes(abcone2threexyz) RETURNS: dict_items([(3, '1'), (7, '3')])
+1701546902669615 - CALVAL.ints_indexes(abcone2threexyz) RETURNS: dict_items([(6, '2')])
+1701546902670615 - CALVAL.all_numbers(abcone2threexyz) RETURNS: {6: '2', 3: '1', 7: '3'}
+1701546902671616 - CALVAL.digit_str(abcone2threexyz) RETURNS: 123
+1701546902672617 - CALVAL.ints_indexes(xtwone3four) RETURNS: dict_items([(6, '3')])
+1701546902673616 - CALVAL.ints_indexes(xtwone3four) RETURNS: dict_items([(6, '3')])
+1701546902674616 - CALVAL.all_numbers(xtwone3four) RETURNS: {6: '3', 3: '1', 1: '2', 7: '4'}
+1701546902675618 - CALVAL.ints_indexes(xtwone3four) RETURNS: dict_items([(6, '3')])
+1701546902677625 - CALVAL.words_indexes(xtwone3four) RETURNS: dict_items([(3, '1'), (1, '2'), (7, '4')])
+1701546902678615 - CALVAL.ints_indexes(xtwone3four) RETURNS: dict_items([(6, '3')])
+1701546902679615 - CALVAL.all_numbers(xtwone3four) RETURNS: {6: '3', 3: '1', 1: '2', 7: '4'}
+1701546902680618 - CALVAL.words_indexes(xtwone3four) RETURNS: dict_items([(3, '1'), (1, '2'), (7, '4')])
+1701546902681616 - CALVAL.all_numbers(xtwone3four) RETURNS: {6: '3', 3: '1', 1: '2', 7: '4'}
+1701546902682615 - CALVAL.ints_indexes(xtwone3four) RETURNS: dict_items([(6, '3')])
+1701546902683652 - CALVAL.words_indexes(xtwone3four) RETURNS: dict_items([(3, '1'), (1, '2'), (7, '4')])
+1701546902685618 - CALVAL.digit_str(xtwone3four) RETURNS: 2134
+1701546902686615 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902687614 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902688616 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902689614 - CALVAL.all_numbers(4nineeightseven2) RETURNS: {0: '4', 15: '2', 10: '7', 5: '8', 1: '9'}
+1701546902690614 - CALVAL.words_indexes(4nineeightseven2) RETURNS: dict_items([(10, '7'), (5, '8'), (1, '9')])
+1701546902691616 - CALVAL.all_numbers(4nineeightseven2) RETURNS: {0: '4', 15: '2', 10: '7', 5: '8', 1: '9'}
+1701546902692626 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902693632 - CALVAL.words_indexes(4nineeightseven2) RETURNS: dict_items([(10, '7'), (5, '8'), (1, '9')])
+1701546902694621 - CALVAL.all_numbers(4nineeightseven2) RETURNS: {0: '4', 15: '2', 10: '7', 5: '8', 1: '9'}
+1701546902695624 - CALVAL.words_indexes(4nineeightseven2) RETURNS: dict_items([(10, '7'), (5, '8'), (1, '9')])
+1701546902696622 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902697623 - CALVAL.words_indexes(4nineeightseven2) RETURNS: dict_items([(10, '7'), (5, '8'), (1, '9')])
+1701546902698623 - CALVAL.all_numbers(4nineeightseven2) RETURNS: {0: '4', 15: '2', 10: '7', 5: '8', 1: '9'}
+1701546902699626 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902701638 - CALVAL.words_indexes(4nineeightseven2) RETURNS: dict_items([(10, '7'), (5, '8'), (1, '9')])
+1701546902702624 - CALVAL.digit_str(4nineeightseven2) RETURNS: 49872
+1701546902703621 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902704624 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902705622 - CALVAL.digit_str(zoneight234) RETURNS: 234
+1701546902706622 - CALVAL.all_numbers(zoneight234) RETURNS: {8: '2', 9: '3', 10: '4', 1: '1', 3: '8'}
+1701546902707961 - CALVAL.words_indexes(zoneight234) RETURNS: dict_items([(1, '1'), (3, '8')])
+1701546902708963 - CALVAL.all_numbers(zoneight234) RETURNS: {8: '2', 9: '3', 10: '4', 1: '1', 3: '8'}
+1701546902710965 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902711964 - CALVAL.all_numbers(zoneight234) RETURNS: {8: '2', 9: '3', 10: '4', 1: '1', 3: '8'}
+1701546902712961 - CALVAL.words_indexes(zoneight234) RETURNS: dict_items([(1, '1'), (3, '8')])
+1701546902713961 - CALVAL.all_numbers(zoneight234) RETURNS: {8: '2', 9: '3', 10: '4', 1: '1', 3: '8'}
+1701546902714965 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902715963 - CALVAL.all_numbers(zoneight234) RETURNS: {8: '2', 9: '3', 10: '4', 1: '1', 3: '8'}
+1701546902717969 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902718963 - CALVAL.all_numbers(zoneight234) RETURNS: {8: '2', 9: '3', 10: '4', 1: '1', 3: '8'}
+1701546902719964 - CALVAL.digit_str(zoneight234) RETURNS: 18234
+1701546902720961 - CALVAL.ints_indexes(7pqrstsixteen) RETURNS: dict_items([(0, '7')])
+1701546902721961 - CALVAL.digit_str(7pqrstsixteen) RETURNS: 7
+1701546902722961 - CALVAL.words_indexes(7pqrstsixteen) RETURNS: dict_items([(6, '6')])
+1701546902723962 - CALVAL.all_numbers(7pqrstsixteen) RETURNS: {0: '7', 6: '6'}
+1701546902724963 - CALVAL.ints_indexes(7pqrstsixteen) RETURNS: dict_items([(0, '7')])
+1701546902725963 - CALVAL.words_indexes(7pqrstsixteen) RETURNS: dict_items([(6, '6')])
+1701546902726979 - CALVAL.all_numbers(7pqrstsixteen) RETURNS: {0: '7', 6: '6'}
+1701546902727985 - CALVAL.ints_indexes(7pqrstsixteen) RETURNS: dict_items([(0, '7')])
+1701546902728962 - CALVAL.words_indexes(7pqrstsixteen) RETURNS: dict_items([(6, '6')])
+1701546902729963 - CALVAL.all_numbers(7pqrstsixteen) RETURNS: {0: '7', 6: '6'}
+1701546902730962 - CALVAL.digit_str(7pqrstsixteen) RETURNS: 76
+1701546902731963 - DATA RECEIVED: raw text, likely from aocd.submit
+1701546902732962 - CALVAL.ints_indexes(two1nine) RETURNS: dict_items([(3, '1')])
+1701546902733963 - CALVAL.words_indexes(two1nine) RETURNS: dict_items([(0, '2'), (4, '9')])
+1701546902734981 - CALVAL.all_numbers(two1nine) RETURNS: {3: '1', 0: '2', 4: '9'}
+1701546902736968 - CALVAL.words_indexes(two1nine) RETURNS: dict_items([(0, '2'), (4, '9')])
+1701546902737963 - CALVAL.all_numbers(two1nine) RETURNS: {3: '1', 0: '2', 4: '9'}
+1701546902738962 - CALVAL.ints_indexes(two1nine) RETURNS: dict_items([(3, '1')])
+1701546902739962 - CALVAL.words_indexes(two1nine) RETURNS: dict_items([(0, '2'), (4, '9')])
+1701546902740963 - CALVAL.all_numbers(two1nine) RETURNS: {3: '1', 0: '2', 4: '9'}
+1701546902741965 - CALVAL.ints_indexes(two1nine) RETURNS: dict_items([(3, '1')])
+1701546902743971 - CALVAL.words_indexes(two1nine) RETURNS: dict_items([(0, '2'), (4, '9')])
+1701546902744965 - CALVAL.all_numbers(two1nine) RETURNS: {3: '1', 0: '2', 4: '9'}
+1701546902745965 - CALVAL.digit_str(two1nine) RETURNS: 219
+1701546902746963 - CALVAL.value(two1nine, part=B) RETURNS: 29
+1701546902747961 - CALVAL.words_indexes(eightwothree) RETURNS: dict_items([(4, '2'), (7, '3'), (0, '8')])
+1701546902748961 - CALVAL.all_numbers(eightwothree) RETURNS: {4: '2', 7: '3', 0: '8'}
+1701546902749965 - CALVAL.ints_indexes(eightwothree) RETURNS: dict_items([])
+1701546902750963 - CALVAL.words_indexes(eightwothree) RETURNS: dict_items([(4, '2'), (7, '3'), (0, '8')])
+1701546902751971 - CALVAL.all_numbers(eightwothree) RETURNS: {4: '2', 7: '3', 0: '8'}
+1701546902752965 - CALVAL.ints_indexes(eightwothree) RETURNS: dict_items([])
+1701546902754964 - CALVAL.words_indexes(eightwothree) RETURNS: dict_items([(4, '2'), (7, '3'), (0, '8')])
+1701546902755963 - CALVAL.all_numbers(eightwothree) RETURNS: {4: '2', 7: '3', 0: '8'}
+1701546902756963 - CALVAL.words_indexes(eightwothree) RETURNS: dict_items([(4, '2'), (7, '3'), (0, '8')])
+1701546902757963 - CALVAL.all_numbers(eightwothree) RETURNS: {4: '2', 7: '3', 0: '8'}
+1701546902758963 - CALVAL.value(eightwothree, part=B) RETURNS: 83
+1701546902760980 - CALVAL.ints_indexes(abcone2threexyz) RETURNS: dict_items([(6, '2')])
+1701546902761962 - CALVAL.all_numbers(abcone2threexyz) RETURNS: {6: '2', 3: '1', 7: '3'}
+1701546902762961 - CALVAL.words_indexes(abcone2threexyz) RETURNS: dict_items([(3, '1'), (7, '3')])
+1701546902763963 - CALVAL.all_numbers(abcone2threexyz) RETURNS: {6: '2', 3: '1', 7: '3'}
+1701546902764962 - CALVAL.ints_indexes(abcone2threexyz) RETURNS: dict_items([(6, '2')])
+1701546902765964 - CALVAL.words_indexes(abcone2threexyz) RETURNS: dict_items([(3, '1'), (7, '3')])
+1701546902766976 - CALVAL.all_numbers(abcone2threexyz) RETURNS: {6: '2', 3: '1', 7: '3'}
+1701546902767968 - CALVAL.ints_indexes(abcone2threexyz) RETURNS: dict_items([(6, '2')])
+1701546902768964 - CALVAL.all_numbers(abcone2threexyz) RETURNS: {6: '2', 3: '1', 7: '3'}
+1701546902769963 - CALVAL.digit_str(abcone2threexyz) RETURNS: 123
+1701546902770962 - CALVAL.ints_indexes(xtwone3four) RETURNS: dict_items([(6, '3')])
+1701546902771962 - CALVAL.all_numbers(xtwone3four) RETURNS: {6: '3', 3: '1', 1: '2', 7: '4'}
+1701546902772962 - CALVAL.ints_indexes(xtwone3four) RETURNS: dict_items([(6, '3')])
+1701546902773960 - CALVAL.words_indexes(xtwone3four) RETURNS: dict_items([(3, '1'), (1, '2'), (7, '4')])
+1701546902774962 - CALVAL.ints_indexes(xtwone3four) RETURNS: dict_items([(6, '3')])
+1701546902776986 - CALVAL.words_indexes(xtwone3four) RETURNS: dict_items([(3, '1'), (1, '2'), (7, '4')])
+1701546902777964 - CALVAL.all_numbers(xtwone3four) RETURNS: {6: '3', 3: '1', 1: '2', 7: '4'}
+1701546902778964 - CALVAL.words_indexes(xtwone3four) RETURNS: dict_items([(3, '1'), (1, '2'), (7, '4')])
+1701546902779962 - CALVAL.all_numbers(xtwone3four) RETURNS: {6: '3', 3: '1', 1: '2', 7: '4'}
+1701546902780963 - CALVAL.ints_indexes(xtwone3four) RETURNS: dict_items([(6, '3')])
+1701546902781965 - CALVAL.all_numbers(xtwone3four) RETURNS: {6: '3', 3: '1', 1: '2', 7: '4'}
+1701546902782965 - CALVAL.digit_str(xtwone3four) RETURNS: 2134
+1701546902784982 - CALVAL.value(xtwone3four, part=B) RETURNS: 24
+1701546902785965 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902786961 - CALVAL.all_numbers(4nineeightseven2) RETURNS: {0: '4', 15: '2', 10: '7', 5: '8', 1: '9'}
+1701546902787965 - CALVAL.words_indexes(4nineeightseven2) RETURNS: dict_items([(10, '7'), (5, '8'), (1, '9')])
+1701546902788963 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902789960 - CALVAL.all_numbers(4nineeightseven2) RETURNS: {0: '4', 15: '2', 10: '7', 5: '8', 1: '9'}
+1701546902790960 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902791967 - CALVAL.words_indexes(4nineeightseven2) RETURNS: dict_items([(10, '7'), (5, '8'), (1, '9')])
+1701546902792973 - CALVAL.all_numbers(4nineeightseven2) RETURNS: {0: '4', 15: '2', 10: '7', 5: '8', 1: '9'}
+1701546902794968 - CALVAL.words_indexes(4nineeightseven2) RETURNS: dict_items([(10, '7'), (5, '8'), (1, '9')])
+1701546902795967 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902796964 - CALVAL.words_indexes(4nineeightseven2) RETURNS: dict_items([(10, '7'), (5, '8'), (1, '9')])
+1701546902797971 - CALVAL.all_numbers(4nineeightseven2) RETURNS: {0: '4', 15: '2', 10: '7', 5: '8', 1: '9'}
+1701546902798971 - CALVAL.digit_str(4nineeightseven2) RETURNS: 49872
+1701546902799968 - CALVAL.value(4nineeightseven2, part=B) RETURNS: 42
+1701546902800969 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902801965 - CALVAL.words_indexes(zoneight234) RETURNS: dict_items([(1, '1'), (3, '8')])
+1701546902802968 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902803967 - CALVAL.words_indexes(zoneight234) RETURNS: dict_items([(1, '1'), (3, '8')])
+1701546902804967 - CALVAL.words_indexes(zoneight234) RETURNS: dict_items([(1, '1'), (3, '8')])
+1701546902806473 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902807482 - CALVAL.all_numbers(zoneight234) RETURNS: {8: '2', 9: '3', 10: '4', 1: '1', 3: '8'}
+1701546902808480 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902809482 - CALVAL.words_indexes(zoneight234) RETURNS: dict_items([(1, '1'), (3, '8')])
+1701546902811479 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902812482 - CALVAL.words_indexes(zoneight234) RETURNS: dict_items([(1, '1'), (3, '8')])
+1701546902813479 - CALVAL.digit_str(zoneight234) RETURNS: 18234
+1701546902814481 - CALVAL.value(zoneight234, part=B) RETURNS: 14
+1701546902815487 - CALVAL.words_indexes(7pqrstsixteen) RETURNS: dict_items([(6, '6')])
+1701546902817502 - CALVAL.all_numbers(7pqrstsixteen) RETURNS: {0: '7', 6: '6'}
+1701546902818481 - CALVAL.words_indexes(7pqrstsixteen) RETURNS: dict_items([(6, '6')])
+1701546902819481 - CALVAL.ints_indexes(7pqrstsixteen) RETURNS: dict_items([(0, '7')])
+1701546902820479 - CALVAL.all_numbers(7pqrstsixteen) RETURNS: {0: '7', 6: '6'}
+1701546902821478 - CALVAL.digit_str(7pqrstsixteen) RETURNS: 76
+1701546902822478 - solve_b() RETURNS: 281
+1701546902823482 - CALVAL.ints_indexes(two1nine) RETURNS: dict_items([(3, '1')])
+1701546902824478 - CALVAL.ints_indexes(two1nine) RETURNS: dict_items([(3, '1')])
+1701546902825481 - CALVAL.words_indexes(two1nine) RETURNS: dict_items([(0, '2'), (4, '9')])
+1701546902827481 - CALVAL.ints_indexes(two1nine) RETURNS: dict_items([(3, '1')])
+1701546902828482 - CALVAL.words_indexes(two1nine) RETURNS: dict_items([(0, '2'), (4, '9')])
+1701546902829482 - CALVAL.ints_indexes(two1nine) RETURNS: dict_items([(3, '1')])
+1701546902830480 - CALVAL.words_indexes(two1nine) RETURNS: dict_items([(0, '2'), (4, '9')])
+1701546902831481 - CALVAL.all_numbers(two1nine) RETURNS: {3: '1', 0: '2', 4: '9'}
+1701546902832495 - CALVAL.words_indexes(two1nine) RETURNS: dict_items([(0, '2'), (4, '9')])
+1701546902833481 - CALVAL.all_numbers(two1nine) RETURNS: {3: '1', 0: '2', 4: '9'}
+1701546902834481 - CALVAL.digit_str(two1nine) RETURNS: 219
+1701546902835482 - CALVAL.digit_str(eightwothree) RETURNS: 
+1701546902836481 - CALVAL.ints_indexes(eightwothree) RETURNS: dict_items([])
+1701546902837479 - CALVAL.all_numbers(eightwothree) RETURNS: {4: '2', 7: '3', 0: '8'}
+1701546902838479 - CALVAL.ints_indexes(eightwothree) RETURNS: dict_items([])
+1701546902839481 - CALVAL.all_numbers(eightwothree) RETURNS: {4: '2', 7: '3', 0: '8'}
+1701546902840482 - CALVAL.words_indexes(eightwothree) RETURNS: dict_items([(4, '2'), (7, '3'), (0, '8')])
+1701546902841479 - CALVAL.all_numbers(eightwothree) RETURNS: {4: '2', 7: '3', 0: '8'}
+1701546902842481 - CALVAL.ints_indexes(eightwothree) RETURNS: dict_items([])
+1701546902843509 - CALVAL.words_indexes(eightwothree) RETURNS: dict_items([(4, '2'), (7, '3'), (0, '8')])
+1701546902844482 - CALVAL.digit_str(eightwothree) RETURNS: 823
+1701546902845481 - CALVAL.ints_indexes(abcone2threexyz) RETURNS: dict_items([(6, '2')])
+1701546902846483 - CALVAL.ints_indexes(abcone2threexyz) RETURNS: dict_items([(6, '2')])
+1701546902847484 - CALVAL.digit_str(abcone2threexyz) RETURNS: 2
+1701546902848482 - CALVAL.words_indexes(abcone2threexyz) RETURNS: dict_items([(3, '1'), (7, '3')])
+1701546902849494 - CALVAL.all_numbers(abcone2threexyz) RETURNS: {6: '2', 3: '1', 7: '3'}
+1701546902850481 - CALVAL.ints_indexes(abcone2threexyz) RETURNS: dict_items([(6, '2')])
+1701546902851480 - CALVAL.all_numbers(abcone2threexyz) RETURNS: {6: '2', 3: '1', 7: '3'}
+1701546902852481 - CALVAL.ints_indexes(abcone2threexyz) RETURNS: dict_items([(6, '2')])
+1701546902853480 - CALVAL.all_numbers(abcone2threexyz) RETURNS: {6: '2', 3: '1', 7: '3'}
+1701546902854479 - CALVAL.words_indexes(abcone2threexyz) RETURNS: dict_items([(3, '1'), (7, '3')])
+1701546902855479 - CALVAL.digit_str(abcone2threexyz) RETURNS: 123
+1701546902856479 - CALVAL.ints_indexes(xtwone3four) RETURNS: dict_items([(6, '3')])
+1701546902857480 - CALVAL.ints_indexes(xtwone3four) RETURNS: dict_items([(6, '3')])
+1701546902858480 - CALVAL.ints_indexes(xtwone3four) RETURNS: dict_items([(6, '3')])
+1701546902859485 - CALVAL.words_indexes(xtwone3four) RETURNS: dict_items([(3, '1'), (1, '2'), (7, '4')])
+1701546902860482 - CALVAL.all_numbers(xtwone3four) RETURNS: {6: '3', 3: '1', 1: '2', 7: '4'}
+1701546902861481 - CALVAL.words_indexes(xtwone3four) RETURNS: dict_items([(3, '1'), (1, '2'), (7, '4')])
+1701546902862479 - CALVAL.all_numbers(xtwone3four) RETURNS: {6: '3', 3: '1', 1: '2', 7: '4'}
+1701546902863479 - CALVAL.words_indexes(xtwone3four) RETURNS: dict_items([(3, '1'), (1, '2'), (7, '4')])
+1701546902864481 - CALVAL.all_numbers(xtwone3four) RETURNS: {6: '3', 3: '1', 1: '2', 7: '4'}
+1701546902865481 - CALVAL.ints_indexes(xtwone3four) RETURNS: dict_items([(6, '3')])
+1701546902866481 - CALVAL.words_indexes(xtwone3four) RETURNS: dict_items([(3, '1'), (1, '2'), (7, '4')])
+1701546902867490 - CALVAL.all_numbers(xtwone3four) RETURNS: {6: '3', 3: '1', 1: '2', 7: '4'}
+1701546902868481 - CALVAL.words_indexes(xtwone3four) RETURNS: dict_items([(3, '1'), (1, '2'), (7, '4')])
+1701546902869482 - CALVAL.digit_str(xtwone3four) RETURNS: 2134
+1701546902870482 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902871479 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902872479 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902873481 - CALVAL.words_indexes(4nineeightseven2) RETURNS: dict_items([(10, '7'), (5, '8'), (1, '9')])
+1701546902874481 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902876502 - CALVAL.all_numbers(4nineeightseven2) RETURNS: {0: '4', 15: '2', 10: '7', 5: '8', 1: '9'}
+1701546902877480 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902878480 - CALVAL.words_indexes(4nineeightseven2) RETURNS: dict_items([(10, '7'), (5, '8'), (1, '9')])
+1701546902879482 - CALVAL.all_numbers(4nineeightseven2) RETURNS: {0: '4', 15: '2', 10: '7', 5: '8', 1: '9'}
+1701546902880481 - CALVAL.ints_indexes(4nineeightseven2) RETURNS: dict_items([(0, '4'), (15, '2')])
+1701546902881481 - CALVAL.words_indexes(4nineeightseven2) RETURNS: dict_items([(10, '7'), (5, '8'), (1, '9')])
+1701546902883484 - CALVAL.all_numbers(4nineeightseven2) RETURNS: {0: '4', 15: '2', 10: '7', 5: '8', 1: '9'}
+1701546902884480 - CALVAL.words_indexes(4nineeightseven2) RETURNS: dict_items([(10, '7'), (5, '8'), (1, '9')])
+1701546902885480 - CALVAL.all_numbers(4nineeightseven2) RETURNS: {0: '4', 15: '2', 10: '7', 5: '8', 1: '9'}
+1701546902886479 - CALVAL.words_indexes(4nineeightseven2) RETURNS: dict_items([(10, '7'), (5, '8'), (1, '9')])
+1701546902887479 - CALVAL.all_numbers(4nineeightseven2) RETURNS: {0: '4', 15: '2', 10: '7', 5: '8', 1: '9'}
+1701546902888479 - CALVAL.digit_str(4nineeightseven2) RETURNS: 49872
+1701546902889484 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902890481 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902891482 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902892489 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902893490 - CALVAL.words_indexes(zoneight234) RETURNS: dict_items([(1, '1'), (3, '8')])
+1701546902894491 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902895488 - CALVAL.words_indexes(zoneight234) RETURNS: dict_items([(1, '1'), (3, '8')])
+1701546902896488 - CALVAL.all_numbers(zoneight234) RETURNS: {8: '2', 9: '3', 10: '4', 1: '1', 3: '8'}
+1701546902897489 - CALVAL.words_indexes(zoneight234) RETURNS: dict_items([(1, '1'), (3, '8')])
+1701546902898490 - CALVAL.all_numbers(zoneight234) RETURNS: {8: '2', 9: '3', 10: '4', 1: '1', 3: '8'}
+1701546902899500 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902900490 - CALVAL.all_numbers(zoneight234) RETURNS: {8: '2', 9: '3', 10: '4', 1: '1', 3: '8'}
+1701546902901487 - CALVAL.ints_indexes(zoneight234) RETURNS: dict_items([(8, '2'), (9, '3'), (10, '4')])
+1701546902902490 - CALVAL.all_numbers(zoneight234) RETURNS: {8: '2', 9: '3', 10: '4', 1: '1', 3: '8'}
+1701546902903489 - CALVAL.words_indexes(zoneight234) RETURNS: dict_items([(1, '1'), (3, '8')])
+1701546902904488 - CALVAL.digit_str(zoneight234) RETURNS: 18234
+1701546902905489 - CALVAL.ints_indexes(7pqrstsixteen) RETURNS: dict_items([(0, '7')])
+1701546902906487 - CALVAL.digit_str(7pqrstsixteen) RETURNS: 7
+1701546902907651 - CALVAL.words_indexes(7pqrstsixteen) RETURNS: dict_items([(6, '6')])
+1701546902908654 - CALVAL.all_numbers(7pqrstsixteen) RETURNS: {0: '7', 6: '6'}
+1701546902909658 - CALVAL.ints_indexes(7pqrstsixteen) RETURNS: dict_items([(0, '7')])
+1701546902910655 - CALVAL.words_indexes(7pqrstsixteen) RETURNS: dict_items([(6, '6')])
+1701546902911654 - CALVAL.ints_indexes(7pqrstsixteen) RETURNS: dict_items([(0, '7')])
+1701546902912655 - CALVAL.words_indexes(7pqrstsixteen) RETURNS: dict_items([(6, '6')])
+1701546902913656 - CALVAL.all_numbers(7pqrstsixteen) RETURNS: {0: '7', 6: '6'}
+1701546902914657 - CALVAL.digit_str(7pqrstsixteen) RETURNS: 76
+1701546902915676 - main(Raw Text) RETURNS: (209, 281)
