@@ -24,13 +24,23 @@ data = list(raw)
 
 limits = {"red": 12, "blue": 14, "green": 13}
 results = {}
-    
+
+# class Game(dict):
+#     def __init__(self, game_str):
+#         self.game_str = game_str
+
+
+#     def 
+
+
+
+
 
 def solve_a(source):
     """determine how many games from the data list would be possible
     based on the limits provided."""
 
-    limits = 
+    # limits = 
     results = {}
 
     for row in data:
