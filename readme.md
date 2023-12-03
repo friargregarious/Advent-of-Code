@@ -1,12 +1,15 @@
 # Advent of Code
 
-View our [Belleville/Quinte Leader Board](https://adventofcode.com/2022/leaderboard/private/view/2588518) or [join](https://adventofcode.com/2022/leaderboard/private).
+View our [Belleville/Quinte Leader Board](https://adventofcode.com/2023/leaderboard/private/view/2588518) or [join](https://adventofcode.com/2023/leaderboard/private).
 
 pls request a join code [from me](mailto:greg.denyes@gmail.com) to be a part of our local competition. We've changed it since last year.
 
 ## Current Year: [adventofcode.com/2023](https://adventofcode.com/2023)
 
-puzzles unlock 1 Dec!!!
+- 2023 Day 01 [X][ ] Trebuchet?!
+- 2023 Day 02 [X][X] Cube Conundrum
+- 2023 Day 03 [ ][ ] Gear Ratios 
+
 
 <!-- Notes
 - [3]: my attempt at genetic algorithym.
