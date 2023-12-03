@@ -10,7 +10,8 @@ class Logger(dict):
         self._inturrupts = inturrupts
         self._print2screen = print2screen
         self.logfile = logfile
-        print(f"logger() INITIATED. {self.get_behaviours}")
+        if print2screen:
+            print(f"logger() INITIATED. {self.get_behaviours}")
 
     def set_behaviours(self, print2screen=False, inturrupts=False):
         """doc placeholder"""
@@ -30,16 +31,19 @@ class Logger(dict):
             print("Conditions:", temp)
         return temp
 
-    def save_state(self):
+    def save_state(self, filename=False):
         """doc placeholder"""
-        with open(self.logfile, "w+", encoding="UTF-8") as logfile:
+        if not filename:
+            filename = self.logfile
+
+        with open(filename, "w+", encoding="UTF-8") as logfile:
             logfile.write("\n".join([x for x in self.report()]))
 
     def submit(self, msg):
         """doc placeholder"""
         ts = self.time_stamp
         self[ts] = msg
-        self.save_state()
+        # self.save_state()
         if self._print2screen:
             print(ts, msg)
         if self._inturrupts:

@@ -25,7 +25,7 @@ import logger
 
 os.system("cls")
 log = logger.Logger("advent_2003_1_b.log")
-log.submit(f"LOGGER INITIATED")
+log.submit("LOGGER INITIATED")
 report = logger.Logger("check_answers.txt")
 
 
@@ -48,7 +48,7 @@ def data(source_text_stream: str = "input.txt"):
     return text_source_list
 
 
-class CalibrationValue:
+class CalVal:
     """class doc placeholder"""
 
     nums = [(str(x), n2w(x)) for x in range(10)]
@@ -56,7 +56,7 @@ class CalibrationValue:
     def __init__(self, original):
         """method doc placeholder"""
         if not isinstance(original, str):
-            raise TypeError("CalibrationValue takes str only.")
+            raise TypeError("CalVal takes str only.")
         log.submit(f"CALVAL INITIATED: {original}")
 
         if len(original) > 0:
@@ -71,10 +71,16 @@ class CalibrationValue:
             sort_key = sorted(self.ints_indexes.keys())
             for key in sort_key:
                 result += self.ints_indexes[key]
+
+            # if len(result) == 0:
+            #     result = "0"
+            #     print(f"EMPTY PART A DIGIT_STR!!! {result}")
         else:
             sort_key = sorted(self.all_numbers.keys())
             for key in sort_key:
                 result += self.all_numbers[key]
+
+        
 
         log.submit(f"CALVAL.digit_str({self.original}) RETURNS: {result}")
 
@@ -101,9 +107,9 @@ class CalibrationValue:
         else:
             relevant_value = int(digit_str[0] + digit_str[-1])
 
-        log.submit(
-            f"CALVAL.value({self.original}, part={part}) RETURNS: {relevant_value}"
-        )
+        value_msg = f"CALVAL.value({self.original}, "
+        value_msg += f"part={part}) RETURNS: {relevant_value}"
+        log.submit(value_msg)
         return relevant_value
         # return int(self.all_numbers[0] + self.all_numbers[-1])
 
@@ -111,14 +117,22 @@ class CalibrationValue:
     def total_ints(self):
         """method doc placeholder"""
         counts = [self.original.count(x[0]) for x in self.nums]
-        log.submit(f"CALVAL.total_ints({self.original}) RETURNS: {sum(counts)}")
+
+        total_ints_msg = f"CALVAL.total_ints({self.original})"
+        total_ints_msg += f" RETURNS: {sum(counts)}"
+        log.submit(total_ints_msg)
+
         return sum(counts)
 
     @property
     def total_words(self):
         """method doc placeholder"""
         counts = [self.original.count(x[1]) for x in self.nums]
-        log.submit(f"CALVAL.total_words({self.original}) RETURNS: {sum(counts)}")
+
+        total_words_msg = f"CALVAL.total_words({self.original})"
+        total_words_msg += f" RETURNS: {sum(counts)}"
+
+        log.submit(total_words_msg)
 
         return sum(counts)
 
@@ -130,7 +144,10 @@ class CalibrationValue:
             if char.isnumeric():
                 found[i] = char
 
-        log.submit(f"CALVAL.ints_indexes({self.original}) RETURNS: {found.items()}")
+        ints_indexes_msg = f"CALVAL.ints_indexes({self.original})"
+        ints_indexes_msg += f" RETURNS: {found.items()}"
+
+        log.submit(ints_indexes_msg)
         return found
 
     @property
@@ -148,16 +165,18 @@ class CalibrationValue:
                 found[pointer + position] = num_int
                 pointer = position + 1
 
-        log.submit(f"CALVAL.words_indexes({self.original}) RETURNS: {found.items()}")
+        words_indexes_msg = f"CALVAL.words_indexes({self.original})"
+        words_indexes_msg += f" RETURNS: {found.items()}"
+
+        log.submit(words_indexes_msg)
         return found
 
-    @property
-    def report(self):
+    def report(self, longest):
         """for viewing final answers"""
         return "".join(
             [
                 self.digit_str("A").rjust(10, " "),
-                self.original.center(20),
+                self.original.center(longest + 4),
                 self.digit_str("B"),
             ]
         )
@@ -188,16 +207,30 @@ class WorkList(list):
     def __init__(self):
         """method doc placeholder"""
         # words = []
+        self.a_vals = []
+        self.b_vals = []
 
     def set_words(self, source_list):
         """method doc placeholder"""
-        self.extend([CalibrationValue(line) for line in source_list if len(line) > 0])
+
+        self.extend([CalVal(line) for line in source_list if len(line) > 0])
+        self.a_vals = [x.value("A") for x in self]
+        self.b_vals = [x.value("B") for x in self]
 
     def solve(self, puzzle):
         """method doc placeholder"""
         return sum([word.value(puzzle) for word in self])
 
- 
+    @property
+    def longest(self):
+        """for report formatting"""
+        my_max = 0
+        for x in self:
+            wordlen = len(x.original)
+            if wordlen > my_max:
+                my_max = wordlen
+        return my_max
+
 
 ALL_WORDS = WorkList()
 
@@ -208,12 +241,14 @@ def solve_a(source):
     if len(ALL_WORDS) == 0:
         ALL_WORDS.set_words(source)
 
-    log.submit(f"string length submitted to CALVAL Part B {len(source[0])}")
+    # log.submit(f"string length submitted to CALVAL Part B {len(source[0])}")
     solution = ALL_WORDS.solve("A")
-
     log.submit(f"solve_a() RETURNS: {solution}")
+
     for word in ALL_WORDS:
-        report.submit(f"REPORT: {word.report}")
+        report.submit(f"REPORT: {word.report(ALL_WORDS.longest)}")
+    log.save_state("Log A.log")
+    report.save_state("Words A.log")
     return solution
 
 
@@ -243,8 +278,14 @@ def solve_b(source):
     # log.submit(f"string length submitted to CALVAL Part B {len(source[0])}")
     solution = ALL_WORDS.solve("B")
     log.submit(f"solve_b() RETURNS: {solution}")
+
+    # col_wide = ALL_WORDS.longest
     for word in ALL_WORDS:
-        report.submit(f"REPORT: {word.report}")
+        report.submit(f"REPORT: {word.report(ALL_WORDS.longest)}")
+    log.save_state("Log B.log")
+    report.save_state("Words B.log")
+    return solution
+
     return solution
 
 
@@ -255,11 +296,11 @@ def main(source):
     solution_b = solve_b(source=data(source))
 
     if source.endswith(".txt"):
-        msg = f"main({source}) RETURNS: ({solution_a}, {solution_b})"
+        main_msg = f"main({source}) RETURNS: ({solution_a}, {solution_b})"
     else:
-        msg = f"main(Raw Text) RETURNS: ({solution_a}, {solution_b})"
+        main_msg = f"main(Raw Text) RETURNS: ({solution_a}, {solution_b})"
 
-    log.submit(msg)
+    log.submit(main_msg)
     return (solution_a, solution_b)
 
 
@@ -268,11 +309,11 @@ def main(source):
 if __name__ == "__main__":
     # TEST_WITH = "input.txt"
     log.set_behaviours(print2screen=True, inturrupts=False)
-    TEST_WITH = str(open("example.txt").read())
+    TEST_WITH = str(open("input.txt", encoding="UTF-8").read())
     part_a, part_b = main(TEST_WITH)
 
-    for msg in log.report():
-        print(msg)
+    # for msg in log.report():
+    #     print(msg)
 
     for row in report.report():
         print(row)
