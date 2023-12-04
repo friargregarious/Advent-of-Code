@@ -9,6 +9,7 @@ pls request a join code [from me](mailto:greg.denyes@gmail.com) to be a part of 
 - 2023 Day 01 [X][ ] Trebuchet?!
 - 2023 Day 02 [X][X] Cube Conundrum
 - 2023 Day 03 [X][ ] Gear Ratios 
+- 2023 Day 04 [X][X] Scratchcards 
 
 
 <!-- Notes
