@@ -4,21 +4,21 @@ View our [Belleville/Quinte Leader Board](https://adventofcode.com/2023/leaderbo
 
 pls request a join code [from me](mailto:greg.denyes@gmail.com) to be a part of our local competition. We've changed it since last year.
 
-## Current Year: [adventofcode.com/2023](https://adventofcode.com/2023)
+## Current Year  <!-- HEADER 2, LEAVE THIS -->
 
-- 2023 Day 01 [X][ ] Trebuchet?!
-- 2023 Day 02 [X][X] Cube Conundrum
-- 2023 Day 03 [X][ ] Gear Ratios 
-- 2023 Day 04 [X][X] Scratchcards 
+<!-- 2015 BEGIN -->
+### [adventofcode.com/2023](https://adventofcode.com/2023)
 
+- 2023 Day 01 [X][ ] [Trebuchet?!](https://adventofcode.com/2023/day/1)
+- 2023 Day 02 [X][X] [Cube Conundrum](https://adventofcode.com/2023/day/2)
+- 2023 Day 03 [X][ ] [Gear Ratios](https://adventofcode.com/2023/day/3)
+<!-- EASTER EGGS START -->
+<!-- EASTER EGGS END -->
+<!-- 2015 END -->
 
-<!-- Notes
-- [3]: my attempt at genetic algorithym.
-- [4]: this one looks like tetris 
--->
+## Previous Year's Progress  <!-- HEADER 2, LEAVE THIS -->
 
-## Previous Year's Progress
-
+<!-- 2022 BEGIN -->
 ### [adventofcode.com/2022](https://adventofcode.com/2022)
 - 2022 Day 01 [X][X] Calorie Counter
 - 2022 Day 02 [X][X] Rock, Paper, Scissors
@@ -31,13 +31,21 @@ pls request a join code [from me](mailto:greg.denyes@gmail.com) to be a part of 
 - 2022 Day 09 [X][_] Rope Bridge
 - 2022 Day 10 [X][X] Cathode-Ray Tube
 - 2022 Day 11 [X][_] Monkey in the Middle
+<!-- EASTER EGGS START -->
+[3]: my attempt at genetic algorithym.
+[4]: this one looks like tetris
+<!-- EASTER EGGS END -->
+<!-- 2022 END -->
 
+<!-- 2016 BEGIN -->
 ### [adventofcode.com/2016](https://adventofcode.com/2016)
 
 - 2016 Day 01 [X][X] No Time for a Taxicab
 - 2016 Day 02 [X][X] Bathroom Security
 - 2016 Day 03 [_][_] Squares With Three Sides
+<!-- 2016 END -->
 
+<!-- 2015 BEGIN -->
 ### [adventofcode.com/2015](https://adventofcode.com/2015)
 
 - 2015 Day 01 [X][X] Not Quite Lisp
@@ -50,6 +58,7 @@ pls request a join code [from me](mailto:greg.denyes@gmail.com) to be a part of 
 
 [1]: *silly coder, of course there's math!*
 [2]: BLOCK CHAIN HASHING!!!! YEAH!!!!
+<!-- 2015 END -->
 
 ## Personal Projects
 

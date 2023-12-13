@@ -8,7 +8,7 @@
 ###############################################################################
 #
 # SOLVER:   friargregarious (greg.denyes@gmail.com)
-# SOLVED:   {#SOLVED}
+# SOLVED:   A/
 # HOME:     https://github.com/friargregarious
 # SOURCE:   https://github.com/friargregarious/AOC-2023
 #
@@ -16,41 +16,109 @@
 #
 ###############################################################################
 """
+###############################################################################
+# IMPORTS #####################################################################
+###############################################################################
 import os
 import math
+from configparser import ConfigParser
+import aocd
 from termcolor import colored
 
-# data = open("example.txt").read().split("\n")
-# data = open("input.txt").read().split("\n")
+
 ###############################################################################
-# {example 1}
+# SETUP TOOLS #################################################################
+###############################################################################
+
+CARDINAL = {
+    "up": (-1, 0),
+    "upright": (-1, +1),
+    "right": (0, +1),
+    "downright": (1, +1),
+    "down": (1, 0),
+    "downleft": (1, -1),
+    "left": (0, -1),
+    "upleft": (-1, -1),
+}
+
+# all printable non-letters, non-numbers and removed '.' (46)
+SPECIAL_CHARACTERS = [
+    chr(x)
+    for x in range(0, 128)
+    if (
+        chr(x).isprintable()
+        and not chr(x).isalpha()
+        and not chr(x).isdigit()
+        and x != 46
+    )
+]  # this is good
+
+
+def get_symbols(grid_obj):
+    """returns locs for all special symbol_locs found in the grid. Special
+    characters are found in the grid_object.specials() list
+    """
+
+    symbol_locs = {}
+    for y, row in enumerate(grid_obj):
+        for x, _ in enumerate(row):
+            target_loc = (y, x)
+            symbol_at_loc = grid_obj.at_loc(target_loc)
+            found_in_specials = symbol_at_loc in grid_obj.specials_chars
+            found_in_symbol_locs = symbol_at_loc not in symbol_locs
+
+            if found_in_specials:
+                if found_in_symbol_locs:
+                    symbol_locs[symbol_at_loc] = []
+                symbol_locs[symbol_at_loc].append(target_loc)
+
+    return symbol_locs
+
+
+def get_wets_for_stars(grid_obj):
+    """I asked Perplexity for some help. Sue me."""
+    numbers_for_stars = {}
+
+    for star_loc in grid_obj.symbols_found["*"]:
+        numbers = []
+        for loc in grid_obj.adj_locs(star_loc):
+            value = grid_obj.at_loc(loc)
+            if value.isdigit():
+                numbers.append(loc)
+
+        numbers_for_stars[star_loc] = numbers
+    return numbers_for_stars
+
+
+def battleship(grid_obj, wets_found):
+    """finds digits from symbols_found and stores them in ships_found"""
+    # input:
+    # self.symbols_found = {
+    #     (special char loc):[(wet, loc),(wet, loc),(wet, loc),(wet, loc)]
+    #     }
+
+    # returns:
+    # self.ships_found = {
+    #     (special char loc):[456, 654]
+    #     }
+
+    # searched_cells.add(search_loc)
+    total_finds = []
+    for star_loc, adjacent_locs in wets_found.items():
+        legal_finds = []
+        for adj_loc in adjacent_locs:
+            if adj_loc not in grid_obj.searched_cells:
+                legal_finds.append(whole_number(grid_obj, adj_loc))
+
+        sit_rep = {star_loc: legal_finds}
+        grid_obj.ships_found.update(sit_rep)
+        total_finds.extend(legal_finds)
+
+    return total_finds
 
 
 class SchematicPartA(list):
     """the grid"""
-
-    # all printable non-letters, non-numbers and removed '.' (46)
-    specials_chars = [
-        chr(x)
-        for x in range(0, 128)
-        if (
-            chr(x).isprintable()
-            and not chr(x).isalpha()
-            and not chr(x).isdigit()
-            and x != 46
-        )
-    ]  # this is good
-
-    CARDINAL = {
-        "up": (-1, 0),
-        "upright": (-1, +1),
-        "right": (0, +1),
-        "downright": (1, +1),
-        "down": (1, 0),
-        "downleft": (1, -1),
-        "left": (0, -1),
-        "upleft": (-1, -1),
-    }
 
     def __init__(self, data_list):
         """where shit gets started"""
@@ -59,47 +127,22 @@ class SchematicPartA(list):
             this_row = row.strip("\n")
             self.max_wide = len(this_row)
             self.append(this_row)  # .split()
+
         self.max_high = len(self)
 
         self.legal_locations = set()
+
         for y in range(self.max_high):
             for x in range(self.max_wide):
                 self.legal_locations.add((y, x))
 
-        self.coloured = {
-            "red": set(),
-            "green": set(),
-            "blue": set(),
-        }  # 000:[(x,y),(x,y),(x,y)]
-
         self.symbols_found = {}
 
-        # This Part just populates the coloured dict
-        _ = self.get_symbols()
-        _ = self.wet_targets()
-        _ = self.battleship()
-
-    def at_loc(self, row, col):
+    def at_loc(self, loc):
         """at_loc(y, x) -> "3"
         return value at grid reference given"""
+        row, col = loc
         return self[row][col]
-
-    # def get_symbols(self):
-    #     """returns locs for all special symbols
-    #     found in the grid. Special characters
-    #     are printable, non-digit, non-letter and
-    #     not a period "." chr(46)
-    #     """
-    #     symbols = []
-    #     for y, row in enumerate(self):
-    #         for x, _ in enumerate(row):
-    #             target_loc = (y, x)
-    #             symbol_found = self.at_loc(*target_loc)
-    #             if symbol_found in self.specials_chars:
-    #                 symbols.append(target_loc)
-
-    #     self.coloured["red"] = set(symbols)
-    #     return symbols
 
     def adj_locs(self, row, col):
         """adj_locs(y, x) -> [(y-1,x),(y+1,x),...]
@@ -120,7 +163,7 @@ class SchematicPartA(list):
         The ENTIRE AREA EFFECTED!
         """
         area_of_effect = []  # AoE
-        for s in self.get_symbols():
+        for s in get_symbols(self):
             area_of_effect.extend(self.adj_locs(*s))
         return area_of_effect
 
@@ -134,7 +177,7 @@ class SchematicPartA(list):
             found = self.at_loc(*loc)
             if found.isdigit():
                 wt[loc] = found
-        self.coloured["blue"] = set(wt.keys())
+
         return wt
 
     def battleship(self):
@@ -162,7 +205,7 @@ class SchematicPartA(list):
                 row, col = gz
 
                 # for visualizer
-                self.coloured["green"].add(gz)
+                # self.coloured["green"].add(gz)
 
                 PoI = col
                 # reverse range indexes suck donkey
@@ -174,14 +217,14 @@ class SchematicPartA(list):
                         break  # we've hit the start
 
                     search_loc = (row, PoI)
-                    content_left = self.at_loc(*search_loc)
+                    content_left = self.at_loc(search_loc)
 
                     not_water = content_left != "."
                     is_digit = content_left.isdigit()
                     not_checked = search_loc not in checked_locs
 
                     if all([not_water, is_digit, not_checked]):
-                        self.coloured["green"].add(search_loc)
+                        # self.coloured["green"].add(search_loc)
                         checked_locs.append(search_loc)
                         this_ship = content_left + this_ship
                         continue
@@ -198,14 +241,14 @@ class SchematicPartA(list):
                         break  # we've hit the end
 
                     search_loc = (row, PoI)
-                    content_right = self.at_loc(*search_loc)
+                    content_right = self.at_loc(search_loc)
 
                     not_checked = search_loc not in checked_locs
                     is_digit = content_right.isdigit()
                     not_water = content_right != "."
 
                     if all([not_water, is_digit, not_checked]):
-                        self.coloured["green"].add(search_loc)
+                        # self.coloured["green"].add(search_loc)
                         checked_locs.append(search_loc)
                         this_ship += content_right
                         continue
@@ -233,35 +276,25 @@ class SchematicPartA(list):
         for y, row in enumerate(self):
             row_content = str(y).rjust(5, "0") + " - "
             for x, _ in enumerate(row):
+
                 # if self.at_loc(y, x):
 
-                if (y, x) in self.coloured["red"]:  # get_symbols():
-                    row_content += colored(self.at_loc(y, x), "red")
+                # if (y, x) in self.coloured["red"]:  # get_symbols():
+                #     row_content += colored(self.at_loc(y, x), "red")
 
-                elif (y, x) in self.coloured["green"]:  # .battleship():
-                    row_content += colored(self.at_loc(y, x), "green")
+                # elif (y, x) in self.coloured["green"]:  # .battleship():
+                #     row_content += colored(self.at_loc(y, x), "green")
 
-                elif (y, x) in self.coloured["blue"]:  # .wet_targets():
-                    row_content += colored(self.at_loc(y, x), "blue")
+                # elif (y, x) in self.coloured["blue"]:  # .wet_targets():
+                #     row_content += colored(self.at_loc(y, x), "blue")
 
-                else:
-                    row_content += self.at_loc(y, x)
+                # else:
+                #     row_content += self.at_loc(y, x)
+                row_content += self.at_loc((y, x))
 
             print(row_content)
         print("\n\n")  # end of page
         # _ = input("Press <ENTER> to continue:".center(80))
-
-
-CARDINAL = {
-    "up": (-1, 0),
-    "upright": (-1, +1),
-    "right": (0, +1),
-    "downright": (1, +1),
-    "down": (1, 0),
-    "downleft": (1, -1),
-    "left": (0, -1),
-    "upleft": (-1, -1),
-}
 
 
 class SchematicPartB(list):
@@ -327,11 +360,6 @@ class SchematicPartB(list):
         return sum(legal_finds)
 
 
-###############################################################################
-# end of functions
-###############################################################################
-
-
 def show(self):
     """Prints the grid to screen"""
     os.system("cls")
@@ -361,66 +389,6 @@ def show(self):
         print(row_content)
     print("\n\n")  # end of page
     # _ = input("Press <ENTER> to continue:".center(80))
-
-
-def get_symbols(grid_obj):
-    """returns locs for all special symbol_locs found in the grid. Special
-    characters are found in the grid_object.specials() list
-    """
-
-    symbol_locs = {}
-    for y, row in enumerate(grid_obj):
-        for x, _ in enumerate(row):
-            target_loc = (y, x)
-            symbol_found = grid_obj.at_loc(target_loc)
-            if symbol_found in grid_obj.specials_chars:
-                if symbol_found not in symbol_locs:
-                    symbol_locs[symbol_found] = []
-                symbol_locs[symbol_found].append(target_loc)
-
-    return symbol_locs
-
-
-def get_wets_for_stars(grid_obj):
-    """I asked Perplexity for some help. Sue me."""
-    numbers_for_stars = {}
-
-    for star_loc in grid_obj.symbols_found["*"]:
-        numbers = []
-        for loc in grid_obj.adj_locs(star_loc):
-            value = grid_obj.at_loc(loc)
-            if value.isdigit():
-                numbers.append(loc)
-
-        numbers_for_stars[star_loc] = numbers
-    return numbers_for_stars
-
-
-def battleship(grid_obj, wets_found):
-    """finds digits from symbols_found and stores them in ships_found"""
-    # input:
-    # self.symbols_found = {
-    #     (special char loc):[(wet, loc),(wet, loc),(wet, loc),(wet, loc)]
-    #     }
-
-    # returns:
-    # self.ships_found = {
-    #     (special char loc):[456, 654]
-    #     }
-
-    # searched_cells.add(search_loc)
-    total_finds = []
-    for star_loc, adjacent_locs in wets_found.items():
-        legal_finds = []
-        for adj_loc in adjacent_locs:
-            if adj_loc not in grid_obj.searched_cells:
-                legal_finds.append(whole_number(grid_obj, adj_loc))
-
-        sit_rep = {star_loc: legal_finds}
-        grid_obj.ships_found.update(sit_rep)
-        total_finds.extend(legal_finds)
-
-    return total_finds
 
 
 def whole_number(grid_obj, anchor_point=(0, 0)):
@@ -474,14 +442,14 @@ def whole_number(grid_obj, anchor_point=(0, 0)):
     # all the searched cells need to be added to the
     # global search list for the next num_word we look for.
     for cell in searched_cells:
-        self.searched_cells.add(cell)
+        grid_obj.searched_cells.add(cell)
 
     # return an int() of the complete number
     return int(num_word)
 
 
 ###############################################################################
-# end of functions
+# PART A ######################################################################
 ###############################################################################
 
 
@@ -499,7 +467,8 @@ def solve_a(source, show_work=False):
 
 
 ###############################################################################
-# {example 2}
+# PART B ######################################################################
+###############################################################################
 
 
 def solve_b(source, show_work=False):
@@ -516,7 +485,9 @@ def solve_b(source, show_work=False):
     if show_work:
         show(grid)
         print("\n", "Part B:".rjust(20), sep="")
-        print("Star Ships:".rjust(20), )
+        print(
+            "Star Ships:".rjust(20),
+        )
 
         grid.symbols_found = get_symbols(grid)
         splashed_targets = get_wets_for_stars(grid)
@@ -543,11 +514,17 @@ def main(source):
 
 if __name__ == "__main__":
     os.system("cls")
-    # data = open("example.txt", encoding="UTF-8").read().split("\n")
-    data = open("gregexample.txt", encoding="UTF-8").read().split("\n")
-    # data = open("input.txt", encoding="UTF-8").read().split("\n")
-    solve_b(data, show_work=True)
+    # data = open("example.txt", encoding="utf-8").read()
+    data = open("input.txt", encoding="utf-8").read()
+    final_answer_a, final_answer_b = main(data)
 
-    # if using gregexample.txt, the answer is (10 x 10) + (10 x 10)
-    # from locs (9, 27) & (13, 10)
-    # (5, 22) is actually touching 3 numbers so it shouldn't be picked
+    cfg = ConfigParser()
+    cfg.read("C:/Advent of Code/.env")
+    token = cfg.get(section="friargregarious", option="token")
+    me = aocd.models.User(token=token)
+    this_puzzle = aocd.models.Puzzle(year=2023, day=3, user=me)
+
+    if not this_puzzle.answered_a:
+        this_puzzle.answer_a = final_answer_a
+    if not this_puzzle.answered_b:
+        this_puzzle.answer_b = final_answer_b

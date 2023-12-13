@@ -14,7 +14,13 @@
 # WRITTEN AND TESTED IN PYTHON VER 3.11.6
 #
 ###############################################################################
+# IMPORTS #####################################################################
+###############################################################################
 import os
+from configparser import ConfigParser
+import aocd
+# import math
+
 
 data = open("input.txt", encoding="UTF-8").read()
 # data = open("example.txt", encoding="UTF-8").read()
@@ -128,6 +134,19 @@ def main(source):
 
 
 if __name__ == "__main__":
-    # main(data)
     os.system("cls")
-    solve_b(data)
+    # data = open("example.txt", encoding="utf-8").read()
+    data = open("input.txt", encoding="utf-8").read()
+    final_answer_a, final_answer_b = main(data)
+    # main()
+
+    cfg = ConfigParser()
+    cfg.read("C:/Advent of Code/.env")
+    token = cfg.get(section="friargregarious", option="token")
+    me = aocd.models.User(token=token)
+    this_puzzle = aocd.models.Puzzle(year=2023, day=4, user=me)
+
+    if not this_puzzle.answered_a:
+        this_puzzle.answer_a = final_answer_a
+    if not this_puzzle.answered_b:
+        this_puzzle.answer_b = final_answer_b
