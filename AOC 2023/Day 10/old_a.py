@@ -11,7 +11,6 @@
 ###############################################################################
 
 import os
-import my_utilities
 from my_utilities import Loc  # , Bouey, version_increment
 
 os.system("cls")
@@ -19,11 +18,14 @@ os.system("cls")
 # DECLARATIONS ################################################################
 ###############################################################################
 
-__version__ = "0.0.1"
+__version__ = "0.0.0"
 __example_answer__ = 4
 __run_on_example__ = True
 
-START = chr(ord("S"))
+# looking north,    I must find a | or 7 or F
+# looking south,    I must find a | or L or J
+# looking west,     I must find a - or L or F
+# looking east,     I must find a - or 7 or J
 
 # "|" = "up and down"
 # "-": "left and right"
@@ -32,6 +34,7 @@ START = chr(ord("S"))
 # "7": "down and left"
 # "F": "down to right"
 # "S" = "start"
+
 
 # | is a vertical pipe connecting north and south.
 # - is a horizontal pipe connecting east and west.
@@ -54,81 +57,72 @@ START = chr(ord("S"))
 # same, but it adds left to left and right to right. also, it carries the
 # symbol as useless cargo that doesn't really do anything.
 
-valid_paths = {
-    # looking north, valid path means I must find a | or 7 or F
-    "NORTH": {Loc(-1, 0): ["|", "7", "F"]},
-    # looking south, valid path means I must find a | or L or J
-    "SOUTH": {Loc(+1, 0): ["|", "L", "J"]},
-    # looking west,  valid path means I must find a - or L or F
-    "WEST": {Loc(0, -1): ["-", "L", "F"]},
-    # looking east,  valid path means I must find a - or 7 or J
-    "EAST": {Loc(0, +1): ["-", "7", "J"]},
-}
+
+class MyGrid(list):
+    _current_location: Loc
+    start_loc: Loc
+
+    def __init_subclass__(self, values) -> None:
+        """this object feeds on lists of lists and
+        stores them inside as Loc objects."""
+        super().__init_subclass__(values)
+
+        for r_index, row in enumerate(values):
+            for c_index, grid_char in enumerate(row):
+                cell_loc = Loc(r_index, c_index, grid_char)
+                # if grid_char == ".":
+                #     self["solid"].append(cell_loc)
+                if grid_char == "S":
+                    self.start_loc = cell_loc
+                else:
+                    self.append(cell_loc)
+
+    @property
+    def get_sym(self, loc: Loc) -> str:
+        return loc.cargo
+
+    def look(self, there: str) -> str:
+        """returns the symbol at 'there' direction,
+        relative to current location"""
+
+        return self[self + there].cargo
+
+    @property
+    def around_me(self, loc):
+        my_row, my_col
+        possible = []
 
 
-def find_start(grid):
-    for key, value in grid.items():
-        if value == START:
-            return {key: value}
+def take_path(starting_point, current_symbol):
+    path_taken = [starting_point]
+    possible_directions = []
+
+    if current_symbol in []:
+        pass
+
+    go_north = ((-1, 0),)  # looking north
+    go_east = ((0, +1),)  # looking east
+    go_south = ((+1, 0),)  # looking south
+    go_west = ((-1, 0),)  # looking west
 
 
-def look(grid, loc_from: Loc, loc_to: Loc) -> str:
-    """returns the symbol at 'there' direction,
-    relative to current location"""
-
-    return grid[loc_from + loc_to]
-
-
-def around_me(grid, loc):
-    found = {}
-    valid = {}
-    for dir in [NORTH, EAST, SOUTH, WEST]:
-        found[Loc(loc + dir)] = grid[loc + dir]
-
-    for location, symbol in found.items():  # "."
-        if symbol in ["S", "|", "-", "L", "J", "7", "F"]:
-            valid.update({location: symbol})
-    return valid
-
-
-# go_north = ((-1, 0),)  # looking north
-# go_east = ((0, +1),)  # looking east
-# go_south = ((+1, 0),)  # looking south
-# go_west = ((-1, 0),)  # looking west
+START = chr(ord("S"))
 
 
 def parse_input(source: str = "input.txt") -> list:
     """For parsing source string into usable content"""
-    info = []
-    for row in open(source,"r").read().splitlines():
-        info.append(list(row.strip()))
+    grid = []
+    for row in open(source).read().splitlines():
+        grid.append(list(row.strip()))
 
-    return info
-
-
-def is_north(me, it):
-    pass
+    return grid
 
 
-def is_south(me, it):
-    pass
-
-
-def is_east(me, it):
-    pass
-
-
-def is_west(me, it):
-    pass
-
-
-default_path = [(1, 1), (1, 2), (1, 3), (2, 3), (3, 3), (3, 2), (3, 1), (2, 1), (1, 1)]
-
-
-def draw_grid(grid, path_taken=default_path):
-    widest = max(grid)
+def pull_relevant(grid):
     for row in grid:
-        print(row)
+        for col in row:
+            if col == "S":
+                pass
 
 
 ###############################################################################
@@ -138,22 +132,6 @@ def draw_grid(grid, path_taken=default_path):
 
 def solve_a(data):
     """For solving PART a of day 10's puzzle."""
-    # 1) make the grid
-    work_grid = parse_input(data)
-    # 2) find the starting point and put it in my logbook
-    path_taken = [find_start(work_grid)]
-    draw_grid(work_grid)
-    # this part will loop until done
-
-    # 3) set the last position as my current location
-    current_loc = path_taken[-1]
-    # 4) find valid paths around me
-    available = around_me(current_loc)
-
-    for x in available:
-        if is_north():
-            pass
-
     solution = 0
     return solution
 
@@ -174,12 +152,12 @@ def main(source, ex_answer=0):
 ###############################################################################
 
 if __name__ == "__main__":
-    my_utilities.version_increment(__file__, sml=1)
+    utils.version_increment(__file__, sml=1)
 
 
 if __run_on_example__:
     answer = main(parse_input("example.txt"), __example_answer__)
 else:
     answer = main(parse_input("input.txt"))
-    my_utilities.version_increment(__file__, sml=1)
-    my_utilities.solve_me(answer, "a")
+    utils.version_increment(__file__, sml=1)
+    utils.solve_me(answer, "a")

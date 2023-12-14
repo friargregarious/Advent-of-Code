@@ -19,7 +19,7 @@ os.system("cls")
 # DECLARATIONS ################################################################
 ###############################################################################
 
-__version__ = "0.0.1"
+__version__ = "0.0.0"
 __example_answer__ = 4
 __run_on_example__ = True
 
@@ -100,7 +100,7 @@ def around_me(grid, loc):
 def parse_input(source: str = "input.txt") -> list:
     """For parsing source string into usable content"""
     info = []
-    for row in open(source,"r").read().splitlines():
+    for row in open(source).read().splitlines():
         info.append(list(row.strip()))
 
     return info
