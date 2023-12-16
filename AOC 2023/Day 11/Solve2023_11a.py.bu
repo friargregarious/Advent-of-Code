@@ -12,8 +12,7 @@
 
 import os
 import my_utilities
-
-# from my_utilities import MyConfigParser as MyCfg
+from my_utilities import MyConfigParser as MyCfg
 import math
 from datetime import datetime
 from termcolor import colored
@@ -23,7 +22,7 @@ import aocd
 # DECLARATIONS ################################################################
 ###############################################################################
 
-__version__ = "0.0.7"
+__version__ = "0.0.0"
 __example_answer__ = 374
 __run_on_example__ = True
 
@@ -35,32 +34,7 @@ __run_on_example__ = True
 def parse_input(source: str = "input.txt") -> list:
     """For parsing source string into usable content"""
 
-    if source.endswith(".txt"):
-        galaxy = open(source, "r", encoding="utf-8").read()
-        return galaxy
-
-    return source.split()
-
-
-def galaxy_expansion(source_map):
-    # look for entire rows of "."
-    working_galaxy = []
-    max_wide = len(source_map[0])
-    blank_cols = set()
-
-    for row in source_map:
-        working_galaxy.append(row)
-        if str(row).count("#") <= 0:
-            working_galaxy.append(row)
-        else:
-            for i, symbol in enumerate(row):
-                if symbol == "#":
-                    blank_cols.add(i)
-                
-
-    # for the example, blank_cols should = [2, 5, 8]
-
-    print(blank_cols)
+    pass
 
 
 ###############################################################################
@@ -70,10 +44,7 @@ def galaxy_expansion(source_map):
 
 def solve_a(data):
     """For solving PART a of day 11's puzzle."""
-    expanded = galaxy_expansion(data)
-
-    solution = 0
-    return solution
+    pass
 
 
 ###############################################################################
@@ -81,10 +52,9 @@ def solve_a(data):
 ###############################################################################
 
 
-def main(source, example_answer:str="a"):
+def main(source):
     """Main entry point"""
-    solution = solve_a(source)
-    return solution
+    solution = Solve_a(source)
 
 
 ###############################################################################
@@ -92,10 +62,10 @@ def main(source, example_answer:str="a"):
 ###############################################################################
 
 if __name__ == "__main__":
-    my_utilities.version_increment(__file__, sml=1)
+    my_utilities.version_increment("a", sml=1)
     if __run_on_example__:
         answer = main(parse_input("example.txt"), __example_answer__)
     else:
         answer = main(parse_input("input.txt"))
-    my_utilities.version_increment(__file__, sml=1)
-    # my_utilities.solve_me(answer, "a")
+    my_utilities.version_increment("a", sml=1)
+    my_utilities.solve_me(answer, "a")
