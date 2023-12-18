@@ -27,24 +27,8 @@ import my_utilities
 ###############################################################################
 
 __version__ = "0.0.0"
-__example_answer__ = 62
+__example_answer__ = 102
 __run_on_example__ = False
-
-example_input = """2413432311323
-3215453535623
-3255245654254
-3446585845452
-4546657867536
-1438598798454
-4457876987766
-3637877979653
-4654967986887
-4564679986453
-1224686865563
-2546548887735
-4322674655533"""
-
-e_answer = 102
 
 ###############################################################################
 # GATHER_TOOLS ################################################################
@@ -135,7 +119,7 @@ def best_direction(the_map, the_mover):
 def solve_a(data):
     """For solving PART a of day 18's puzzle."""
 
-    my_map = parsed(example_input)
+    my_map = parsed(data)
     my_mover = {"loc":(0,0),"bearing":"EAST"}
     starting_point=(0,0)
     path_taken = [starting_point]
@@ -186,8 +170,9 @@ def main(source):
 
 if __name__ == "__main__":
     os.system("cls")
-    my_utilities.version_increment("a", sml=1)
+    my_utilities.version_increment(__file__, sml=1)
     __run_on_example__ = True
-    answer = main(parse_input("input.txt"))
-    my_utilities.version_increment("a", sml=1)
-    my_utilities.solve_me(answer, "a")
+    
+    answer = main("input.txt")
+    my_utilities.version_increment(__file__, sml=1)
+    my_utilities.solve_a(answer)
