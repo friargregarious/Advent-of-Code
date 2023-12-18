@@ -1,6 +1,6 @@
 """ module doc string """
 ###############################################################################
-#          ADVENT OF CODE | 2023 | THE FLOOR WILL BE LAVA | PART [A]          #
+#          ADVENT OF CODE | 2023 | THE FLOOR WILL BE LAVA | PART [B]          #
 #                         adventofcode.com/2023/day/16                        #
 # SOLVER: --------------------------------------------------- friargregarious #
 # CONTACT: --------------------------------------- friar.gregarious@gmail.com #
@@ -13,6 +13,8 @@
 
 import configparser
 import os
+
+from numpy import outer
 
 #  from my_utilities import MyConfigParser as MyCfg
 import my_utilities
@@ -27,8 +29,8 @@ from termcolor import colored
 # DECLARATIONS ################################################################
 ###############################################################################
 
-__version__ = "0.0.97"
-__example_answer__ = 46
+__version__ = "0.0.109"
+__example_answer__ = 51
 __run_on_example__ = False
 __puzzle_year__ = 2023
 __puzzle_day__ = 16
@@ -58,6 +60,7 @@ def compass(direction):
         "WEST": (0, -1),
     }
     return directions[direction]
+
 
 ###############################################################################
 # GATHER_TOOLS ################################################################
@@ -103,7 +106,6 @@ class Grid(list):
         return ord(charfound)
 
 
-
 def mover_agent(c_loc: tuple, c_dir: tuple, str: int = 0) -> dict:
     """format for making movers"""
     return {"c_loc": c_loc, "c_dir": c_dir, "str": str}
@@ -112,13 +114,6 @@ def mover_agent(c_loc: tuple, c_dir: tuple, str: int = 0) -> dict:
 def is_moving(mvr: dict) -> tuple:
     """Returns the direction this mover moving."""
     return mvr["c_dir"]
-
-
-# def new_dir(mvr: dict, c_dir: tuple) -> dict:
-#     """returns the mover with a new direction"""
-#     new_bearing = mvr.copy()
-#     new_bearing.update({"c_dir": c_dir})
-#     return new_bearing
 
 
 def move_me(mvr: dict) -> dict:
@@ -137,14 +132,14 @@ def hit_124(mvr: dict) -> list:
     match compass(is_moving(mvr)):
         case "EAST":
             newlist = [
-                mover_agent(mvr["c_loc"], NORTH, mvr["str"] - 1),
-                mover_agent(mvr["c_loc"], SOUTH, mvr["str"] - 1),
+                mover_agent(mvr["c_loc"], compass("NORTH"), mvr["str"] - 1),
+                mover_agent(mvr["c_loc"], compass("SOUTH"), mvr["str"] - 1),
             ]
 
         case "WEST":
             newlist = [
-                mover_agent(mvr["c_loc"], NORTH, mvr["str"] - 1),
-                mover_agent(mvr["c_loc"], SOUTH, mvr["str"] - 1),
+                mover_agent(mvr["c_loc"], compass("NORTH"), mvr["str"] - 1),
+                mover_agent(mvr["c_loc"], compass("SOUTH"), mvr["str"] - 1),
             ]
             return newlist
 
@@ -161,16 +156,16 @@ def hit_47(mvr: dict) -> list:
     match compass(is_moving(mvr)):
         case "NORTH":
             # c_dir = EAST
-            return [mover_agent(mvr["c_loc"], EAST, mvr["str"] - 1)]
+            return [mover_agent(mvr["c_loc"], compass("EAST"), mvr["str"] - 1)]
         case "SOUTH":
             # c_dir = WEST
-            return [mover_agent(mvr["c_loc"], WEST, mvr["str"] - 1)]
+            return [mover_agent(mvr["c_loc"], compass("WEST"), mvr["str"] - 1)]
         case "EAST":
             # c_dir = NORTH
-            return [mover_agent(mvr["c_loc"], NORTH, mvr["str"] - 1)]
+            return [mover_agent(mvr["c_loc"], compass("NORTH"), mvr["str"] - 1)]
         case "WEST":
             # c_dir = SOUTH
-            return [mover_agent(mvr["c_loc"], SOUTH, mvr["str"] - 1)]
+            return [mover_agent(mvr["c_loc"], compass("SOUTH"), mvr["str"] - 1)]
 
 
 def hit_45(mvr):
@@ -178,13 +173,13 @@ def hit_45(mvr):
     match compass(is_moving(mvr)):
         case "NORTH":
             new_movers = [
-                mover_agent(mvr["c_loc"], EAST, mvr["str"] - 1),
-                mover_agent(mvr["c_loc"], WEST, mvr["str"] - 1),
+                mover_agent(mvr["c_loc"], compass("EAST"), mvr["str"] - 1),
+                mover_agent(mvr["c_loc"], compass("WEST"), mvr["str"] - 1),
             ]
         case "SOUTH":
             new_movers = [
-                mover_agent(mvr["c_loc"], EAST, mvr["str"] - 1),
-                mover_agent(mvr["c_loc"], WEST, mvr["str"] - 1),
+                mover_agent(mvr["c_loc"], compass("EAST"), mvr["str"] - 1),
+                mover_agent(mvr["c_loc"], compass("WEST"), mvr["str"] - 1),
             ]
         case _:
             new_movers = [mvr]
@@ -197,16 +192,16 @@ def hit_92(mvr):
     """
     match compass(is_moving(mvr)):
         case "EAST":  # c_dir = SOUTH
-            new_movers = [mover_agent(mvr["c_loc"], SOUTH, mvr["str"] - 1)]
+            new_movers = [mover_agent(mvr["c_loc"], compass("SOUTH"), mvr["str"] - 1)]
 
         case "WEST":  # c_dir = NORTH
-            new_movers = [mover_agent(mvr["c_loc"], NORTH, mvr["str"] - 1)]
+            new_movers = [mover_agent(mvr["c_loc"], compass("NORTH"), mvr["str"] - 1)]
 
         case "NORTH":  # c_dir = WEST
-            new_movers = [mover_agent(mvr["c_loc"], WEST, mvr["str"] - 1)]
+            new_movers = [mover_agent(mvr["c_loc"], compass("WEST"), mvr["str"] - 1)]
 
         case "SOUTH":  # c_dir = EAST
-            new_movers = [mover_agent(mvr["c_loc"], EAST, mvr["str"] - 1)]
+            new_movers = [mover_agent(mvr["c_loc"], compass("EAST"), mvr["str"] - 1)]
     return new_movers
 
 
@@ -251,24 +246,37 @@ def decide(mvr: dict, grid: Grid) -> list:
     return new_positions
 
 
-def refresh_screen(grid: Grid, energy_set: set, movers_2_move: list) -> None:
-    """doc string"""
-    os.system("cls")
-    print("   Count Energised:".rjust(20), len(energy_set))
-    print("Count Active Beams:".rjust(20), len(movers_2_move))
+each_try = {}
+outer_limits = set()
 
-    for y, row in enumerate(grid):
-        for x, f_char in enumerate(row):
-            if (y, x) in energy_set:
-                printme = colored(f_char, "white", "on_light_blue")
 
-            # elif
+# def refresh_screen(grid: Grid, energy_set: set, movers_2_move: list) -> None:
+#     """doc string"""
+#     os.system("cls")
 
-            else:
-                printme = f_char
+#     def remaining():
+#         return len(outer_limits) - len(each_try)
 
-            # print(printme, end="")
-        # print()
+#     if remaining() > 0:
+#         print("Current Start Point:".rjust(25), start_point)
+#         print("Start Points Remain:".rjust(25), f"{remaining():.2}")
+
+#     print("   Count Energised:".rjust(25), len(energy_set))
+#     print("Count Active Beams:".rjust(25), len(movers_2_move))
+#     print("Max Energy:".rjust(25), max(each_try.values()))
+
+#     for y, row in enumerate(grid):
+#         for x, f_char in enumerate(row):
+#             if (y, x) in energy_set:
+#                 printme = colored(f_char, "white", "on_light_blue")
+
+#             # elif
+
+#             else:
+#                 printme = f_char
+
+#             # print(printme, end="")
+#         # print()
 
 
 ###############################################################################
@@ -277,46 +285,84 @@ def refresh_screen(grid: Grid, energy_set: set, movers_2_move: list) -> None:
 
 
 def solve_a(data):
+    def refresh_screen(grid: Grid, energy_set: set, movers_2_move: list) -> None:
+        """doc string"""
+        os.system("cls")
+
+        def remaining():
+            return len(outer_limits) - len(each_try)
+
+        if remaining() > 0:
+            print("Current Start Point:".rjust(25), start_point)
+            print("Start Points Remain:".rjust(25), f"{remaining():.2}")
+
+        print("   Count Energised:".rjust(25), len(energy_set))
+        print("Count Active Beams:".rjust(25), len(movers_2_move))
+        print("Max Energy:".rjust(25), max(each_try.values()))
+
     """For solving PART a of day 16's puzzle."""
     energized = set()
-    movers_to_move = [mover_agent((0, 0), EAST, str=1000)]
 
     my_grid = Grid(data)
 
-    while len(movers_to_move) > 0:
-        # reset the queues of movers before they move
-        movers_that_moved = []
+    outer_limits = set()
+    for y in range(my_grid.max_col + 1):
+        for x in range(my_grid.max_row + 1):
+            if y == my_grid.max_row:
+                outer_limits.add(((y, x), compass("NORTH")))
 
-        # all movers, after visiting a location, have energized that loc
-        for this_mvr in movers_to_move:
-            energized.add(this_mvr["c_loc"])
+            if y == 0:
+                outer_limits.add(((y, x), compass("SOUTH")))
 
-        # now they all reorient their bearings if necessary
-        for this_mvr in movers_to_move:
-            queue = decide(this_mvr, my_grid)
-            movers_that_moved.extend([move_me(m_mvr) for m_mvr in queue])
+            if x == 0:
+                outer_limits.add(((y, x), compass("EAST")))
 
-        # # reset the original queue of movers
-        # movers_to_move = []
+            if x == my_grid.max_col:
+                outer_limits.add(((y, x), compass("WEST")))
 
-        # # now we move them all
-        # for this_mvr in movers_that_moved:
-        #     movers_that_moved.append(move_me(this_mvr))
+    each_try = {}
 
-        movers_to_move = []
-        for beam in movers_that_moved:
-            if my_grid.is_legal(beam):
-                temp = beam
-                temp["str"] -= 1
-                movers_to_move.append(temp)
+    for start_point, start_direction in outer_limits:
+        energized = set()
+        movers_to_move = [mover_agent(start_point, start_direction, str=1000)]
 
-        # movers_to_move = movers_that_moved
+        while len(movers_to_move) > 0:
+            # reset the queues of movers before they move
+            movers_that_moved = []
 
-        refresh_screen(my_grid, energized, movers_to_move)
+            # all movers, after visiting a location, have energized that loc
+            for this_mvr in movers_to_move:
+                energized.add(this_mvr["c_loc"])
 
-        # _ = input()
+            # now they all reorient their bearings if necessary
+            for this_mvr in movers_to_move:
+                queue = decide(this_mvr, my_grid)
+                movers_that_moved.extend([move_me(m_mvr) for m_mvr in queue])
 
-    solution = len(energized)
+            # # reset the original queue of movers
+            # movers_to_move = []
+
+            # # now we move them all
+            # for this_mvr in movers_that_moved:
+            #     movers_that_moved.append(move_me(this_mvr))
+
+            movers_to_move = []
+            for beam in movers_that_moved:
+                if my_grid.is_legal(beam):
+                    temp = beam
+                    temp["str"] -= 1
+                    movers_to_move.append(temp)
+
+            # movers_to_move = movers_that_moved
+
+            refresh_screen(my_grid, energized, movers_to_move)
+
+            # _ = input()
+
+        each_try[(start_point, start_direction)] = len(energized)
+
+    solution = max(each_try.values())
+    # solution =
     if __run_on_example__:
         print(
             f"My solution is {solution} and it matches the example",
@@ -356,7 +402,19 @@ if __name__ == "__main__":
 
         cfg = ConfigParser()
         cfg.read(".env")
-        user = aocd.models.User(cfg.get("user", "token"))
+        main_env = cfg.get("env", "efname")
+        cfg.read(main_env)
+        ufile = cfg.get("user", "ufname")
+        try:
+            user = my_utilities.unpickle_me(ufile)
+        except my_utilities.pickle.UnpicklingError:
+            user = aocd.models.User(cfg.get("user", "token"))
+
+        try:
+            my_utilities.pickle_me(ufile, user)
+        except my_utilities.pickle.PicklingError:
+            print("Could not save file")
+
         puzzle = aocd.models.Puzzle(__puzzle_year__, __puzzle_day__, user)
         puzzle.answer_a = main("inputs.txt")
         pfname = cfg.get("puzzle", "pfname")
