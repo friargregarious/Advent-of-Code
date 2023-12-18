@@ -11,14 +11,15 @@
 # IMPORTS #####################################################################
 ###############################################################################
 
-import os
 
+import os
+from random import choice
+from termcolor import colored
 #  from my_utilities import MyConfigParser as MyCfg
 import my_utilities
 
 # import math
 # from datetime import datetime
-# from termcolor import colored
 # import aocd
 
 ###############################################################################
@@ -26,18 +27,105 @@ import my_utilities
 ###############################################################################
 
 __version__ = "0.0.0"
-__example_answer__ = 102
+__example_answer__ = 62
 __run_on_example__ = False
+
+example_input = """2413432311323
+3215453535623
+3255245654254
+3446585845452
+4546657867536
+1438598798454
+4457876987766
+3637877979653
+4654967986887
+4564679986453
+1224686865563
+2546548887735
+4322674655533"""
+
+e_answer = 102
 
 ###############################################################################
 # GATHER_TOOLS ################################################################
 ###############################################################################
 
+def cls():
+    os.system('cls')
 
-def parse_input(source: str = "input.txt") -> list:
-    """For parsing source string into usable content"""
-    pass
+def parsed(i:str) -> list:
+    raw = i.split("\n")
+    return raw
 
+def show_map(heat_map, path_taken):
+    for y, row in enumerate(heat_map):
+        for x, heat in enumerate(row):
+            if (y,x) in path_taken:
+                print(colored(head, "white", "on_light_red"))
+            else:
+                print(heat)
+
+def compass(req):
+    rose = {
+        "NORTH": (-1,0),
+        "SOUTH": (+1,0),
+        "EAST": (0,+1),
+        "WEST": (0,-1),
+        (-1,0):"NORTH" ,
+        (+1,0):"SOUTH" ,
+        (0,+1):"EAST" ,
+        (0,-1):"WEST",
+        }
+    return rose[req]
+
+def is_bearing(mvr):
+    return compass(mvr["bearing"])
+
+def change_bearing(mvr, turn):
+    match mvr["bearing"]:
+        case "NORTH":
+            if turn == "LEFT":
+                mvr["bearing"] = "WEST"
+            elif turn == "RIGHT":
+                mvr["bearing"] = "EAST"
+
+        case "SOUTH":
+            if turn == "LEFT":
+                mvr["bearing"] = "WEST"
+            elif turn == "RIGHT":
+                mvr["bearing"] = "EAST"
+
+        case "EAST":
+            if turn == "LEFT":
+                mvr["bearing"] = "NORTH"
+            elif turn == "RIGHT":
+                mvr["bearing"] = "SOUTH"
+
+        case "WEST":
+            if turn == "LEFT":
+                mvr["bearing"] = "SOUTH"
+            elif turn == "RIGHT":
+                mvr["bearing"] = "NORTH"
+
+    return mvr
+
+def step(mvr):
+    m_row, m_col = mvr["loc"]
+    b_row, b_col = compass(mvr["bearing"])
+    return {"loc":(m_row+b_row, m_col+b_col), "bearing":mvr["bearing"]}
+    
+def is_legal(m_map, mvr):
+    wide = len(m_map[0])-1
+    tall = len(m_map)
+    r,c = mvr["loc"]
+    return 0 <= r <= tall and 0 <= c <= wide 
+
+def look(my_map, coord):
+    row = my_map[y]
+    return int(row[x])
+
+def best_direction(the_map, the_mover):
+    available_heats = [look(the_map, the_mover["loc"]) for _]
 
 ###############################################################################
 # SOLVE PART A ################################################################
@@ -45,7 +133,36 @@ def parse_input(source: str = "input.txt") -> list:
 
 
 def solve_a(data):
-    """For solving PART a of day 17's puzzle."""
+    """For solving PART a of day 18's puzzle."""
+
+    my_map = parsed(example_input)
+    my_mover = {"loc":(0,0),"bearing":"EAST"}
+    starting_point=(0,0)
+    path_taken = [starting_point]
+    end_point = (len(my_map), len(my_map[0]))
+    
+    paths_taken = set()
+    heat_score = 0
+    while path_taken[-1] != end_point:
+        available = ["LEFT", "RIGHT", "STRAIGHT"]
+        valid_choices = []
+        for d in available:
+            if is_legal(step(change_bearing(my_mover.copy(), d))):
+                valid_choices.append(d)
+        my_mover = change_bearing(my_mover, choice(choices))
+        my_mover.step()
+        path_taken.append(my_mover["loc"])
+        heat_score += look(my_map, my_mover["loc"])
+        show_map(my_map, my_mover)
+    
+    my_path_value =             
+        
+        
+        
+        
+    show_map(my_map, path_taken)
+    
+    
     solution = data
 
     return solution
@@ -69,8 +186,8 @@ def main(source):
 
 if __name__ == "__main__":
     os.system("cls")
-    my_utilities.version_increment(__file__, sml=1)
+    my_utilities.version_increment("a", sml=1)
     __run_on_example__ = True
     answer = main(parse_input("input.txt"))
-    my_utilities.version_increment(__file__, sml=1)
+    my_utilities.version_increment("a", sml=1)
     my_utilities.solve_me(answer, "a")
