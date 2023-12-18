@@ -68,8 +68,8 @@ def main(source):
 
 if __name__ == "__main__":
     os.system("cls")
-    my_utilities.version_increment("a", sml=1)
+    my_utilities.version_increment(__file__, sml=1)
     __run_on_example__ = True
     answer = main(parse_input("input.txt"))
-    my_utilities.version_increment("a", sml=1)
+    my_utilities.version_increment(__file__, sml=1)
     my_utilities.solve_me(answer, "a")
