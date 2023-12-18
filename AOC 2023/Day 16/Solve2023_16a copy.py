@@ -11,7 +11,6 @@
 # IMPORTS #####################################################################
 ###############################################################################
 
-import configparser
 import os
 
 #  from my_utilities import MyConfigParser as MyCfg
@@ -27,37 +26,9 @@ from termcolor import colored
 # DECLARATIONS ################################################################
 ###############################################################################
 
-__version__ = "0.0.94"
+__version__ = "0.0.92"
 __example_answer__ = 46
 __run_on_example__ = False
-__puzzle_year__ = 2023
-__puzzle_day__ = 16
-
-# # available directions
-# NORTH = (-1, 0)
-# SOUTH = (+1, 0)
-# EAST = (0, +1)
-# WEST = (0, -1)
-
-
-# nice idea but not going to be used in this project
-def compass(direction):
-    """simple compass"""
-    directions = {
-        "N": (-1, 0),
-        "S": (+1, 0),
-        "E": (0, +1),
-        "W": (0, -1),
-        (-1, 0): "NORTH",
-        (+1, 0): "SOUTH",
-        (0, +1): "EAST",
-        (0, -1): "WEST",
-        "NORTH": (-1, 0),
-        "SOUTH": (+1, 0),
-        "EAST": (0, +1),
-        "WEST": (0, -1),
-    }
-    return directions[direction]
 
 ###############################################################################
 # GATHER_TOOLS ################################################################
@@ -102,6 +73,32 @@ class Grid(list):
         charfound = string[m_col]
         return ord(charfound)
 
+
+# available directions
+NORTH = (-1, 0)
+SOUTH = (+1, 0)
+EAST = (0, +1)
+WEST = (0, -1)
+
+
+# nice idea but not going to be used in this project
+def compass(direction):
+    """simple compass"""
+    directions = {
+        "N": (-1, 0),
+        "S": (+1, 0),
+        "E": (0, +1),
+        "W": (0, -1),
+        (-1, 0): "NORTH",
+        (+1, 0): "SOUTH",
+        (0, +1): "EAST",
+        (0, -1): "WEST",
+        "NORTH": (-1, 0),
+        "SOUTH": (+1, 0),
+        "EAST": (0, +1),
+        "WEST": (0, -1),
+    }
+    return directions[direction]
 
 
 def mover_agent(c_loc: tuple, c_dir: tuple, str: int = 0) -> dict:
@@ -245,6 +242,7 @@ def decide(mvr: dict, grid: Grid) -> list:
         moved = move_me(this_mvr.copy())
 
         if grid.is_legal(moved) and this_mvr["str"] > 0:
+            
             new_positions.append(this_mvr)
         # if not legal, mover_agent collected into bit-bucket.
 
@@ -310,6 +308,7 @@ def solve_a(data):
                 temp["str"] -= 1
                 movers_to_move.append(temp)
 
+
         # movers_to_move = movers_that_moved
 
         refresh_screen(my_grid, energized, movers_to_move)
@@ -348,16 +347,4 @@ if __name__ == "__main__":
     my_utilities.version_increment(__file__, sml=1)
 
     # __run_on_example__ = True
-    if __run_on_example__:
-        print(f"My Code Solved Example:", main("inputs.txt") == __example_answer__)
-    else:
-        import aocd
-        from configparser import ConfigParser
-
-        cfg = ConfigParser()
-        cfg.read(".env")
-        user = aocd.models.User(cfg.get("user", "token"))
-        puzzle = aocd.models.Puzzle(__puzzle_year__, __puzzle_day__, user)
-        puzzle.answer_a = main("inputs.txt")
-        pfname = cfg.get("puzzle", "pfname")
-        my_utilities.pickle_me(pfname, puzzle)
+    ANSWER = main("inputs.txt")
