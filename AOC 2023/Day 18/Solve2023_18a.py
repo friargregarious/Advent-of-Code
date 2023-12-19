@@ -56,19 +56,9 @@ def parse_input(source: str = "input.txt") -> list:
 
 
 def recenter(grid):
-    farthest_left = 0
-    farthest_up = 0
-    for cell in grid:
-        y, x = cell[0]
-        if y < farthest_up:
-            farthest_up = y
-        if x < farthest_left:
-            farthest_left = x
-
-    if farthest_left < 0:
-        farthest_left *= -1
-    if farthest_up < 0:
-        farthest_up *= -1
+    farthest_up, farthest_left = minimums(grid)
+    farthest_left *= -1
+    farthest_up *= -1
 
     new_grid = []
     for cell in grid:
@@ -82,14 +72,14 @@ def recenter(grid):
     return new_grid
 
 
-def go_up(pos, dist):
+def trench_up(pos, dist):
     y, x = pos
     for _ in range(dist):
         y -= 1
         yield (y, x)
 
 
-def go_down(pos, dist):
+def trench_down(pos, dist):
     y, x = pos
     for _ in range(dist):
         y += 1
@@ -97,7 +87,7 @@ def go_down(pos, dist):
         yield (y, x)
 
 
-def go_left(pos, dist):
+def trench_left(pos, dist):
     y, x = pos
     for _ in range(dist):
         x -= 1
@@ -105,7 +95,7 @@ def go_left(pos, dist):
         yield (y, x)
 
 
-def go_right(pos, dist):
+def trench_right(pos, dist):
     y, x = pos
     for _ in range(dist):
         x += 1
@@ -113,11 +103,37 @@ def go_right(pos, dist):
         yield (y, x)
 
 
+def maximums(grid):
+    farthest_right = 0
+    farthest_down = 0
+    for cell in grid:
+        # print("From maxes:", cell)
+        loc, _ = cell
+        y, x = loc
+        if y > farthest_down:
+            farthest_down = y
+        if x > farthest_right:
+            farthest_right = x
+
+    return (farthest_down, farthest_right)
 
 
-def solve_a(data):
-    """For solving PART a of day 18's puzzle."""
-    # ((y,x), "colour")
+def minimums(grid):
+    farthest_left = 0
+    farthest_up = 0
+    for cell in grid:
+        # print("From maxes:", cell)
+        loc, _ = cell
+        y, x = loc
+        if y < farthest_up:
+            farthest_up = y
+        if x < farthest_left:
+            farthest_left = x
+
+    return (farthest_up, farthest_left)
+
+
+def map_trenches(data):
     grid = set()
     address = (0, 0)
 
@@ -125,17 +141,44 @@ def solve_a(data):
         direction, distance, colour = inst
         match direction:
             case "U":
-                new_work = [(loc, colour) for loc in go_up(address, distance)]
-                
-                
-                
+                new_work = [(loc, colour) for loc in trench_up(address, distance)]
+
+            case "D":
+                new_work = [(loc, colour) for loc in trench_down(address, distance)]
+
+            case "L":
+                new_work = [(loc, colour) for loc in trench_left(address, distance)]
+
+            case "R":
+                new_work = [(loc, colour) for loc in trench_right(address, distance)]
+
         address = new_work[-1][0]
         grid.update(new_work)
+    return set(sorted(grid))
 
+
+def solve_a(data):
+    """For solving PART a of day 18's puzzle."""
+    grid = map_trenches(parse_input(data))
     grid = recenter(grid)
-    solution = len(grid)
 
-    return solution
+    deep, wide = maximums(grid)
+    grid_dict = {}
+    for left, right in grid:
+        grid_dict[left] = right
+
+    grid_dict = dict(sorted(grid_dict.items()))
+
+    for row in range(deep + 1):
+        for col in range(wide + 1):
+            if (row, col) in grid_dict:
+                print("#", end="")
+            else:
+                print(" ", end="")
+        print()
+
+
+    return 0
 
 
 ###############################################################################
@@ -156,8 +199,8 @@ def main(source):
 ###############################################################################
 
 if __name__ == "__main__":
-    for row in parse_input("example.txt"):
-        print(row)
+    # for row in parse_input("example.txt"):
+    main("example.txt")
 
     # os.system("cls")
     # my_utilities.version_increment(__file__, sml=1)
