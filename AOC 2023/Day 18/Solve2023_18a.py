@@ -10,10 +10,14 @@
 # IMPORTS #####################################################################
 ###############################################################################
 
+from dis import Instruction
 import os
+from re import L
+from turtle import pos
+import colr
 
 #  from my_utilities import MyConfigParser as MyCfg
-import my_utilities
+# import my_utilities
 
 # import math
 # from datetime import datetime
@@ -35,7 +39,15 @@ __run_on_example__ = False
 
 def parse_input(source: str = "input.txt") -> list:
     """For parsing source string into usable content"""
-    pass
+    if source.endswith(".txt"):
+        source = open(source).read()
+    source = source.split("\n")
+
+    instructions = []
+    for row in source:
+        direction, distance, colour = row.split(" ")
+        instructions.append((direction.strip(), int(distance), colour.strip("()")))
+    return instructions
 
 
 ###############################################################################
@@ -43,9 +55,85 @@ def parse_input(source: str = "input.txt") -> list:
 ###############################################################################
 
 
+def recenter(grid):
+    farthest_left = 0
+    farthest_up = 0
+    for cell in grid:
+        y, x = cell[0]
+        if y < farthest_up:
+            farthest_up = y
+        if x < farthest_left:
+            farthest_left = x
+
+    if farthest_left < 0:
+        farthest_left *= -1
+    if farthest_up < 0:
+        farthest_up *= -1
+
+    new_grid = []
+    for cell in grid:
+        loc, clr = cell
+        y, x = loc
+
+        new_loc = (farthest_up + y, farthest_left + x)
+
+        new_grid.append((new_loc, clr))
+
+    return new_grid
+
+
+def go_up(pos, dist):
+    y, x = pos
+    for _ in range(dist):
+        y -= 1
+        yield (y, x)
+
+
+def go_down(pos, dist):
+    y, x = pos
+    for _ in range(dist):
+        y += 1
+
+        yield (y, x)
+
+
+def go_left(pos, dist):
+    y, x = pos
+    for _ in range(dist):
+        x -= 1
+
+        yield (y, x)
+
+
+def go_right(pos, dist):
+    y, x = pos
+    for _ in range(dist):
+        x += 1
+
+        yield (y, x)
+
+
+
+
 def solve_a(data):
     """For solving PART a of day 18's puzzle."""
-    solution = data
+    # ((y,x), "colour")
+    grid = set()
+    address = (0, 0)
+
+    for inst in data:
+        direction, distance, colour = inst
+        match direction:
+            case "U":
+                new_work = [(loc, colour) for loc in go_up(address, distance)]
+                
+                
+                
+        address = new_work[-1][0]
+        grid.update(new_work)
+
+    grid = recenter(grid)
+    solution = len(grid)
 
     return solution
 
@@ -59,6 +147,7 @@ def main(source):
     """Main entry point"""
     if __run_on_example__:
         return solve_a("example.txt", __example_answer__)
+
     return solve_a(source)
 
 
@@ -67,9 +156,13 @@ def main(source):
 ###############################################################################
 
 if __name__ == "__main__":
-    os.system("cls")
-    my_utilities.version_increment("a", sml=1)
-    __run_on_example__ = True
-    answer = main(parse_input("input.txt"))
-    my_utilities.version_increment("a", sml=1)
-    my_utilities.solve_me(answer, "a")
+    for row in parse_input("example.txt"):
+        print(row)
+
+    # os.system("cls")
+    # my_utilities.version_increment(__file__, sml=1)
+    # __run_on_example__ = True
+
+    # answer = main("input.txt")
+    # my_utilities.version_increment(__file__, sml=1)
+    # my_utilities.solve_me(answer, "a")
