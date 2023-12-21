@@ -58,28 +58,15 @@ def solve_b(data):
     _, work_flows = parse_input(data)
     # report_parts(pile_of_parts)
 
-    # actual_targets = set()
-    # worker_addresses = set()
-    # max_mins = {}
-    # for address, worker in work_flows.items():
-    #     worker_addresses.add(address)
-    #     actual_targets.add(worker.default)
-    #     for rule, target in worker.rules:
-    #         actual_targets.add(target)
-    #         if target == "R":
-    #             if ">" in rule:
-    #                 check, val = rule.split(">")
-    #                 if f"min_{check}" not in max_mins:
-    #                     max_mins[f"min_{check}"] = []
-    #                 max_mins[f"min_{check}"].append(val)
-    #             if "<" in rule:
-    #                 check, val = rule.split("<")
-    #                 if f"max_{check}" not in max_mins:
-    #                     max_mins[f"max_{check}"] = []
-    #                 max_mins[f"max_{check}"].append(val)
+    # let's put some passes here through work_flows that will
+    # identify the useless flows, remove it from the schedule
+    # and anywhere it was referenced, change the target to
+    # whatever the deleted rule's target was.
 
-    # unused_targets = worker_addresses.difference(actual_targets)
-    # print("we aren't using these flows at all:", unused_targets)
+    # example: gd{a>3333:R,R} is unneccessary
+    # so we find all the processesses that target 'gd' and replace
+    # the redirect with 'R' because 'gd' is no longer there.
+    # same for lnx{m>1548:A,A}.
 
     # _ = input()
     # for x in unused_targets:
@@ -97,18 +84,18 @@ def solve_b(data):
             r_col = 22
             elapsed = datetime.now() - start_stamp  # .  .strftime(format="%H:%M:%S")
 
-            hours = int(elapsed.total_seconds() / (60*60))
+            hours = int(elapsed.total_seconds() / (60 * 60))
             remaining_seconds = elapsed.total_seconds() - (hours * 60 * 60)
             minutes = int(remaining_seconds / 60)
             remaining_seconds = int(elapsed.total_seconds() - (minutes * 60))
 
             rep_parts = [
                 ("Time Elapsed", f"{hours}:{minutes:02}:{remaining_seconds:02}"),
-                ("Total Possible", f"{total_possibilities:,}"),
-                ("Total Completed", f"{total_checked:,}"),
-                ("Total Accepted", f"{total_accepted:,}"),
-                ("Total Rejected", f"{total_checked - total_accepted:,}"),
-                ("Total Remaining", f"{total_possibilities-total_checked:,}"),
+                ("# Possible", f"{total_possibilities:,}"),
+                ("# Completed", f"{total_checked:,}"),
+                ("# Accepted", f"{total_accepted:,}"),
+                ("# Rejected", f"{total_checked - total_accepted:,}"),
+                ("# Remaining", f"{total_possibilities-total_checked:,}"),
             ]
             print("".ljust(l_col + r_col + 3, "-"))
             for rmsg, lmsg in rep_parts:
