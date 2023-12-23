@@ -1,10 +1,13 @@
+"""doc string"""
 import pickle
 import configparser
 
+import aocd
 
-def solve_me(part: str, answer=None):
-    if answer is not None:
-        pass
+
+class AOCMException(Exception):
+    """doc string"""
+
 
 
 def path(*args) -> str:
@@ -41,19 +44,28 @@ def unpickle_me(file):
     return data
 
 
-def solve_a(answer=None):
+def check_answer_a(year, day, answer=None):
+    """doc string"""
     if answer is not None:
         cfg = configparser.ConfigParser()
         cfg.read(".env")
-        pfile = path(cfg.get("puzzle", "pfname"))
+        try:
+            pfile = path(cfg.get("puzzle", "pfname"))
+            puzzle = unpickle_me(pfile)
 
-        puzzle = unpickle_me(pfile)
+        except AOCMException:
+            token = cfg.get("user", "token")
+            me = aocd.models.User(token)
+            puzzle = aocd.models.Puzzle(year, day, me)
+
         puzzle.answer_a = answer
+
     else:
         print("Did not submint an answer")
 
 
-def solve_b(answer=None):
+def check_answer_b(answer=None):
+    """doc string"""
     if answer is not None:
         cfg = configparser.ConfigParser()
         cfg.read(".env")
