@@ -1,14 +1,19 @@
 import os
 import sys
 from termcolor import colored, cprint
-import Solve_2023_01 as so
+
+# import Solve_2023_01 as so
+import solve_2023_01_a as so
+
+
 
 
 data = open("input.txt").read().split("\n")
 
 
-worklist = so.WorkList()
-worklist.set_words(data)
+
+# worklist = so.WorkList()
+# worklist.set_words(data)
 
 sum_a, sum_b = 0, 0
 population = len(worklist)
