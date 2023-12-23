@@ -23,6 +23,10 @@ import json
 # open("stats.json","w").write(json.dumps(user_stats, indent=True))
 
 
+class RankingException(Exception):
+    """Local Errors"""
+
+
 class Rankings(dict):
     def __init__(self, user_token):
         self.user = aocd.models.User(user_token)
@@ -36,7 +40,7 @@ class Rankings(dict):
             try:
                 # puzzle = loosen(puz_fn)
                 puzzle = unpickle_me(puz_fn)
-            except:
+            except RankingException:
                 time.sleep(10)
                 puzzle = aocd.models.Puzzle(year, day, self.user)
                 # compressed_pickle(puz_fn, puzzle)
@@ -55,10 +59,10 @@ class Rankings(dict):
             if y_key not in self:
                 self.pull_year_from_aocd(year)
                 if y_key not in self:
-                    raise KeyError(f"{year} has no completed puzzles.")
+                    raise RankingException(f"{year} has no completed puzzles.")
 
         if d_key not in self[y_key]:
-            raise KeyError(f"{year}-{day} was not completed.")
+            raise RankingException(f"{year}-{day} was not completed.")
 
         part_data = []
         for part in ["a", "b"]:
@@ -79,23 +83,26 @@ class Rankings(dict):
         try:
             jtext = json.dumps(self, indent=3, sort_keys=True)
             open("stats.json", "w").write(jtext)
-            return True
-        except Exception as e:
+            # return True
+        except RankingException as e:
             print(e)
             sys.exit(e)
 
     def pull_from_local(self, year: int = 0):
-        grabbed = dict(json.loads(open("stats.json").read()))
-        if year > 0:
-            YEAR_KEY = str(year)
-            if YEAR_KEY not in self:
-                self[YEAR_KEY] = grabbed[YEAR_KEY]
+        grabbed = {}
+        try:
+            grabbed = dict(json.loads(open("stats.json").read()))
 
-            if YEAR_KEY in grabbed:
-                self[YEAR_KEY] = grabbed[YEAR_KEY]
-                return True
-            raise KeyError(f"{year} not found in local.")
-        else:
+            if year > 0:
+                YEAR_KEY = str(year)
+                if YEAR_KEY not in self:
+                    self[YEAR_KEY] = grabbed[YEAR_KEY]
+
+                if YEAR_KEY in grabbed:
+                    self[YEAR_KEY] = grabbed[YEAR_KEY]
+                    return True
+                raise RankingException(f"{year} not found in local.")
+        except RankingException:
             self.update(grabbed)
 
     def pull_year_from_aocd(self, year: int) -> None:
@@ -145,21 +152,12 @@ class Rankings(dict):
 
 def compressed_pickle(title, data):
     """Saves the "data" with the "title" and adds the .pickle"""
-
-    # with open(title + ".aocd", "wb") as pikd:
-    #     pickle.dump(data, pikd)
-    # if not title.endswith(".aocd"):
-    #     title += ".aocd"
-
     with bz2.BZ2File(title, "w") as f:
         pickle.dump(data, f)
 
 
 def loosen(file):
     """loads and returns a pickled objects"""
-    # with open(file, 'rb') as pikd:
-    # data = pickle.load(pikd)
-    # if file.endswith(".aocd"):
     data = bz2.BZ2File(file, "rb")
     data = pickle.load(data)
     return data

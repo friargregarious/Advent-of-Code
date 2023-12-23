@@ -7,7 +7,7 @@ import datetime
 # import pickle
 import glob
 import configparser
-from sys import prefix
+# from sys import prefix
 
 import json
 import aocd

@@ -16,6 +16,8 @@ pls request a join code [from me](mailto:greg.denyes@gmail.com) to be a part of 
 - 2023 Day 07 [X][_] [Camel Cards](https://adventofcode.com/2023/day/7)
 - 2023 Day 08 [X][_] [Haunted Wasteland](https://adventofcode.com/2023/day/8)
 - 2023 Day 15 [X][X] [Lens Library](https://adventofcode.com/2023/day/15)
+- 2023 Day 16 [X][_] [The Floor Will Be Lava](https://adventofcode.com/2023/day/16)
+- 2023 Day 19 [X][_] [Aplenty](https://adventofcode.com/2023/day/19)
 
 ## Previous Events: 2015 - 2022
 
