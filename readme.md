@@ -1,98 +1,52 @@
-# Advent of Code
+# Advent Of Code
+
 
 View our [Belleville/Quinte Leader Board](https://adventofcode.com/2023/leaderboard/private/view/2588518) or [join](https://adventofcode.com/2023/leaderboard/private).
 
 pls request a join code [from me](mailto:greg.denyes@gmail.com) to be a part of our local competition. We've changed it since last year.
 
-## Current Year  <!-- HEADER 2, LEAVE THIS -->
+## Current Event: [Adventofcode.Com/2023](Https://Adventofcode.Com/2023)
 
-<!-- 2015 BEGIN -->
-### [adventofcode.com/2023](https://adventofcode.com/2023)
-
-- 2023 Day 01 [X][ ] [Trebuchet?!](https://adventofcode.com/2023/day/1)
+- 2023 Day 01 [X][_] [Trebuchet?!](https://adventofcode.com/2023/day/1)
 - 2023 Day 02 [X][X] [Cube Conundrum](https://adventofcode.com/2023/day/2)
-- 2023 Day 03 [X][ ] [Gear Ratios](https://adventofcode.com/2023/day/3)
-<!-- EASTER EGGS START -->
-<!-- EASTER EGGS END -->
-<!-- 2015 END -->
+- 2023 Day 03 [X][_] [Gear Ratios](https://adventofcode.com/2023/day/3)
+- 2023 Day 04 [X][X] [Scratchcards](https://adventofcode.com/2023/day/4)
+- 2023 Day 05 [X][_] [If You Give A Seed A Fertilizer](https://adventofcode.com/2023/day/5)
+- 2023 Day 06 [X][X] [Wait For It](https://adventofcode.com/2023/day/6)
+- 2023 Day 07 [X][_] [Camel Cards](https://adventofcode.com/2023/day/7)
+- 2023 Day 08 [X][_] [Haunted Wasteland](https://adventofcode.com/2023/day/8)
+- 2023 Day 15 [X][X] [Lens Library](https://adventofcode.com/2023/day/15)
+- 2023 Day 16 [X][_] [The Floor Will Be Lava](https://adventofcode.com/2023/day/16)
+- 2023 Day 19 [X][_] [Aplenty](https://adventofcode.com/2023/day/19)
 
-## Previous Year's Progress  <!-- HEADER 2, LEAVE THIS -->
-
-<!-- 2022 BEGIN -->
-### [adventofcode.com/2022](https://adventofcode.com/2022)
-- 2022 Day 01 [X][X] Calorie Counter
-- 2022 Day 02 [X][X] Rock, Paper, Scissors
-- 2022 Day 03 [X][X] Find the Common Item
-- 2022 Day 04 [X][X] Camp Cleanup
-- 2022 Day 05 [X][X] Supply Stacks
-- 2022 Day 06 [X][X] Tuning Trouble
-- 2022 Day 07 [_][_] No Space Left On Device
-- 2022 Day 08 [X][X] Treetop Tree House
-- 2022 Day 09 [X][_] Rope Bridge
-- 2022 Day 10 [X][X] Cathode-Ray Tube
-- 2022 Day 11 [X][_] Monkey in the Middle
-<!-- EASTER EGGS START -->
-[3]: my attempt at genetic algorithym.
-[4]: this one looks like tetris
-<!-- EASTER EGGS END -->
-<!-- 2022 END -->
-
-<!-- 2016 BEGIN -->
-### [adventofcode.com/2016](https://adventofcode.com/2016)
-
-- 2016 Day 01 [X][X] No Time for a Taxicab
-- 2016 Day 02 [X][X] Bathroom Security
-- 2016 Day 03 [_][_] Squares With Three Sides
-<!-- 2016 END -->
-
-<!-- 2015 BEGIN -->
-### [adventofcode.com/2015](https://adventofcode.com/2015)
-
-- 2015 Day 01 [X][X] Not Quite Lisp
-- 2015 Day 02 [X][X] I Was Told There Would Be No Math [1](#1)
-- 2015 Day 03 [X][X] Perfectly Spherical Houses in a Vacuum
-- 2015 Day 04 [X][X] The Ideal Stocking Stuffer [2](#2)
-- 2015 Day 05 [X][X] Doesn't He Have Intern-Elves For This?
-- 2015 Day 06 [X][X] Probably a Fire Hazard
-- 2015 Day 07 [_][_] Some Assembly Required
-
-[1]: *silly coder, of course there's math!*
-[2]: BLOCK CHAIN HASHING!!!! YEAH!!!!
-<!-- 2015 END -->
-
-## Personal Projects
-
-Writing a script to:
-
-1. get year and day for selected puzzle from user
-2. authenticate with adeventofcode.com
-3. grab instructions & inputs for given day/year
-4. create a new working folder for given day/year <-- **available in update 2022.12.10**
-5. poplulate working folder with directions.md (markdown version of html from site)
-6. poplulate working folder with input.txt (from site)
-7. create python file from template for given day
-
-This should be really cool, if I can figure out the OAuth1 portion of the project.
-
-**update 2022.12.10**
-get_new_day.py works... kinda
-It will build a folder and working files from template using the given args from command line.
-
-**update 2023.11.20**
-I've started a new year, and so flushing out a lot of old tools. Previous 'get_new_day.py' will not work for my 2023 stuff.
+## Previous Events: 2015 - 2022
 
 
-<!-- `cmd
-run it as:
-get_new_day.py y=2022 d=19
-`
+### [Adventofcode.Com/(2022)](Https://Adventofcode.Com/2022)
 
-it will print to screen the usage documentation without making any changes
-**WARNING!!!**
-double check your args when executing!!!
-This prog will overwrite any files with the names:
+- 2022 Day 01 [X][X] [Calorie Counting](https://adventofcode.com/2022/day/1)
+- 2022 Day 02 [X][X] [Rock Paper Scissors](https://adventofcode.com/2022/day/2)
+- 2022 Day 03 [X][X] [Rucksack Reorganization](https://adventofcode.com/2022/day/3)
+- 2022 Day 04 [X][X] [Camp Cleanup](https://adventofcode.com/2022/day/4)
+- 2022 Day 05 [X][X] [Supply Stacks](https://adventofcode.com/2022/day/5)
+- 2022 Day 06 [X][X] [Tuning Trouble](https://adventofcode.com/2022/day/6)
+- 2022 Day 08 [X][X] [Treetop Tree House](https://adventofcode.com/2022/day/8)
+- 2022 Day 09 [X][_] [Rope Bridge](https://adventofcode.com/2022/day/9)
+- 2022 Day 10 [X][X] [Cathode-Ray Tube](https://adventofcode.com/2022/day/10)
+- 2022 Day 11 [X][_] [Monkey in the Middle](https://adventofcode.com/2022/day/11)
 
-     "description.md"
-     "input.txt"
-     "sample.txt"
-     f"day_{day_str}.py" -->
+### [Adventofcode.Com/(2016)](Https://Adventofcode.Com/2016)
+
+- 2016 Day 01 [X][X] [No Time for a Taxicab](https://adventofcode.com/2016/day/1)
+- 2016 Day 02 [X][X] [Bathroom Security](https://adventofcode.com/2016/day/2)
+- 2016 Day 03 [X][_] [Squares With Three Sides](https://adventofcode.com/2016/day/3)
+
+### [Adventofcode.Com/(2015)](Https://Adventofcode.Com/2015)
+
+- 2015 Day 01 [X][X] [Not Quite Lisp](https://adventofcode.com/2015/day/1)
+- 2015 Day 02 [X][X] [I Was Told There Would Be No Math](https://adventofcode.com/2015/day/2)
+- 2015 Day 03 [X][X] [Perfectly Spherical Houses in a Vacuum](https://adventofcode.com/2015/day/3)
+- 2015 Day 04 [X][X] [The Ideal Stocking Stuffer](https://adventofcode.com/2015/day/4)
+- 2015 Day 05 [X][X] [Doesn't He Have Intern-Elves For This?](https://adventofcode.com/2015/day/5)
+- 2015 Day 06 [X][X] [Probably a Fire Hazard](https://adventofcode.com/2015/day/6)
+- 2015 Day 25 [X][_] [Let It Snow](https://adventofcode.com/2015/day/25)
