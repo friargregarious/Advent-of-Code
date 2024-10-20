@@ -59,7 +59,7 @@ def solve_a(data):
 def main(source):
     """Main entry point"""
     if __run_on_example__:
-        return solve_a("example.txt")
+        return solve_a("example.txt", __example_answer__)
     return solve_a(source)
 
 
