@@ -2,37 +2,41 @@
 
 """
 import os
-import datetime
 
 # import pickle
-import glob
-import configparser
+# import glob
+# import configparser
 # from sys import prefix
 
+import datetime, time
 import json
 import aocd
 import workspace
+import toml 
+from pathlib import Path
 
-# import aoc_to_markdown
+def cls():
+    os.system("cls")
 
-# from .unused import utils
+
 
 # puzzle standard format
-cfg = configparser.ConfigParser()
-cfg.read(".env")
-token = cfg.get("user", "token")
+cfg = toml.loads(Path(".env").read_text())
+
+token = cfg["user"]["token"]  #.get("user", "token")
 now = datetime.datetime.now()
+
 # report_parts = dict(json.loads(open("readme.json").read()))
 my_stats = workspace.Rankings(token)
 report = []
-os.system("cls")
+cls()
 
 # for year in range(2015, now.year + 1):
 #     user_stats = aocd.models.User(token).get_stats(year)
 
 
 def show_report():
-    os.system("cls")
+    cls()
     print("\n".join(report))
 
 
@@ -100,6 +104,7 @@ show_report()
 if now.month == 12 and now.day <= 25:
     section_header = "Current Event: "
     sec_year = now.year
+
 elif now.month == 12 and now.day > 25:
     section_header = "This Year's Event: "
     sec_year = now.year
@@ -126,6 +131,7 @@ for puzzle_day in my_stats[str(LATEST_EVENT)]:
     ROW_TEXT = std_day_report(LATEST_EVENT, int(puzzle_day), DAY_STATS)
     report.append(ROW_TEXT)
     show_report()
+    time.sleep(2)
 
 
 ###############################################################################
@@ -143,8 +149,12 @@ for p_year in previous_years:
 
     try:
         my_stats.pull_from_local(p_year)
+        time.sleep(2)
+        
     except:
         my_stats.pull_year_from_aocd(p_year)
+        time.sleep(2)
+
 
     if str(p_year) in my_stats:
         ### [adventofcode.com/2022](https://adventofcode.com/2022)
@@ -168,8 +178,9 @@ for p_year in previous_years:
             report.append(ROW_TEXT)
             show_report()
 
+Path("Readme.md").write_text("\n".join(report))
 
-open("Readme.md", "w").write("\n".join(report))
+# open("Readme.md", "w").write("\n".join(report))
 
 
 ###############################################################################

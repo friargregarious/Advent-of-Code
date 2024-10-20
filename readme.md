@@ -5,7 +5,13 @@ View our [Belleville/Quinte Leader Board](https://adventofcode.com/2023/leaderbo
 
 pls request a join code [from me](mailto:greg.denyes@gmail.com) to be a part of our local competition. We've changed it since last year.
 
-## Current Event: [Adventofcode.Com/2023](Https://Adventofcode.Com/2023)
+## Latest Event: [Adventofcode.Com/2024](Https://Adventofcode.Com/2024)
+
+***Has not started yet!!!***
+
+## Previous Events: 2015 - 2023
+
+### [Adventofcode.Com/(2023)](Https://Adventofcode.Com/2023)
 
 - 2023 Day 01 [X][_] [Trebuchet?!](https://adventofcode.com/2023/day/1)
 - 2023 Day 02 [X][X] [Cube Conundrum](https://adventofcode.com/2023/day/2)
@@ -18,9 +24,6 @@ pls request a join code [from me](mailto:greg.denyes@gmail.com) to be a part of 
 - 2023 Day 15 [X][X] [Lens Library](https://adventofcode.com/2023/day/15)
 - 2023 Day 16 [X][_] [The Floor Will Be Lava](https://adventofcode.com/2023/day/16)
 - 2023 Day 19 [X][_] [Aplenty](https://adventofcode.com/2023/day/19)
-
-## Previous Events: 2015 - 2022
-
 
 ### [Adventofcode.Com/(2022)](Https://Adventofcode.Com/2022)
 
