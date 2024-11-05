@@ -1,11 +1,11 @@
 """
-#        ADVENT OF CODE | 2016 | SECURITY THROUGH OBSCURITY | PART [A]        #
+#        ADVENT OF CODE | 2016 | SECURITY THROUGH OBSCURITY | PART [B]        #
 #                         adventofcode.com/2016/day/4                         #
 # SOLVER: --------------------------------------------------- friargregarious #
 # CONTACT: --------------------------------------- friar.gregarious@gmail.com #
 # HOME: -------------------------------------------------------------- github #
 # SOURCE: ----------------------------------- ~/Advent-of-Code/AOC 2016/Day 4 #
-# WRITTEN AND TESTED IN: --------------------------------------------- 3.11.6 #
+# WRITTEN AND TESTED IN: --------------------------------------------- 3.13.0 #
 """
 ###############################################################################
 # IMPORTS #####################################################################
@@ -13,9 +13,10 @@
 
 import os
 import argparse
-from pathlib import Path
 import my_utilities
-from string import ascii_letters
+import re
+from pathlib import Path
+from string import ascii_letters, ascii_lowercase
 
 # import math
 # from datetime import datetime
@@ -27,8 +28,8 @@ from string import ascii_letters
 ###############################################################################
 __year__ = 2016
 __day__ = 4
-__build__ = 30
-__version__ = "0.0.30" 
+__build__ = 37
+__version__ = "0.0.37" 
 __example_answer__ = 1514
 __run_on_example__ = False
 
@@ -47,6 +48,37 @@ def parse_input(source: str):
 ###############################################################################
 
 
+def is_a_room(left, right):
+    counts = {}
+    new_counts = {}
+
+    for c in left:
+        if c in ascii_letters:
+            if c in counts:
+                counts[c] += 1
+            else:
+                counts[c] = 1
+    
+    for k, v in counts.items():
+        if v in new_counts:
+            new_counts[v] += k
+        else:
+            new_counts[v] = k
+            
+    new_counts = {k : "".join(sorted(v)) for k, v in new_counts.items()}
+    key = sorted(set(counts.values()), reverse=True)
+    
+    new_counts = {k: new_counts[k] for k in key}    
+    
+    new_order = ""
+    for k, v in new_counts.items():
+        new_order += v
+
+    new_order = new_order[:5]
+
+    return new_order==right
+    
+
 def solve_a(data):
     """For solving PART a of day 4's puzzle."""
     print(print_version())
@@ -57,56 +89,50 @@ def solve_a(data):
     # not-a-real-room-404[oarel]
     # totally-real-room-200[decoy]
 
+    good_rooms = []
     for row in data:
-        counts = {}        
-        new_counts = {}
-
         words = row.split("-")
-        _right = words[-1]
-        room_num = int(_right.split("[")[0])
-        order = _right.split("[")[1].strip("]")
-        
-        for word in words[:-1]:
-            for c in word:
-                if c in ascii_letters:
-                    if c in counts:
-                        counts[c] += 1
-                    else:
-                        counts[c] = 1
-        
-        print(words[:-1], room_num, order)
-        print("counts:", counts)
 
-        for k, v in counts.items():
-            if v in new_counts:
-                new_counts[v] += k
-            else:
-                new_counts[v] = k
+        num, right = words[-1].split("[")
+        order = right.strip("]")
+        num = int(num)
+
+        words = "-".join(words[:-1])
+
+        order = row[ row.find("[")+1 : row.find("]") ]
+        
+
+        if is_a_room(words, order):
+            good_rooms.append((words, num, order))
+    
+        
+    # return solution
+    return good_rooms
+
+
+def solve_b(data):
+    goodrooms = solve_a(data)
+    
+    for room, key, order in goodrooms:
+        room_name = ""
+        for c in room:  # character in room name
+            if c == "-":
+                room_name += " "
+            elif c in ascii_lowercase:
                 
-        new_counts = {k : "".join(sorted(v)) for k, v in new_counts.items()}
-        key = sorted(set(counts.values()), reverse=True)
-        
-        new_counts = {k: new_counts[k] for k in key}    
-        print("new counts:",new_counts)
-        
-        new_order = ""
-        for k, v in new_counts.items():
-            new_order += v
-
-        new_order = new_order[:5]
-        print("Order Match:", new_order, order, new_order==order, "\n")        
-        if new_order==order:
-            solution += room_num
-        
-    return solution
-
+                shift = ascii_lowercase.index(c) + (key % len(ascii_lowercase))
+                if shift >= len(ascii_lowercase):
+                    shift -= len(ascii_lowercase)
+                
+                room_name += ascii_lowercase[shift]
+        print(key, room_name) if "northpole object storage" == room_name else None
 
 ###############################################################################
 # MAIN ENTRY POINT FOR SUBMITTING AND BENCHMARKING ############################
 ###############################################################################
 def main(source):
     """Main entry point"""
-    return solve_a(source)
+    return solve_b(source)
 
 
 ###############################################################################

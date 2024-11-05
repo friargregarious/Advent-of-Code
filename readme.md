@@ -2,7 +2,7 @@
 
 <https://adventofcode.com/>
 
-Brought to you by [Eric Wastl](http://was.tl/).
+Brought to you by [Eric Wastl](http://was.tl/) and on Mastodon: <@ericwastl@hachyderm.io>.
 
 Advent of Code is an Advent calendar of small programming puzzles for a variety of skill sets and skill levels that can be solved in any programming language you like. People use them as interview prep, company training, university coursework, practice problems, a speed contest, or to challenge each other.
 
@@ -45,6 +45,8 @@ pls request a join code [from me](mailto:greg.denyes@gmail.com) to be a part of 
 - 2023 Day 16 [X][_] [The Floor Will Be Lava](https://adventofcode.com/2023/day/16)
 - 2023 Day 19 [X][_] [Aplenty](https://adventofcode.com/2023/day/19)
 
+## Previous Events: 2015 - 2022
+
 ### [Adventofcode.Com/(2022)](Https://Adventofcode.Com/2022)
 
 - 2022 Day 01 [X][X] [Calorie Counting](https://adventofcode.com/2022/day/1)
@@ -63,6 +65,7 @@ pls request a join code [from me](mailto:greg.denyes@gmail.com) to be a part of 
 - 2016 Day 01 [X][X] [No Time for a Taxicab](https://adventofcode.com/2016/day/1)
 - 2016 Day 02 [X][X] [Bathroom Security](https://adventofcode.com/2016/day/2)
 - 2016 Day 03 [X][_] [Squares With Three Sides](https://adventofcode.com/2016/day/3)
+- 2016 Day 04 [X][X] [Security Through Obscurity](https://adventofcode.com/2016/day/4)
 
 ### [Adventofcode.Com/(2015)](Https://Adventofcode.Com/2015)
 

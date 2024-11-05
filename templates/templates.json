@@ -1,0 +1,23 @@
+{
+    "header 1" : {
+        "lvl": 1,
+        "txt" : "Advent Of Code"
+    },
+    "aoc_portion" : {
+        "doc" : "templates/aoc.md",
+        "replacements" : ["{year}"]
+    },
+    "qaoc_portion" :{
+        "doc" : "templates/qaoc.md",
+        "replacements" : ["{year}"]
+    },
+    "Header_events" : {
+        "lvl": 2,
+        "txt" : "Official Events: 2015 - {year}"
+    },
+    "Header_Year" : {
+        "lvl": 3,
+        "txt" : "[Adventofcode.Com/({year})](Https://Adventofcode.Com/{year})"
+    }
+    "day" : "- Day {day} [{solved_a}][{solved_b}] [{title}](https://adventofcode.com/{year}/day/{day})"
+}
