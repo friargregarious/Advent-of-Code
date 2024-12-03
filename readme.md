@@ -27,9 +27,12 @@ pls request a join code [from me](mailto:greg.denyes@gmail.com) to be a part of 
 
 ## Latest Event: [Adventofcode.Com/2024](Https://Adventofcode.Com/2024)
 
-***Has not started yet!!!***
+- 2024 Day 01 [X][X] [Historian Hysteria](https://adventofcode.com/2024/day/1)
+- 2024 Day 02 [X][X] [Red-Nosed Reports](https://adventofcode.com/2024/day/2)
+- 2024 Day 03 [X][X] [Mull It Over](https://adventofcode.com/2024/day/3)
 
 ## Previous Events: 2015 - 2023
+
 
 ### [Adventofcode.Com/(2023)](Https://Adventofcode.Com/2023)
 
@@ -44,8 +47,6 @@ pls request a join code [from me](mailto:greg.denyes@gmail.com) to be a part of 
 - 2023 Day 15 [X][X] [Lens Library](https://adventofcode.com/2023/day/15)
 - 2023 Day 16 [X][_] [The Floor Will Be Lava](https://adventofcode.com/2023/day/16)
 - 2023 Day 19 [X][_] [Aplenty](https://adventofcode.com/2023/day/19)
-
-## Previous Events: 2015 - 2022
 
 ### [Adventofcode.Com/(2022)](Https://Adventofcode.Com/2022)
 
