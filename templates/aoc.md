@@ -10,3 +10,7 @@ You don't need a computer science background to participate - just a little prog
 > **[{year}/support](https://adventofcode.com/{year}/support)**
 > 
 > We suggest that you support his cause by donating. $5 is a paltry fee to pay for the hours of hair-raising frustration, agony and epiphany he's providing for free.  
+
+## Quinte & Area AoC Guild
+
+We're just a group of interconnected friends and coders within a few hours drive of Belleville, ON Canada. We use a handful of languages each, sometimes picking a different environment for each solution, depending on their strengths and weaknesses. I [friargreg](gregarious@Mastodon.social) started the server to gather a few people who would share in my epiphanies and aneurysms. 
