@@ -1,3 +1,4 @@
+from math import e
 from pathlib import Path
 
 
@@ -15,11 +16,11 @@ def rules(item):
     return test_asc_dec and test_differences
 
 
-def problem_dampener(item)->bool:
+def problem_dampener(item):
     # item = [66, 67, 70, 73, 74, 76, 78, 80]
     versions = [item[:i] + item[i+1:] for i, _ in enumerate(item)] 
     for r in versions:
-        if rules(r): return True    
+        if rules(r): return True
         
 
 def solve_a(data):

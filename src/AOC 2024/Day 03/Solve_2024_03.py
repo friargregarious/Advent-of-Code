@@ -20,7 +20,6 @@
 # imports, globals and helper functions/classes
 
 import os, time, argparse, re, aocd, toml, pickle, markdownify
-from tracemalloc import start
 from pathlib import Path
 from bs4 import BeautifulSoup
 
