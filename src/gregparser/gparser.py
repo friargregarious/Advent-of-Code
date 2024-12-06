@@ -1,75 +1,143 @@
 import argparse
-from genericpath import exists
-import pickle
-import os, sys
+import platform
+import sys
 import toml
 import aocd
 import requests
-import markdownify
 
-# from html.parser import HTMLParser
 from bs4 import BeautifulSoup
+from markdownify import markdownify
 from pathlib import Path
 from datetime import datetime
-from turtle import pu
+try:
+    from . import solve_utilities as su
+except:
+    import solve_utilities as su
 
-config = toml.load('.env')
+config = su.get_config()
 
 
 def year():
+    """
+    Returns the current year as a four-digit integer.
+
+    Returns:
+        int: The current year.
+    """
     return datetime.now().year
 
 
 def month():
+    """
+    Returns the current month as an integer.
+
+    Returns:
+        int: The current month.
+    """
     return datetime.now().month
 
 
 def day():
+    """
+    Returns the current day of the month as an integer.
+
+    Returns:
+        int: The current day of the month.
+    """
     return datetime.now().day
 
 
 def example_text(puzzle):
+    """
+    Returns the example text for the given puzzle.
+
+    Args:
+        puzzle (aocd.models.Puzzle): The puzzle object to return the example text for.
+
+    Returns:
+        str: The example text for the puzzle.
+    """
     return puzzle.examples[0]
 
 
-def solve_text(puzzle):
-    return Path("solve_example.py").read_text()
+def solve_text(puzzle:aocd.models.Puzzle):
+    """
+    Generates a formatted header for a given Advent of Code puzzle and inserts it into a template file.
+
+    Args:
+        puzzle (aocd.models.Puzzle): The puzzle object containing metadata used to create the header.
+
+    Returns:
+        str: The text of the template file with the generated header inserted.
+    """
+    bar = "#" * 80
+    blank = f"#{' ' * 78}#"
+
+    a_done = "N/A"
+    b_done = "N/A"
+    day_done = datetime(year=puzzle.year, month=12, day=puzzle.day, hour=0, minute=0, second=0)
+    if puzzle.answered_a:
+        dt_a = day_done + puzzle.my_stats['a']['time']
+        a_done = dt_a.strftime('%Y-%m-%d %H:%M')
+    if puzzle.answered_b:
+        dt_b = day_done + puzzle.my_stats['b']['time']        
+        b_done = dt_b.strftime('%Y-%m-%d %H:%M')
+        
+    headers = [
+        bar, blank,
+        "#" + f"ADVENT OF CODE: {year()}".center(78) + "#",
+        "#" + puzzle.title.center(78) + "#",
+        "#" + puzzle.url.center(78) + "#",
+        blank, bar,
+        blank,
+        "# A SOLVED:".ljust(14) + f"{a_done}".ljust(80-15) + "#",
+        "# B SOLVED:".ljust(14) + f"{b_done}".ljust(80-15) + "#",
+        "# SOLVER:".ljust(14) + "friargregarious (greg.denyes@gmail.com)".ljust(80-15) + "#",
+        "# HOME:".ljust(14) + "https://github.com/friargregarious".ljust(80-15) + "#",
+        blank,
+        f"#" + f"WRITTEN AND TESTED IN PYTHON VER {platform.python_version()}".center(76) + "#",
+        blank, bar               
+        ]
+    
+    page = Path( "solve_example.py" ).read_text()
+    page = page.replace( "{#HEADER}", "\n".join(headers) )
+    
+    return page
 
 
-def readme_text(puzzle:aocd.models.Puzzle, part:str="A"):
-    # soup = BeautifulSoup(puzzle.prose0_path.read_text(encoding="utf-8"), "html.parser")
-    # articles = [x.prettify() for x in soup.find_all("article")]
-    # marked_down = markdownify.markdownify(articles[0], heading_style="ATX")
+def readme_text(puzzle:aocd.models.Puzzle):
+    """
+    Gets the text of the puzzle page from adventofcode.com and
+    translates it into markdown format using the markdownify library.
 
-    # for index, article in enumerate(articles):
-    #     Path(f".article_{index:02}.html").write_text(article)
-    #     Path(f".markdwn_{index:02}.md").write_text(marked_down)
+    Args:
+        puzzle (aocd.models.Puzzle): The puzzle object to get the text from
 
+    Returns:
+        str: The markdown text of the puzzle page
+    """
     
     soup = BeautifulSoup(puzzle._get_prose().encode("utf-8"), "html.parser")
-    # soup = BeautifulSoup(puzzle.prose0_path.read_text(encoding="utf-8"), "html.parser")
-    
-    # puzzle._get_prose()
-    
     articles = "\n".join( [str(x) for x in soup.find_all("article")])
-    # articles.replace(r"\-\-\-" ,"---")
-    md_articles = markdownify.markdownify(articles, heading_style="ATX")
+    md_articles = markdownify(articles, heading_style="ATX")
+    md_articles = md_articles.replace( r"\-", "-" )
     
     return md_articles
 
 
-def build_defaults(target_path:Path, puzzle:aocd.models.Puzzle, part:str, y=None, d=None):
-    _y = y if y else year()
-    _d = d if d else day()
+def build_defaults(target_path:Path, puzzle:aocd.models.Puzzle, cfg:dict):
+    _y = cfg["puzzle"]["year"] 
+    _d = cfg["puzzle"]["day"]
+    
+    # user = aocd.get_user(cfg["user"]["token"])
     
     if puzzle is None:
-        puzzle = aocd.models.Puzzle(year=y, day=d)
+        puzzle = su.open_puzzle(cfg) #  aocd.models.Puzzle(year=y, day=d, user=user)
     
-    p_path = target_path / f"puzzle_{_y:04}_{_d:02}.aocd"
-    with p_path.open("wb") as f:
-        pickle.dump(puzzle, f)
+    p_path = target_path / cfg["puzzle"]["path"]
+    su.save_puzzle(puzzle, p_path)
         
-    if part.upper() == "A":
+    if not puzzle.answered_a or len(list(target_path.glob("*"))) == 0:
         
         files = {
             "EXAMPLE" : {
@@ -81,74 +149,59 @@ def build_defaults(target_path:Path, puzzle:aocd.models.Puzzle, part:str, y=None
                 "content" : solve_text(puzzle),
                 },
             "README" : {
-                "path" : target_path / f"README.md", 
+                "path" : target_path / f"README.md",
                 "content" : readme_text(puzzle)
                 },
             "INPUT" : {
                 "path" : target_path / "input.txt",
-                "content" : puzzle.input_data
+                "content" : puzzle.input_data or requests.get(puzzle.input_data_url).text
                 },
-            
+            "CFG" : {
+                "path" : target_path / ".env",
+                "content" : toml.dumps(cfg)
+                },
+            "utils" : {
+                "path" : target_path / "solve_utilities.py",
+                "content" : Path("solve_utilities.py").read_text()
             }
-    
+            }
 
-    
-        if not puzzle.input_data:
-            files["INPUT"]["content"] = requests.get(puzzle.input_data_url).text
-        else:
-            files["INPUT"]["content"] = puzzle.input_data
-
-    elif part.upper() == "B":
-
-        PROSE = [
-            ("Prose 0", puzzle.prose0_path),
-            ("Prose 1", puzzle.prose1_path),
-            ("Prose 2", puzzle.prose2_path),
+        for _, v in files.items():
+            if not v["path"].exists():
+                v["path"].write_text(v["content"], encoding="utf-8")
             
-        ]
-        os.system("cls")
-        for name, path in PROSE:
-            if path.exists():
-                print("*****************\n", name, path)
-                # puzzle.prose2_
-                print(path.read_text())
-            
-        sys.exit(0)
-        
-        files = {
-            "README" : {
-                "path" : target_path / f"README.md", 
-                "content" : readme_text(puzzle)
-                },
-        }
+    else:
+        if puzzle.examples[1]:
+            path = target_path / f"example_b.txt"
+            path.write_text(puzzle.examples[1].input_data)
 
-    for _, v in files.items():
-        if not v["path"].exists():
-            v["path"].write_text(v["content"])
-        
-        if part.upper() == "B":
-            v["path"].write_text(v["content"])
+        elif puzzle.examples[2]:
+            path = target_path / f"example_c.txt"
+            path.write_text(puzzle.examples[2].input_data)
             
-
+        path = target_path / f"README.md"
+        content = readme_text(puzzle)
+        path.write_text(content)
         
-    # default_path = Path().parent / 'src'
-    # for filename in default_path.iterdir():
-    #     if filename.is_file():
-    #         filename.rename(target_path / filename.name)
-    
-    
+        
 ###############################################################################
 # command line interface
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--year", help="Year of the puzzle to build.", type=int)
-    parser.add_argument("--day", help="Day of the puzzle to build.", type=int)
-    parser.add_argument("--part", help="Part of the puzzle to build. (A or B, default 'Part A').", type=str, default="A")
-
+    parser.add_argument("-y", "--year", help="Year of the puzzle to build.", type=int, default=year(), action="store")
+    parser.add_argument("-d", "--day", help="Day of the puzzle to build.", type=int, default=day(), action="store")
+    # parser.add_argument("-p", "--part", help="Part of the puzzle to build. (A or B, default 'Part A').", type=str, default="A", action="store")
     args = parser.parse_args()
 
-    _year = args.year if args.year else year()
-    _day = args.day if args.day else day()
+    _year = args.year
+    _day = args.day
+
+    config = su.get_config()
+    if len(config) == 0:
+        print("No config file found. Please locate it and try again.")
+        sys.exit(1)
+
+    config['puzzle'] = { "year" : _year, "day" : _day, "path" : f"puzzle_{_year:04}_{_day:02}.aocd" }
 
     puzzle = aocd.models.Puzzle(
         year=_year, 
@@ -167,4 +220,5 @@ if __name__ == "__main__":
     if not day_to_build.exists():
         day_to_build.mkdir(parents=True)
 
-    build_defaults(y=_year, d=_day, target_path=day_to_build, puzzle=puzzle, part=args.part)
+    su.save_config(config)
+    build_defaults(cfg=config, target_path=day_to_build, puzzle=puzzle)
