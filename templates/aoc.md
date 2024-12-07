@@ -13,4 +13,4 @@ You don't need a computer science background to participate - just a little prog
 
 ## Quinte & Area AoC Guild
 
-We're just a group of interconnected friends and coders within a few hours drive of Belleville, ON Canada. We use a handful of languages each, sometimes picking a different environment for each solution, depending on their strengths and weaknesses. I [friargreg](gregarious@Mastodon.social) started the server to gather a few people who would share in my epiphanies and aneurysms. 
+We're just a group of interconnected friends and coders within a few hours drive of Belleville, ON Canada. We use a handful of languages each, sometimes picking a different environment for each solution, depending on their strengths and weaknesses. I [friargreg] <gregarious@Mastodon.social> started the server to gather a few people who would share in my epiphanies and aneurysms. 

@@ -6,7 +6,12 @@ import time
 from datetime import datetime
 from pathlib import Path
 
+from PuzzleDayBuild import gparser
+
+
 cfg = toml.loads(Path(".env").read_text(encoding="utf-8"))
+cfg["working_dirs"]["templates"] = ["aoc.md", "qaoc.md",]
+Path(".env").write_text(toml.dumps(cfg), encoding="utf-8")
 
 def refresh_core(year:int, day:int, CORE:dict) -> None:
 
@@ -70,7 +75,7 @@ def get_stats(year:int, day:int) -> dict:
     return CORE[year][day]
     
 
-def generate_readme() -> str:            
+def generate_readme():
 
     report = [
         "# Advent Of Code\n",
@@ -118,16 +123,32 @@ if __name__ == "__main__":
     USER = aocd.models.User(cfg["user"]["token"])
     CORE = json.loads( Path(cfg["working_dirs"]["core"]).read_text(encoding="utf-8") )
 
-    args = argparse.ArgumentParser()
-    args.add_argument("-g","--generate", help="Generate the readme text.", default=False, action="store_true")
-    args.add_argument("-r","--refresh", help="Refresh the leaderboard data.", default=False, action="store_true")
-    # args.add_argument("-y","--year", help=f"Year of the puzzle to build. (current: {NOW.year})", type=int, default=NOW.year)
-    # args.add_argument("-d","--day", help=f"Day of the puzzle to build. (current: {NOW.year})", type=int, default=NOW.year)
-    args = args.parse_args()
-    print("Args:", ", ".join( [ f"{k} = {v}" for k,v in vars(args).items()] ) )
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-g","--generate", help="Generate the readme text.", default=False, action="store_true")
+    parser.add_argument("-r","--refresh", help="Refresh the leaderboard data.", default=False, action="store_true")
+    parser.add_argument("-b","--build", help="Build a new puzzle folder.", default=False, action="store_true")
+    parser.add_argument("-y", "--year", help=f"Year of the puzzle to build (default {NOW.year}).", type=int, default=NOW.year, action="store")
+    parser.add_argument("-d", "--day", help=f"Day of the puzzle to build (default {NOW.day}).", type=int, default=NOW.day, action="store")
+
+    args = vars( parser.parse_args() )
+    cfg = toml.loads(Path(".env").read_text(encoding="utf-8"))
     
-    if args.generate:
+    print("Args:", ", ".join( [ f"{k} = {v}" for k, v in args.items() ] ) )
+    
+    if args["generate"]:
         generate_readme()
+
+
+    
+    if args["build"]:
+        cfg["puzzle"] = {
+            "year": args["year"], 
+            "day": args["day"],
+            "path" : (Path(cfg["working_dirs"]["puzzles"]) / f"{args['year']:04}_{args['day']:02}.aocd").as_posix()
+            }
+
+        gparser.build_puzzle( cfg, args )
+
     
     # if args.refresh:
         # refresh_core(args.year, args.day, CORE)
