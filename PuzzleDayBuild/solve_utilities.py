@@ -4,11 +4,14 @@ import time
 import sys
 import requests
 import toml
+import argparse
 
 from markdownify import markdownify
 from bs4 import BeautifulSoup
 from pathlib import Path
 from datetime import datetime
+
+
 
 
 def print_args(args:dict):
@@ -23,13 +26,15 @@ def print_args(args:dict):
         Prints a separator line, followed by the formatted argument names and values, and ends
         with another separator line.
     """
-    bar = "*" * 50
-    print( bar, f"{' Args ':*^50}", bar, sep="\n" )
+    width = 50
+    bar = "*" * width
+    print( bar, ' Args '.center(width, "*"), bar, sep="\n" )
 
-    for param in [ f"{ k.rjust(12) }: { v }" for k, v in args.items() ]:
-        print("-->", param)
+    for param in [ f"{ k.replace('_', ' ').capitalize().rjust(10) } : { str(v).ljust(10) }" for k, v in args.items() ]:
+        print(param.center(width))
 
     print( bar )
+
 
 
 def get_user_results(user:aocd.models.User):
@@ -76,28 +81,49 @@ def save_config(config:dict):
     """
     try:
         Path(".env").write_text(toml.dumps(config))
-        print("RESULT: Save Config: .env")
+        print("save_config: Saved Config: .env")
     except:
-        print("RESULT: Failed to save Config: .env")
+        print("save_config: Failed to save Config: .env")
         sys.exit(0)
 
 
-def save_puzzle(puzzle: aocd.models.Puzzle, path:Path):
+def save_puzzle(puzzle: aocd.models.Puzzle, cfg:dict):
     """
     Saves a puzzle object to a file on disk.
 
     Args:
-        puzzle: the puzzle object to save
-        path: the path to save the puzzle object to
+        puzzle (aocd.models.Puzzle): The puzzle object to save
+        cfg (dict): A dictionary containing configuration information
 
     Effects:
         Saves the puzzle object to disk and prints a message indicating success or failure
     """
+    _path:Path = Path(cfg['working_dirs']['puzzles']) / cfg['puzzle']['path']
+    _parent = _path.parent
+    # print(f"save_puzzle: Saving Puzzle: {_path} ...")    
     try:
-        pickle.dump(puzzle, open(path, "wb"))
-        print("RESULT: Saved Puzzle: " + str(path))
-    except:
-        print("RESULT: Failed to save Puzzle: " + str(path))
+        # D:\Advent of Code\.puzzles
+        if not _parent.is_dir():
+            print(f"save_puzzle: Directory does not exist: {_path.parent}")
+            
+        # with _path.open('wb') as f:
+        #     pickle.dump(puzzle, f)
+
+        # with open(_path, "wb") as f:
+        #     pickle.dump(puzzle, f)
+
+        # _path.write_bytes(pickle.dumps(puzzle))
+        
+        # pickle.dump(puzzle, _path.open("wb"))
+        
+        my_file = _path.open("wb")
+        my_file.write(pickle.dumps(puzzle))
+        my_file.close()
+        
+        print(f"save_puzzle: Successfully saved puzzle: {_path}")
+        
+    except Exception as e:
+        print(f"save_puzzle: Failed to save puzzle: {_path}\n --> {e}")
 
 
 def open_puzzle(config:dict):
@@ -112,29 +138,29 @@ def open_puzzle(config:dict):
     Returns:
         Puzzle: The opened puzzle object.
     """
-    _puzzle_path = Path(config['puzzle']['path'])
+    _puzzle_path = Path(config['working_dirs']['puzzles']) / config['puzzle']['path']
     _year = config['puzzle']['year']
     _day = config['puzzle']['day']
     _user = aocd.models.User(config['user']['token'])
 
     def net_get():
         puzzle = aocd.models.Puzzle( year=_year, day=_day, user=_user )
-        print(f"Creating new puzzle file: {_puzzle_path}")
-        save_puzzle(puzzle, _puzzle_path)
+        save_puzzle(puzzle, config)
+        # print(f"net_get: Creating new puzzle file - {_puzzle_path}")
         return puzzle
         
     if Path(config['puzzle']['path']).is_file():
         try:
             puzzle = pickle.load(open(_puzzle_path, "rb"))
             puzzle._user = _user
-            print( f"Found existing puzzle file: {_puzzle_path}" )
+            print( f"open_puzzle: Found existing puzzle file: {_puzzle_path}" )
             return puzzle
         except:
-            print( f"Existing File Corrupted: {_puzzle_path}" )
+            print( f"open_puzzle: Existing File Corrupted: {_puzzle_path}" )
             return net_get()
 
     else:
-        print( f"No puzzle file found: {_puzzle_path}" )
+        print( f"open_puzzle: No puzzle file found: {_puzzle_path}" )
         return net_get()
 
 
@@ -161,15 +187,15 @@ def refresh_readme(puzzle:aocd.models.Puzzle):
         # os.remove(file)
         file.write_text(md_articles, encoding="utf-8")
         # print( md_articles )
-        print( "RESULT: Refreshed README.md" )
+        print( "refresh_readme: Refreshed README.md" )
 
     except:
-        print( "RESULT: Failed to refresh README.md" )
+        print( "refresh_readme: Failed to refresh README.md" )
 
     sys.exit(0)
 
 
-def submit_result(puzzle: aocd.models.Puzzle, result:int, part:str, path:Path):    
+def submit_result(puzzle: aocd.models.Puzzle, result:int, part:str, cfg:dict):
     """
     Submits the result of a puzzle to AoC servers.
 
@@ -187,14 +213,17 @@ def submit_result(puzzle: aocd.models.Puzzle, result:int, part:str, path:Path):
     if part.upper() == "A" and not puzzle.answered_a:
         puzzle.answer_a = result # type: ignore
         if puzzle.answered_a:
-            save_puzzle(puzzle, path)
+            save_puzzle(puzzle, cfg)
             update_header(puzzle)
+            print( "submit_result: Submitted result 'A' to AoC servers" )
             
     elif part.upper() == "B" and not puzzle.answered_b:
         puzzle.answer_b = result # type: ignore
         if puzzle.answered_b:
-            save_puzzle(puzzle, path)
+            save_puzzle(puzzle, cfg)
             update_header(puzzle)
+            print( "submit_result: Submitted result 'B' to AoC servers" )
+            
 
 
 def report_puzzle(puzzle: aocd.models.Puzzle, result, part:str):
@@ -209,7 +238,7 @@ def report_puzzle(puzzle: aocd.models.Puzzle, result, part:str):
     Effects:
         Prints the result of the puzzle to the console
     """
-
+    print("report_puzzle: ")
     if part.upper() == "A":
         if puzzle.answered_a: print(f"Part A is completed: {puzzle.answer_a}")
         else: print( "Part A:", result, "(Completed)")
@@ -240,8 +269,6 @@ def Discord(config:dict, puzzle:aocd.models.Puzzle):
     _token = config['discord']['token']
     
     if config['discord']['last_msg']:
-        print("RESULT: You have already posted your message to discord.")
-        print("This msg and following msgs will go to testing channel.")
         channel = config['discord']['testing']
     else:
         channel = config['discord']['general']
@@ -257,11 +284,14 @@ def Discord(config:dict, puzzle:aocd.models.Puzzle):
         
         url = f"https://discord.com/api/v9/channels/{channel}/messages"
 
-        msg = "Hey @everyone!!!\n"
-        msg += f"I have completed AoC {_year} Day {_day:02}: **{puzzle.title}**"
-        msg += f"\n{puzzle.url}"
-        msg += f"\n**Part A: {dta.strftime('%Y-%m-%d %H:%M')}**"
-        msg += f"\n**Part B: {dtb.strftime('%Y-%m-%d %H:%M')}**"
+        msg = "\n".join([
+            "Hey @everyone!!!",
+            f"I have completed AoC {_year} Day {_day:02}: **{puzzle.title}**",
+            f"{puzzle.url}",
+            f"**Part A:** {dta.strftime('%Y-%m-%d %H:%M')}",
+            f"**Part B:** {dtb.strftime('%Y-%m-%d %H:%M')}",
+            "*This has been an automated message*",
+            ])
 
         content = {"content": msg, "mention_everyone": True}
         header = {"Authorization": _token}
@@ -269,16 +299,17 @@ def Discord(config:dict, puzzle:aocd.models.Puzzle):
         res = requests.post(url, data=content, headers=header )
         
         if res.status_code != 200:
-            print("RESULT: Discord Message Failed!")
+            print("Discord: Discord Message Failed!")
 
         elif res.status_code == 200:
-            print("RESULT: Discord Message Sent!")
+            target_channel = f"({'Testing Channel' if config['discord']['last_msg'] else 'General Channel'})" 
+            print(f"Discord: Discord Message Sent -> {target_channel}")
             config['discord']['last_msg'] = True
             save_config(config)
 
 
     else:
-        print("RESULT: You have not yet completed both parts of the puzzle.\nNo gloating till you're finished!")
+        print("Discord: You have not yet completed both parts of the puzzle.\nNo gloating till you're finished!")
         
     sys.exit(0)
     
@@ -321,7 +352,4 @@ def update_header(puzzle: aocd.models.Puzzle):
 
     solve_file.write_text("\n".join(new_text), encoding="utf-8")
 
-# if __name__ == "__main__":
-#     config = get_config()
-#     puzzle = open_puzzle(config)
-#     update_header(puzzle)
+

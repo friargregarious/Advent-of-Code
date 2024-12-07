@@ -99,7 +99,7 @@ def solve_text(puzzle:aocd.models.Puzzle):
         blank, bar               
         ]
     
-    page = Path( "solve_example.py" ).read_text()
+    page = (Path( __file__ ).parent / "solve_example.py" ).read_text()
     page = page.replace( "{#HEADER}", "\n".join(headers) )
     
     return page
@@ -134,7 +134,7 @@ def build_defaults(target_path:Path, puzzle:aocd.models.Puzzle, cfg:dict):
     if puzzle is None:
         puzzle = su.open_puzzle(cfg) #  aocd.models.Puzzle(year=y, day=d, user=user)
     
-    p_path = target_path / cfg["puzzle"]["path"]
+    p_path = Path(cfg["working_dirs"]['puzzles']) / cfg["puzzle"]["path"]
     su.save_puzzle(puzzle, p_path)
         
     if not puzzle.answered_a or len(list(target_path.glob("*"))) == 0:
@@ -162,7 +162,7 @@ def build_defaults(target_path:Path, puzzle:aocd.models.Puzzle, cfg:dict):
                 },
             "utils" : {
                 "path" : target_path / "solve_utilities.py",
-                "content" : Path("solve_utilities.py").read_text()
+                "content" : (Path(__file__).parent / "solve_utilities.py").read_text()
             }
             }
 
@@ -183,7 +183,28 @@ def build_defaults(target_path:Path, puzzle:aocd.models.Puzzle, cfg:dict):
         content = readme_text(puzzle)
         path.write_text(content)
         
-        
+def build_puzzle(cfg:dict, args:dict): 
+    puzzle = aocd.models.Puzzle(
+        year=cfg["puzzle"]["year"], 
+        day=cfg["puzzle"]["day"], 
+        user=aocd.models.User(config['user']['token'])
+        )
+
+    year_folder = f"AOC {cfg["puzzle"]["year"]:04}"
+    day_folder = f"Day {cfg["puzzle"]["day"]:02}"
+
+    year_to_build = Path(cfg["working_dirs"]['target']) / year_folder
+    if not year_to_build.exists():
+        year_to_build.mkdir(parents=True)
+    
+    day_to_build = year_to_build / day_folder
+    if not day_to_build.exists():
+        day_to_build.mkdir(parents=True)
+
+    su.save_config(cfg)
+    build_defaults(cfg=cfg, target_path=day_to_build, puzzle=puzzle)
+    
+      
 ###############################################################################
 # command line interface
 if __name__ == "__main__":
@@ -196,29 +217,10 @@ if __name__ == "__main__":
     _year = args.year
     _day = args.day
 
-    config = su.get_config()
-    if len(config) == 0:
-        print("No config file found. Please locate it and try again.")
-        sys.exit(1)
+    # config = su.get_config()
+    # if len(config) == 0:
+    #     print("No config file found. Please locate it and try again.")
+    #     sys.exit(1)
 
-    config['puzzle'] = { "year" : _year, "day" : _day, "path" : f"puzzle_{_year:04}_{_day:02}.aocd" }
+    # config['puzzle'] = { "year" : _year, "day" : _day, "path" : f"puzzle_{_year:04}_{_day:02}.aocd" }
 
-    puzzle = aocd.models.Puzzle(
-        year=_year, 
-        day=_day, 
-        user=aocd.models.User(config['user']['token'])
-        )
-
-    year_folder = f"AOC {_year:04}"
-    day_folder = f"Day {_day:02}"
-
-    year_to_build = Path().cwd().parent / year_folder
-    if not year_to_build.exists():
-        year_to_build.mkdir(parents=True)
-    
-    day_to_build = year_to_build / day_folder
-    if not day_to_build.exists():
-        day_to_build.mkdir(parents=True)
-
-    su.save_config(config)
-    build_defaults(cfg=config, target_path=day_to_build, puzzle=puzzle)
