@@ -28,7 +28,7 @@ def print_args(args:dict):
     """
     width = 50
     bar = "*" * width
-    print( bar, ' Args '.center(width, "*"), bar, sep="\n" )
+    print( ' Args '.center(width, "*") )
 
     for param in [ f"{ k.replace('_', ' ').capitalize().rjust(10) } : { str(v).ljust(10) }" for k, v in args.items() ]:
         print(param.center(width))
@@ -98,7 +98,7 @@ def save_puzzle(puzzle: aocd.models.Puzzle, cfg:dict):
     Effects:
         Saves the puzzle object to disk and prints a message indicating success or failure
     """
-    _path:Path = Path(cfg['working_dirs']['puzzles']) / cfg['puzzle']['path']
+    _path:Path = Path(cfg['puzzle']['path']) # / cfg['puzzle']['path']
     _parent = _path.parent
     # print(f"save_puzzle: Saving Puzzle: {_path} ...")    
     try:

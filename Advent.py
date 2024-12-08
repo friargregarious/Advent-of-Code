@@ -6,7 +6,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-from PuzzleDayBuild import gparser
+from PuzzleDayBuild import gparser, solve_utilities as su
 
 
 cfg = toml.loads(Path(".env").read_text(encoding="utf-8"))
@@ -35,24 +35,25 @@ def refresh_core(year:int, day:int, CORE:dict) -> None:
     Returns:
         None
     """
+    # try:
     all_puzzles_path = Path(".puzzles")
-    stats = USER.get_stats(years=[year])
+    stats = USER.get_stats(years=year)
     d_key = f"{year}/{day:02}"
-    day_path = all_puzzles_path / f"{year}-{day:02}.aocd"
+    day_path = all_puzzles_path / f"{year:04}-{day:02}.aocd"
 
     if day_path.exists():
         try:
             p: aocd.models.Puzzle = pickle.loads(day_path.read_bytes())
             p._user = USER
-            p._request_puzzle_page()
+            # p._request_puzzle_page()
         except:
-            p = aocd.models.Puzzle(year, day, USER)
+            p = aocd.models.Puzzle(year=year, day=day, user=USER)
     else:
-        p = aocd.models.Puzzle(year, day, USER)
-
-    pickle.dump(p, day_path.open("wb"))
-
-    CORE[year][day] = {
+        p = aocd.models.Puzzle(year=year, day=day, user=USER)
+    
+    _y, _d = str(year), str(day)
+    
+    CORE[_y][_d] = {
         "title": p.title, 
         "url": p.url, 
         "results": {"A": "N/A", "B": "N/A"}, 
@@ -61,18 +62,23 @@ def refresh_core(year:int, day:int, CORE:dict) -> None:
     if d_key in stats:
         for part in stats[d_key]:
             if stats[d_key][part]['time'].days >= 1:
-                CORE[year][day]["results"][part.upper()] = "24+ hours"
+                CORE[_y][_d]["results"][part.upper()] = "24+ hours"
             
             else:
                 hrs = stats[d_key][part]['time'].total_seconds() // 3600
                 mins = stats[d_key][part]['time'].total_seconds() % 3600 // 60
-                CORE[year][day]["results"][part.upper()] = f"{int(hrs):02} hours, {int(mins):02} minutes"
+                CORE[_y][_d]["results"][part.upper()] = f"{int(hrs):02} hours, {int(mins):02} minutes"
 
     Path("core.json").write_text(json.dumps(CORE, indent=3), encoding="utf-8")
-                
+    pickle.dump(p, day_path.open("wb"))
+
+    # except Exception as e:
+    #     print(f"Refresh Core: Failed!!!\n              {e}")
+
 
 def get_stats(year:int, day:int) -> dict:
-    return CORE[year][day]
+    _y, _d = str(year), str(day)    
+    return CORE[_y][_d]
     
 
 def generate_readme():
@@ -124,21 +130,22 @@ if __name__ == "__main__":
     CORE = json.loads( Path(cfg["working_dirs"]["core"]).read_text(encoding="utf-8") )
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-g","--generate", help="Generate the readme text.", default=False, action="store_true")
-    parser.add_argument("-r","--refresh", help="Refresh the leaderboard data.", default=False, action="store_true")
-    parser.add_argument("-b","--build", help="Build a new puzzle folder.", default=False, action="store_true")
+    parser.add_argument("-g", "--generate", help="Generate the readme text.", default=False, action="store_true")
+    parser.add_argument("-r", "--refresh", help="Refresh the leaderboard data.", default=False, action="store_true")
+    parser.add_argument("-b", "--build", help="Build a new puzzle folder.", default=False, action="store_true")
     parser.add_argument("-y", "--year", help=f"Year of the puzzle to build (default {NOW.year}).", type=int, default=NOW.year, action="store")
     parser.add_argument("-d", "--day", help=f"Day of the puzzle to build (default {NOW.day}).", type=int, default=NOW.day, action="store")
-
+    
     args = vars( parser.parse_args() )
+    su.print_args(args=args)
+
     cfg = toml.loads(Path(".env").read_text(encoding="utf-8"))
     
-    print("Args:", ", ".join( [ f"{k} = {v}" for k, v in args.items() ] ) )
+    # print("Args:", ", ".join( [ f"{k} = {v}" for k, v in args.items() ] ) )
     
     if args["generate"]:
         generate_readme()
-
-
+        sys.exit(0)
     
     if args["build"]:
         cfg["puzzle"] = {
@@ -148,8 +155,8 @@ if __name__ == "__main__":
             }
 
         gparser.build_puzzle( cfg, args )
-
+        sys.exit(0)
     
-    # if args.refresh:
-        # refresh_core(args.year, args.day, CORE)
+    if args["refresh"]:
+        refresh_core(args["year"], args["day"], CORE)
         

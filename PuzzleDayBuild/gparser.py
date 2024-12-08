@@ -135,7 +135,7 @@ def build_defaults(target_path:Path, puzzle:aocd.models.Puzzle, cfg:dict):
         puzzle = su.open_puzzle(cfg) #  aocd.models.Puzzle(year=y, day=d, user=user)
     
     p_path = Path(cfg["working_dirs"]['puzzles']) / cfg["puzzle"]["path"]
-    su.save_puzzle(puzzle, p_path)
+    su.save_puzzle(puzzle, cfg)
         
     if not puzzle.answered_a or len(list(target_path.glob("*"))) == 0:
         
@@ -191,13 +191,8 @@ def build_puzzle(cfg:dict, args:dict):
         )
 
     year_folder = f"AOC {cfg["puzzle"]["year"]:04}"
-    day_folder = f"Day {cfg["puzzle"]["day"]:02}"
-
-    year_to_build = Path(cfg["working_dirs"]['target']) / year_folder
-    if not year_to_build.exists():
-        year_to_build.mkdir(parents=True)
-    
-    day_to_build = year_to_build / day_folder
+    day_folder = f"Day {cfg["puzzle"]["day"]:02}"    
+    day_to_build = Path(cfg["working_dirs"]['target']) / year_folder / day_folder
     if not day_to_build.exists():
         day_to_build.mkdir(parents=True)
 

@@ -1,5 +1,6 @@
 # Advent Of Code
 
+
 ## <https://adventofcode.com/>
 
 Brought to you by [Eric Wastl](http://was.tl/) and on Mastodon: <@ericwastl@hachyderm.io>.
@@ -14,7 +15,7 @@ You don't need a computer science background to participate - just a little prog
 
 ## Quinte & Area AoC Guild
 
-We're just a group of interconnected friends and coders within a few hours drive of Belleville, ON Canada. We use a handful of languages each, sometimes picking a different environment for each solution, depending on their strengths and weaknesses. I [friargreg](gregarious@Mastodon.social) started the server to gather a few people who would share in my epiphanies and aneurysms. 
+We're just a group of interconnected friends and coders within a few hours drive of Belleville, ON Canada. We use a handful of languages each, sometimes picking a different environment for each solution, depending on their strengths and weaknesses. I [friargreg] <gregarious@Mastodon.social> started the server to gather a few people who would share in my epiphanies and aneurysms. 
 
 
 ## Current Event: 2024 - <https://adventofcode.com/2024>
@@ -25,6 +26,10 @@ We're just a group of interconnected friends and coders within a few hours drive
 - Day 04 [X][X] [Ceres Search](https://adventofcode.com/2024/day/4)
 - Day 05 [X][X] [Print Queue](https://adventofcode.com/2024/day/5)
 - Day 06 [X][_] [Guard Gallivant](https://adventofcode.com/2024/day/6)
+- Day 07 [X][X] [Bridge Repair](https://adventofcode.com/2024/day/7)
+
+**Unfinished:** Day 08 [Resonant Collinearity](https://adventofcode.com/2024/day/8)
+
 
 ## Previous AoC Event: 2023 - <https://adventofcode.com/2023>
 

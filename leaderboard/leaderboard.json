@@ -1,0 +1,116 @@
+{
+  "event": "2024",
+  "owner_id": 2588518,
+  "members": {
+    "2588518": {
+      "id": 2588518,
+      "global_score": 0,
+      "stars": 6,
+      "last_star_ts": 1733267699,
+      "local_score": 22,
+      "completion_day_level": {
+        "2": {
+          "2": {"get_star_ts": 1733150646, "star_index": 254814},
+          "1": {"get_star_ts": 1733141246, "star_index": 218337}
+        },
+        "1": {
+          "1": {
+            "get_star_ts": 1733071193,
+            "star_index": 6148
+          },
+          "2": {
+            "star_index": 8730,
+            "get_star_ts": 1733072021
+          }
+        },
+        "3": {
+          "1": {
+            "get_star_ts": 1733243418,
+            "star_index": 586213
+          },
+          "2": {
+            "get_star_ts": 1733267699,
+            "star_index": 667518
+          }
+        }
+      },
+      "name": "friargregarious"
+    },
+    "3564991": {
+      "name": "GLotsapot",
+      "completion_day_level": {},
+      "local_score": 0,
+      "last_star_ts": 0,
+      "stars": 0,
+      "global_score": 0,
+      "id": 3564991
+    },
+    "997876": {
+      "completion_day_level": {
+        "1": {
+          "2": {
+            "get_star_ts": 1733069217,
+            "star_index": 410
+          },
+          "1": {
+            "star_index": 0,
+            "get_star_ts": 1733069070
+          }
+        },
+        "2": {
+          "1": {
+            "get_star_ts": 1733181558,
+            "star_index": 375224
+          },
+          "2": {
+            "star_index": 377196,
+            "get_star_ts": 1733182428
+          }
+        }
+      },
+      "name": "rjhelms",
+      "last_star_ts": 1733182428,
+      "local_score": 14,
+      "stars": 4,
+      "global_score": 0,
+      "id": 997876
+    },
+    "2586895": {
+      "id": 2586895,
+      "global_score": 0,
+      "last_star_ts": 1733274933,
+      "local_score": 12,
+      "stars": 5,
+      "name": "Miles Orrick",
+      "completion_day_level": {
+        "2": {
+          "1": {
+            "get_star_ts": 1733192342,
+            "star_index": 392953
+          }
+        },
+        "3": {
+          "2": {
+            "star_index": 679103,
+            "get_star_ts": 1733274933
+          },
+          "1": {
+            "get_star_ts": 1733273101,
+            "star_index": 676617
+          }
+        },
+        "1": {
+          "1": {
+            "get_star_ts": 1733075457,
+            "star_index": 19266
+          },
+          "2": {
+            "get_star_ts": 1733076566,
+            "star_index": 22814
+          }
+        }
+      }
+    }
+  },
+  "day1_ts": 1733029200
+}
