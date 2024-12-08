@@ -27,9 +27,7 @@ We're just a group of interconnected friends and coders within a few hours drive
 - Day 05 [X][X] [Print Queue](https://adventofcode.com/2024/day/5)
 - Day 06 [X][_] [Guard Gallivant](https://adventofcode.com/2024/day/6)
 - Day 07 [X][X] [Bridge Repair](https://adventofcode.com/2024/day/7)
-
-**Unfinished:** Day 08 [Resonant Collinearity](https://adventofcode.com/2024/day/8)
-
+- Day 08 [X][X] [Resonant Collinearity](https://adventofcode.com/2024/day/8)
 
 ## Previous AoC Event: 2023 - <https://adventofcode.com/2023>
 

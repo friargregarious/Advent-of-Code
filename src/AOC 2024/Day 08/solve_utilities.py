@@ -28,11 +28,8 @@ def print_args(args:dict):
     """
     width = 50
     bar = "*" * width
-    print( bar, ' Args '.center(width, "*"), bar, sep="\n" )
-
-    for param in [ f"{ k.replace('_', ' ').capitalize().rjust(10) } : { str(v).ljust(10) }" for k, v in args.items() ]:
-        print(param.center(width))
-
+    print( ' Args '.center(width, "*") )
+    print( "\n".join( [ f"{ k.replace('_', ' ').capitalize().rjust(10) } : { str(v).ljust(10) }".center(width) for k, v in args.items() ] ) )
     print( bar )
 
 
