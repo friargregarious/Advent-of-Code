@@ -12,8 +12,6 @@ from pathlib import Path
 from datetime import datetime
 
 
-
-
 def print_args(args:dict):
     """
     Prints the provided arguments in a formatted manner.
@@ -288,6 +286,7 @@ def Discord(config:dict, puzzle:aocd.models.Puzzle):
             f"{puzzle.url}",
             f"**Part A:** {dta.strftime('%Y-%m-%d %H:%M')}",
             f"**Part B:** {dtb.strftime('%Y-%m-%d %H:%M')}",
+            f"Checkout the [latest Leaderboard](https://adventofcode.com/{_year}/leaderboard/private/view/2588518)",
             "*This has been an automated message*",
             ])
 

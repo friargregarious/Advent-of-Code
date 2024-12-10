@@ -82,5 +82,17 @@ if __name__ == "__main__":
         source_input = data( Path("example_a.txt") ) if DO_EXAMPLE else data( Path("input.txt") )
         result = solve_a(source_input) if DO_A else solve_b(source_input)
 
-        print( f"Solution ({p}): {result} {f_ex}" )
-        su.submit_result(puzzle, result, p, config)
+        correct_msg = ""
+        match f"{'EXPL' if DO_EXAMPLE else 'REAL'}, {p}":
+            case "EXPL, A": correct_answer = puzzle.examples[0].answer_a
+            # case "EXPL, B": correct_answer = puzzle.examples[0].answer_b
+            case "EXPL, B": correct_answer = '34' # puzzle file is corrupt.
+            case "REAL, A": correct_answer = puzzle.answer_a if puzzle.answered_a else "unknown"
+            case "REAL, B": correct_answer = puzzle.answer_b if puzzle.answered_b else "unknown"
+            case _: correct_answer = "unknown"
+        
+        compare = correct_answer == str(result)
+        correct_msg = f"IS CORRECT!! ({correct_answer})" if compare else f"IS NOT CORRECT ({correct_answer})"
+
+        print( f"Solution ({p}): {result} {correct_msg} {f_ex}" )
+        if not DO_EXAMPLE: su.submit_result(puzzle, result, p, config)
