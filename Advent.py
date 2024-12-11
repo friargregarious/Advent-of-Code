@@ -51,7 +51,7 @@ def refresh_core(year:int, day:int, CORE:dict) -> None:
     else:
         p = aocd.models.Puzzle(year=year, day=day, user=USER)
     
-    _y, _d = str(year), str(day)
+    _y, _d = f"{year:04}", f"{day:02}"
     
     CORE[_y][_d] = {
         "title": p.title, 
@@ -69,11 +69,9 @@ def refresh_core(year:int, day:int, CORE:dict) -> None:
                 mins = stats[d_key][part]['time'].total_seconds() % 3600 // 60
                 CORE[_y][_d]["results"][part.upper()] = f"{int(hrs):02} hours, {int(mins):02} minutes"
 
-    Path("core.json").write_text(json.dumps(CORE, indent=3), encoding="utf-8")
+    Path("core.json").write_text(json.dumps(CORE, indent=3, sort_keys=True ), encoding="utf-8")
     pickle.dump(p, day_path.open("wb"))
 
-    # except Exception as e:
-    #     print(f"Refresh Core: Failed!!!\n              {e}")
 
 
 def get_stats(year:int, day:int) -> dict:
@@ -116,6 +114,8 @@ def generate_readme():
             report.append(unfinished_text)
 
     page = "\n".join(report)
+    page = page.replace("\n\n\n", "\n\n")
+    
     Path("README.md").write_text(page, encoding="utf-8")
     # print(page)
     # return page
@@ -141,12 +141,8 @@ if __name__ == "__main__":
 
     cfg = toml.loads(Path(".env").read_text(encoding="utf-8"))
     
-    # print("Args:", ", ".join( [ f"{k} = {v}" for k, v in args.items() ] ) )
-    
-    if args["generate"]:
-        generate_readme()
-        sys.exit(0)
-    
+    print("Args:", ", ".join( [ f"{k} = {v}" for k, v in args.items() ] ) )
+        
     if args["build"]:
         cfg["puzzle"] = {
             "year": args["year"], 
@@ -155,8 +151,10 @@ if __name__ == "__main__":
             }
 
         gparser.build_puzzle( cfg, args )
-        sys.exit(0)
     
     if args["refresh"]:
         refresh_core(args["year"], args["day"], CORE)
         
+    if args["generate"]:
+        generate_readme()
+
