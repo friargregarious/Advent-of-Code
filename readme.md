@@ -21,6 +21,7 @@ We're just a group of interconnected friends and coders within a few hours drive
 ## Current Event: 2024 - <https://adventofcode.com/2024>
 
 - Day 01 [X][X] [Historian Hysteria](https://adventofcode.com/2024/day/1)
+- Day 10 [X][X] [Hoof It](https://adventofcode.com/2024/day/10)
 - Day 02 [X][X] [Red-Nosed Reports](https://adventofcode.com/2024/day/2)
 - Day 03 [X][X] [Mull It Over](https://adventofcode.com/2024/day/3)
 - Day 04 [X][X] [Ceres Search](https://adventofcode.com/2024/day/4)

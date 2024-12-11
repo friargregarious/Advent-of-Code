@@ -1881,6 +1881,14 @@
             "A": "02 hours, 07 minutes",
             "B": "11 hours, 31 minutes"
          }
+      },
+      "10": {
+         "title": "Hoof It",
+         "url": "https://adventofcode.com/2024/day/10",
+         "results": {
+            "A": "19 hours, 31 minutes",
+            "B": "19 hours, 45 minutes"
+         }
       }
    }
 }
