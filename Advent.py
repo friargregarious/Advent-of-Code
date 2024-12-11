@@ -87,13 +87,13 @@ def generate_readme():
         # Path("templates/qaoc.md").read_text(encoding="utf-8").format(year=NOW.year),        
     ]
 
-    # happy = 😁 😎    💃🏼 🕺🏼 🧔🏼‍♂️ 🎉 🎈      ♻️ 🆘  🔜 
+    # happy = 😁 😎 🧔🏼‍♂️         ♻️ 🆘  🔜 
 
  
      
     for year in sorted(CORE.keys(), reverse=True):
         if int(year) == NOW.year:
-            year_line = f"\n## Current Event: {year} - <https://adventofcode.com/{year}>\n"
+            year_line = f"\n## 🎈💃🏼 Current Event: {year} - <https://adventofcode.com/{year}> 🕺🏼🎉\n"
         else:
             year_line = f"\n## Previous AoC Event: {year} - <https://adventofcode.com/{year}>\n"
         
@@ -131,7 +131,7 @@ def generate_readme():
                 b = "🤬"
 
 
-            if not a == b == "😴":
+            if not a == b == "😴": # type: ignore
                 day_line = f"- Day {int(day):02} [{a}][{b}] [{title}]({url})"
                 report.append(day_line)
             else:
@@ -139,7 +139,7 @@ def generate_readme():
                 unfinished_days.append(day_line)
 
         if len(unfinished_days) > 0:
-            unfinished_text = f"\n☢️ **Unfinished:** {", ".join(unfinished_days)} ☣️ \n"
+            unfinished_text = f"\n☢️ **Unfinished:** ☣️ {", ".join(unfinished_days)} \n"
             report.append(unfinished_text)
 
     page = "\n".join(report)
