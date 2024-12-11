@@ -86,7 +86,11 @@ def generate_readme():
         Path("templates/aoc.md").read_text(encoding="utf-8").format(year=NOW.year),
         # Path("templates/qaoc.md").read_text(encoding="utf-8").format(year=NOW.year),        
     ]
-    
+
+    # happy = 😁 😎    💃🏼 🕺🏼 🧔🏼‍♂️ 🎉 🎈      ♻️ 🆘  🔜 
+
+ 
+     
     for year in sorted(CORE.keys(), reverse=True):
         if int(year) == NOW.year:
             year_line = f"\n## Current Event: {year} - <https://adventofcode.com/{year}>\n"
@@ -99,10 +103,35 @@ def generate_readme():
         for day in sorted(CORE[year].keys(), reverse=False):
             title = CORE[year][day]["title"]
             url = CORE[year][day]["url"]
-            a = "X" if CORE[year][day]["results"]["A"] != "N/A" else "_"
-            b = "X" if CORE[year][day]["results"]["B"] != "N/A" else "_"
+            #   
+            if CORE[year][day]["results"]["A"] == "24+ hours":
+                a = "⌛"
 
-            if not a == b == "_":
+            elif CORE[year][day]["results"]["A"] == "N/A":
+                a = "😴"
+
+            elif int(CORE[year][day]["results"]["A"].split(" hours")[0]) <= 12:   #"0 hours, 0 minutes":
+                a = "😎"
+            
+            elif int(CORE[year][day]["results"]["A"].split(" hours")[0]) >= 12:
+                a = "🤬"
+                        
+
+
+            if CORE[year][day]["results"]["B"] == "24+ hours":
+                b = "⌛"
+
+            elif CORE[year][day]["results"]["B"] == "N/A":
+                b = "😴"
+
+            elif int(CORE[year][day]["results"]["B"].split(" hours")[0]) <= 12:   #"0 hours, 0 minutes":
+                b = "😎"
+            
+            elif int(CORE[year][day]["results"]["B"].split(" hours")[0]) >= 12:
+                b = "🤬"
+
+
+            if not a == b == "😴":
                 day_line = f"- Day {int(day):02} [{a}][{b}] [{title}]({url})"
                 report.append(day_line)
             else:
@@ -110,11 +139,14 @@ def generate_readme():
                 unfinished_days.append(day_line)
 
         if len(unfinished_days) > 0:
-            unfinished_text = f"\n**Unfinished:** {", ".join(unfinished_days)}\n"
+            unfinished_text = f"\n☢️ **Unfinished:** {", ".join(unfinished_days)} ☣️ \n"
             report.append(unfinished_text)
 
     page = "\n".join(report)
+    page = page.replace(" \n", "\n")
+    page = page.replace("  ", " ")
     page = page.replace("\n\n\n", "\n\n")
+    
     
     Path("README.md").write_text(page, encoding="utf-8")
     # print(page)
