@@ -1897,6 +1897,14 @@
          },
          "title": "Hoof It",
          "url": "https://adventofcode.com/2024/day/10"
+      },
+      "12": {
+         "results": {
+            "A": "16 hours, 34 minutes",
+            "B": "N/A"
+         },
+         "title": "Garden Groups",
+         "url": "https://adventofcode.com/2024/day/12"
       }
    }
 }
