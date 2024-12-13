@@ -1861,7 +1861,7 @@
       "06": {
          "results": {
             "A": "08 hours, 14 minutes",
-            "B": "N/A"
+            "B": "24+ hours"
          },
          "title": "Guard Gallivant",
          "url": "https://adventofcode.com/2024/day/6"
@@ -1909,7 +1909,7 @@
       "12": {
          "results": {
             "A": "16 hours, 34 minutes",
-            "B": "N/A"
+            "B": "23 hours, 12 minutes"
          },
          "title": "Garden Groups",
          "url": "https://adventofcode.com/2024/day/12"

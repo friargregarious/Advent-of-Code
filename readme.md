@@ -31,13 +31,13 @@ We're just a group of interconnected friends and coders within a few hours drive
 - Day 03 [😎][🤬] [Mull It Over](https://adventofcode.com/2024/day/3)
 - Day 04 [🤬][🤬] [Ceres Search](https://adventofcode.com/2024/day/4)
 - Day 05 [😎][😎] [Print Queue](https://adventofcode.com/2024/day/5)
-- Day 06 [😎][😴] [Guard Gallivant](https://adventofcode.com/2024/day/6)
+- Day 06 [😎][⌛] [Guard Gallivant](https://adventofcode.com/2024/day/6)
 - Day 07 [😎][😎] [Bridge Repair](https://adventofcode.com/2024/day/7)
 - Day 08 [😎][😎] [Resonant Collinearity](https://adventofcode.com/2024/day/8)
 - Day 09 [🤬][🤬] [Disk Fragmenter](https://adventofcode.com/2024/day/9)
 - Day 10 [🤬][🤬] [Hoof It](https://adventofcode.com/2024/day/10)
 - Day 11 [😎][⌛] [Plutonian Pebbles](https://adventofcode.com/2024/day/11)
-- Day 12 [🤬][😴] [Garden Groups](https://adventofcode.com/2024/day/12)
+- Day 12 [🤬][🤬] [Garden Groups](https://adventofcode.com/2024/day/12)
 
 ## Previous AoC Event: 2023 - <https://adventofcode.com/2023>
 
