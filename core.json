@@ -1913,6 +1913,14 @@
          },
          "title": "Garden Groups",
          "url": "https://adventofcode.com/2024/day/12"
+      },
+      "13": {
+         "results": {
+            "A": "13 hours, 52 minutes",
+            "B": "22 hours, 13 minutes"
+         },
+         "title": "Claw Contraption",
+         "url": "https://adventofcode.com/2024/day/13"
       }
    }
 }

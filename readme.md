@@ -38,6 +38,7 @@ We're just a group of interconnected friends and coders within a few hours drive
 - Day 10 [🤬][🤬] [Hoof It](https://adventofcode.com/2024/day/10)
 - Day 11 [😎][⌛] [Plutonian Pebbles](https://adventofcode.com/2024/day/11)
 - Day 12 [🤬][🤬] [Garden Groups](https://adventofcode.com/2024/day/12)
+- Day 13 [🤬][🤬] [Claw Contraption](https://adventofcode.com/2024/day/13)
 
 ## Previous AoC Event: 2023 - <https://adventofcode.com/2023>
 
