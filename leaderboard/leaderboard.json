@@ -1,116 +1,302 @@
 {
-  "event": "2024",
-  "owner_id": 2588518,
-  "members": {
-    "2588518": {
-      "id": 2588518,
-      "global_score": 0,
-      "stars": 6,
-      "last_star_ts": 1733267699,
-      "local_score": 22,
-      "completion_day_level": {
-        "2": {
-          "2": {"get_star_ts": 1733150646, "star_index": 254814},
-          "1": {"get_star_ts": 1733141246, "star_index": 218337}
-        },
-        "1": {
-          "1": {
-            "get_star_ts": 1733071193,
-            "star_index": 6148
+   "day1_ts": 1733029200,
+   "event": "2024",
+   "members": {
+      "2586895": {
+         "completion_day_level": {
+            "1": { "1": { "get_star_ts": 1733075457, "star_index": 19266 }, "2": { "get_star_ts": 1733076566, "star_index": 22814 } },
+            "2": { "1": { "get_star_ts": 1733192342, "star_index": 392953 } },
+            "3": { "1": { "get_star_ts": 1733273101, "star_index": 676617 }, "2": { "get_star_ts": 1733274933, "star_index": 679103 } } 
           },
-          "2": {
-            "star_index": 8730,
-            "get_star_ts": 1733072021
-          }
-        },
-        "3": {
-          "1": {
-            "get_star_ts": 1733243418,
-            "star_index": 586213
-          },
-          "2": {
-            "get_star_ts": 1733267699,
-            "star_index": 667518
-          }
-        }
+         "name": "Miles Orrick",
+         "id": 2586895,
+         "global_score": 0,
+         "last_star_ts": 1733274933,
+         "local_score": 12,
+         "stars": 5,
       },
-      "name": "friargregarious"
-    },
-    "3564991": {
-      "name": "GLotsapot",
-      "completion_day_level": {},
-      "local_score": 0,
-      "last_star_ts": 0,
-      "stars": 0,
-      "global_score": 0,
-      "id": 3564991
-    },
-    "997876": {
-      "completion_day_level": {
-        "1": {
-          "2": {
-            "get_star_ts": 1733069217,
-            "star_index": 410
-          },
-          "1": {
-            "star_index": 0,
-            "get_star_ts": 1733069070
-          }
-        },
-        "2": {
-          "1": {
-            "get_star_ts": 1733181558,
-            "star_index": 375224
-          },
-          "2": {
-            "star_index": 377196,
-            "get_star_ts": 1733182428
-          }
-        }
+      "2588518": {
+         "completion_day_level": {
+            "1": {
+               "1": {
+                  "get_star_ts": 1733071193,
+                  "star_index": 6148
+               },
+               "2": {
+                  "get_star_ts": 1733072021,
+                  "star_index": 8730
+               }
+            },
+            "10": {
+               "1": {
+                  "get_star_ts": 1733877115,
+                  "star_index": 1981716
+               },
+               "2": {
+                  "get_star_ts": 1733877947,
+                  "star_index": 1982355
+               }
+            },
+            "11": {
+               "1": {
+                  "get_star_ts": 1733923022,
+                  "star_index": 2062435
+               },
+               "2": {
+                  "get_star_ts": 1734008877,
+                  "star_index": 2187679
+               }
+            },
+            "12": {
+               "1": {
+                  "get_star_ts": 1734039297,
+                  "star_index": 2233016
+               },
+               "2": {
+                  "get_star_ts": 1734063149,
+                  "star_index": 2252624
+               }
+            },
+            "2": {
+               "1": {
+                  "get_star_ts": 1733141246,
+                  "star_index": 218337
+               },
+               "2": {
+                  "get_star_ts": 1733150646,
+                  "star_index": 254814
+               }
+            },
+            "3": {
+               "1": {
+                  "get_star_ts": 1733243418,
+                  "star_index": 586213
+               },
+               "2": {
+                  "get_star_ts": 1733267699,
+                  "star_index": 667518
+               }
+            },
+            "4": {
+               "1": {
+                  "get_star_ts": 1733337927,
+                  "star_index": 864334
+               },
+               "2": {
+                  "get_star_ts": 1733347789,
+                  "star_index": 895157
+               }
+            },
+            "5": {
+               "1": {
+                  "get_star_ts": 1733378944,
+                  "star_index": 959629
+               },
+               "2": {
+                  "get_star_ts": 1733414104,
+                  "star_index": 1062154
+               }
+            },
+            "6": {
+               "1": {
+                  "get_star_ts": 1733490875,
+                  "star_index": 1236238
+               },
+               "2": {
+                  "get_star_ts": 1734062259,
+                  "star_index": 2252170
+               }
+            },
+            "7": {
+               "1": {
+                  "get_star_ts": 1733585965,
+                  "star_index": 1437687
+               },
+               "2": {
+                  "get_star_ts": 1733590275,
+                  "star_index": 1447900
+               }
+            },
+            "8": {
+               "1": {
+                  "get_star_ts": 1733641648,
+                  "star_index": 1536092
+               },
+               "2": {
+                  "get_star_ts": 1733675484,
+                  "star_index": 1612675
+               }
+            },
+            "9": {
+               "1": {
+                  "get_star_ts": 1733788785,
+                  "star_index": 1825400
+               },
+               "2": {
+                  "get_star_ts": 1733806017,
+                  "star_index": 1838675
+               }
+            }
+         },
+         "global_score": 0,
+         "id": 2588518,
+         "last_star_ts": 1734063149,
+         "local_score": 87,
+         "name": "friargregarious",
+         "stars": 24
       },
-      "name": "rjhelms",
-      "last_star_ts": 1733182428,
-      "local_score": 14,
-      "stars": 4,
-      "global_score": 0,
-      "id": 997876
-    },
-    "2586895": {
-      "id": 2586895,
-      "global_score": 0,
-      "last_star_ts": 1733274933,
-      "local_score": 12,
-      "stars": 5,
-      "name": "Miles Orrick",
-      "completion_day_level": {
-        "2": {
-          "1": {
-            "get_star_ts": 1733192342,
-            "star_index": 392953
-          }
-        },
-        "3": {
-          "2": {
-            "star_index": 679103,
-            "get_star_ts": 1733274933
-          },
-          "1": {
-            "get_star_ts": 1733273101,
-            "star_index": 676617
-          }
-        },
-        "1": {
-          "1": {
-            "get_star_ts": 1733075457,
-            "star_index": 19266
-          },
-          "2": {
-            "get_star_ts": 1733076566,
-            "star_index": 22814
-          }
-        }
+      "3564991": {
+         "completion_day_level": {
+            "1": {
+               "1": {
+                  "get_star_ts": 1733806259,
+                  "star_index": 1838850
+               },
+               "2": {
+                  "get_star_ts": 1733807496,
+                  "star_index": 1841720
+               }
+            },
+            "2": {
+               "1": {
+                  "get_star_ts": 1734019517,
+                  "star_index": 2203920
+               }
+            }
+         },
+         "global_score": 0,
+         "id": 3564991,
+         "last_star_ts": 1734019517,
+         "local_score": 3,
+         "name": "GLotsapot",
+         "stars": 3
+      },
+      "997876": {
+         "completion_day_level": {
+            "1": {
+               "1": {
+                  "get_star_ts": 1733069070,
+                  "star_index": 0
+               },
+               "2": {
+                  "get_star_ts": 1733069217,
+                  "star_index": 410
+               }
+            },
+            "10": {
+               "1": {
+                  "get_star_ts": 1733891152,
+                  "star_index": 1991217
+               },
+               "2": {
+                  "get_star_ts": 1733892935,
+                  "star_index": 1992273
+               }
+            },
+            "11": {
+               "1": {
+                  "get_star_ts": 1733949212,
+                  "star_index": 2109039
+               },
+               "2": {
+                  "get_star_ts": 1733951135,
+                  "star_index": 2112403
+               }
+            },
+            "12": {
+               "1": {
+                  "get_star_ts": 1734018048,
+                  "star_index": 2201651
+               }
+            },
+            "2": {
+               "1": {
+                  "get_star_ts": 1733181558,
+                  "star_index": 375224
+               },
+               "2": {
+                  "get_star_ts": 1733182428,
+                  "star_index": 377196
+               }
+            },
+            "3": {
+               "1": {
+                  "get_star_ts": 1733418062,
+                  "star_index": 1073134
+               },
+               "2": {
+                  "get_star_ts": 1733418567,
+                  "star_index": 1074377
+               }
+            },
+            "4": {
+               "1": {
+                  "get_star_ts": 1733498585,
+                  "star_index": 1256140
+               },
+               "2": {
+                  "get_star_ts": 1733525607,
+                  "star_index": 1316748
+               }
+            },
+            "5": {
+               "1": {
+                  "get_star_ts": 1733526713,
+                  "star_index": 1318624
+               },
+               "2": {
+                  "get_star_ts": 1733527167,
+                  "star_index": 1319330
+               }
+            },
+            "6": {
+               "1": {
+                  "get_star_ts": 1733589609,
+                  "star_index": 1446387
+               },
+               "2": {
+                  "get_star_ts": 1733605453,
+                  "star_index": 1479451
+               }
+            },
+            "7": {
+               "1": {
+                  "get_star_ts": 1733607572,
+                  "star_index": 1483608
+               },
+               "2": {
+                  "get_star_ts": 1733608284,
+                  "star_index": 1484998
+               }
+            },
+            "8": {
+               "1": {
+                  "get_star_ts": 1733634806,
+                  "star_index": 1514361
+               },
+               "2": {
+                  "get_star_ts": 1733635092,
+                  "star_index": 1515904
+               }
+            },
+            "9": {
+               "1": {
+                  "get_star_ts": 1733762209,
+                  "star_index": 1773167
+               },
+               "2": {
+                  "get_star_ts": 1733765951,
+                  "star_index": 1781085
+               }
+            }
+         },
+         "global_score": 0,
+         "id": 997876,
+         "last_star_ts": 1734018048,
+         "local_score": 76,
+         "name": "rjhelms",
+         "stars": 23
       }
-    }
-  },
-  "day1_ts": 1733029200
+   },
+   "owner_id": 2588518
 }

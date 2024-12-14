@@ -269,7 +269,6 @@ def Discord(config:dict, puzzle:aocd.models.Puzzle):
     else:
         channel = config['discord']['general']
 
-
     if puzzle.answered_a and puzzle.answered_b:
         day_done = datetime(year=puzzle.year, month=12, day=puzzle.day, hour=0, minute=0, second=0)
         dta = day_done + puzzle.my_stats['a']['time']
@@ -280,14 +279,31 @@ def Discord(config:dict, puzzle:aocd.models.Puzzle):
         
         url = f"https://discord.com/api/v9/channels/{channel}/messages"
 
+        ############################
+        if puzzle.easter_eggs:
+            egg = puzzle.easter_eggs[0].attrs["title"] # type: ignore
+            EASTER_EGG = f"\n*{egg}*\n"
+        else:
+            EASTER_EGG = ""
+
+        ############################
+
+        diff = dtb - dta
+        hrs = diff.total_seconds() // 3600
+        mins = diff.total_seconds() % 3600 // 60
+
+        a_time = f" {dta.hour} hrs, {dta.minute} mins" if dta.day <= _day else "24+ hrs"
+        b_time = f"+{hrs} hrs, {mins} mins" if dtb.day <= _day else "24+ hrs"
+
         msg = "\n".join([
             "Hey @everyone!!!",
             f"I have completed AoC {_year} Day {_day:02}: **{puzzle.title}**",
             f"{puzzle.url}",
-            f"**Part A:** {dta.strftime('%Y-%m-%d %H:%M')}",
-            f"**Part B:** {dtb.strftime('%Y-%m-%d %H:%M')}",
+            f"**Part A:** {a_time}",
+            f"**Part B:** {b_time}",
+            EASTER_EGG,
             f"Checkout the [latest Leaderboard](https://adventofcode.com/{_year}/leaderboard/private/view/2588518)",
-            "*This has been an automated message*",
+            "*This has been an automated message*", 
             ])
 
         content = {"content": msg, "mention_everyone": True}
@@ -309,6 +325,7 @@ def Discord(config:dict, puzzle:aocd.models.Puzzle):
         print("Discord: You have not yet completed both parts of the puzzle.\nNo gloating till you're finished!")
         
     sys.exit(0)
+
     
 def update_header(puzzle: aocd.models.Puzzle):
     """

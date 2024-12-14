@@ -3,7 +3,7 @@ import argparse
 import os, sys
 import json, toml, pickle
 import time
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 
 from PuzzleDayBuild import gparser, solve_utilities as su
@@ -152,6 +152,30 @@ def generate_readme():
     # print(page)
     # return page
 
+
+def auto_load():
+    global CORE
+    CORE = json.loads( Path(cfg["working_dirs"]["core"]).read_text(encoding="utf-8") )
+
+    year = max( map(int,  CORE.keys()) )
+    target_day = max( map(int,  CORE[str(year)].keys()) ) + 1
+    print(f"\n{' AUTO '.center(60, '-')}\n")
+    while True:
+        os.system("cls")
+        now = datetime.now()
+        time.sleep(90)
+        print(f"AUTO: Waiting... {now.strftime('%Y-%m-%d %H:%M:%S')}")
+        if now > datetime(year=year, month=12, day=target_day):
+            try:
+                print(f"building puzzle for {year} {target_day}")
+                os.system(f"Advent.py -b -d={target_day}")
+                print(f"Successfully built puzzle templates for {year} {target_day}")
+                sys.exit(0)
+            except:
+                print(f"failed to build puzzle for {year} {target_day}")
+                sys.exit(1)
+
+
     
 if __name__ == "__main__":
     os.system("cls")
@@ -167,6 +191,7 @@ if __name__ == "__main__":
     parser.add_argument("-b", "--build", help="Build a new puzzle folder.", default=False, action="store_true")
     parser.add_argument("-y", "--year", help=f"Year of the puzzle to build (default {NOW.year}).", type=int, default=NOW.year, action="store")
     parser.add_argument("-d", "--day", help=f"Day of the puzzle to build (default {NOW.day}).", type=int, default=NOW.day, action="store")
+    parser.add_argument("-a", "--auto", help=f"Time loop waiting for next day's puzzle to activate (default False).", default=False, action="store_true")
     
     args = vars( parser.parse_args() )
     su.print_args(args=args)
@@ -189,4 +214,7 @@ if __name__ == "__main__":
         
     if args["generate"]:
         generate_readme()
+    
+    if args["auto"]:
+        auto_load()
 

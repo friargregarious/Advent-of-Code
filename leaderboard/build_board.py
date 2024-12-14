@@ -4,11 +4,11 @@ from tracemalloc import start
 import matplotlib.pyplot as plt
 
 from pathlib import Path
-from datetime import datetime
+from datetime import date, datetime
 # from bs4 import BeautifulSoup
 
 cfgpath = Path().cwd().parent / ".env"
-cfg = toml.loads(cfgpath.read_text())
+cfg = toml.loads(cfgpath.read_text(encoding="utf-8"))
 cfgpath.write_text(toml.dumps(cfg))
 
 now = datetime.now()
@@ -55,12 +55,27 @@ def refresh_leaderboard_data():
     # user_stats = aocd.models.User(token).get_stats(now.year)
     # https://adventofcode.com/2024/leaderboard/private/view/2588518.json
     try:
-        new_data = requests.get(cfg["leaderboard"]["address"], cookies={"session" : cfg["user"]["token"]} ).json()
-        Path("leaderboard.json").write_text(json.dumps(new_data, indent=3))
-        print("Success updating leaderboard data.")
-    except:
-        print("Error getting leaderboard data.")
+        new_data = requests.get(cfg["user"]["leaderboard"], cookies={"session" : cfg["user"]["token"]} ).json()
+        Path("leaderboard.json").write_text(json.dumps(new_data, indent=3, sort_keys=True))
+        return "Success updating leaderboard data."
+    except Exception as e:
+        return f"Error getting leaderboard data.\n\n{e}"
 
+def convert_to_plot_data(data:dict):
+    leaderboard_core = { int(data["event"]) : {} }
+    member_core:dict = {}
+    
+    members = data["members"]
+    for id, items in members.items():
+        member_core[int(id)] = items["name"]
+        
+        leaderboard_core[int(id)] = {}
+
+        for day, stars in items["completion_day_level"].items():
+            for star, stuff in stars.items():        
+
+
+        
 
 def plot_day_scores(data:dict, day:int):
     stats = []
@@ -94,14 +109,25 @@ if __name__ == "__main__":
     os.system("cls")
     args = argparse.ArgumentParser()
 
-    args.add_argument("--refresh", help="Refresh the leaderboard data.", type=bool, default=False)
-    args.add_argument("--day", type=int)
+    args.add_argument("-r", "--refresh", help="Refresh the leaderboard data.", action="store_true", default=False)
+    # args.add_argument("-d", "--day", type=int, help="Day of the puzzle to build.")
+    args.add_argument("-p", "--plot", type=int, help="Generate the new plot files from leaderboard data.")
     args = args.parse_args()
+
+    print(" Args ".center(80, "-"))
+    for key, data in vars(args).items():
+        msg = key.rjust(20) + " : " + str(data).ljust(20)
+        print(msg.center(80))
+    print(80 * "-")
+
     
     if args.refresh:
-        refresh_leaderboard_data()
-    
-    print("Args:", args.refresh, args.day)
+        error_msg = refresh_leaderboard_data()
+        print(error_msg)
 
-    member_data = update_leaderboard(aocd_leaderboard_data)
-    plot_day_scores(member_data, 2)
+    if args.plot:
+        member_data = update_leaderboard(aocd_leaderboard_data)
+        plot_day_scores(member_data, 2)
+
+    
+

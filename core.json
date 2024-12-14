@@ -1921,6 +1921,14 @@
          },
          "title": "Claw Contraption",
          "url": "https://adventofcode.com/2024/day/13"
+      },
+      "14": {
+         "results": {
+            "A": "14 hours, 03 minutes",
+            "B": "15 hours, 21 minutes"
+         },
+         "title": "Restroom Redoubt",
+         "url": "https://adventofcode.com/2024/day/14"
       }
    }
 }
