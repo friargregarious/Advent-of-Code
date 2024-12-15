@@ -4,7 +4,6 @@
 ###############################################################################
 # imports, globals and helper functions/classes
 
-from cycler import V
 import os, argparse, toml, sys
 import solve_utilities as su
 from pathlib import Path

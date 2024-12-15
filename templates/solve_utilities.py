@@ -24,7 +24,7 @@ def print_args(args:dict):
         Prints a separator line, followed by the formatted argument names and values, and ends
         with another separator line.
     """
-    width = 50
+    width = 80
     bar = "*" * width
     print( ' Args '.center(width, "*") )
     print( "\n".join( [ f"{ k.replace('_', ' ').capitalize().rjust(10) } : { str(v).ljust(10) }".center(width) for k, v in args.items() ] ) )
@@ -289,9 +289,9 @@ def Discord(config:dict, puzzle:aocd.models.Puzzle):
         ############################
 
         diff = dtb - dta
-        hrs = diff.total_seconds() // 3600
-        mins = diff.total_seconds() % 3600 // 60
-
+        hrs = int(diff.total_seconds() // 3600)
+        mins = round(diff.total_seconds() % 3600 / 60, 1)
+        
         a_time = f" {dta.hour} hrs, {dta.minute} mins" if dta.day <= _day else "24+ hrs"
         b_time = f"+{hrs} hrs, {mins} mins" if dtb.day <= _day else "24+ hrs"
 

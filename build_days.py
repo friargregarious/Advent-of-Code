@@ -9,10 +9,8 @@ from bs4 import BeautifulSoup
 from markdownify import markdownify
 from pathlib import Path
 from datetime import datetime
-try:
-    from . import solve_utilities as su
-except:
-    import solve_utilities as su
+from templates import solve_utilities as su
+
 
 config = su.get_config()
 
@@ -85,7 +83,7 @@ def solve_text(puzzle:aocd.models.Puzzle):
         
     headers = [
         bar, blank,
-        "#" + f"ADVENT OF CODE: {year()}".center(78) + "#",
+        "#" + f"ADVENT OF CODE: {puzzle.year} DAY {puzzle.day}".center(78) + "#",
         "#" + puzzle.title.center(78) + "#",
         "#" + puzzle.url.center(78) + "#",
         blank, bar,
@@ -95,11 +93,11 @@ def solve_text(puzzle:aocd.models.Puzzle):
         "# SOLVER:".ljust(14) + "friargregarious (greg.denyes@gmail.com)".ljust(80-15) + "#",
         "# HOME:".ljust(14) + "https://github.com/friargregarious".ljust(80-15) + "#",
         blank,
-        f"#" + f"WRITTEN AND TESTED IN PYTHON VER {platform.python_version()}".center(76) + "#",
+        f"#" + f"WRITTEN AND TESTED IN PYTHON VER {platform.python_version()}".center(78) + "#",
         blank, bar               
         ]
     
-    page = (Path( __file__ ).parent / "solve_example.py" ).read_text()
+    page = (Path( "templates" ) / "solve_example.py" ).read_text()
     page = page.replace( "{#HEADER}", "\n".join(headers) )
     
     return page
@@ -138,37 +136,19 @@ def build_defaults(target_path:Path, puzzle:aocd.models.Puzzle, cfg:dict):
     su.save_puzzle(puzzle, cfg)
         
     if not puzzle.answered_a or len(list(target_path.glob("*"))) == 0:
-        
+
         files = {
-            "EXAMPLE" : {
-                "path" : target_path / f"example_a.txt",
-                "content" : puzzle.examples[0].input_data
-                },
-            "SOLVE" : {
-                "path" : target_path / f"Solve_{_y:04}_{_d:02}.py",
-                "content" : solve_text(puzzle),
-                },
-            "README" : {
-                "path" : target_path / f"README.md",
-                "content" : readme_text(puzzle)
-                },
-            "INPUT" : {
-                "path" : target_path / "input.txt",
-                "content" : puzzle.input_data or requests.get(puzzle.input_data_url).text
-                },
-            "CFG" : {
-                "path" : target_path / ".env",
-                "content" : toml.dumps(cfg)
-                },
-            "utils" : {
-                "path" : target_path / "solve_utilities.py",
-                "content" : (Path(__file__).parent / "solve_utilities.py").read_text()
-            }
+                (target_path / f"example_a.txt").as_posix() :  puzzle.examples[0].input_data,
+                (target_path / f"Solve_{_y:04}_{_d:02}.py").as_posix() : solve_text(puzzle),
+                (target_path / f"README.md").as_posix() : readme_text(puzzle),
+                (target_path / "input.txt").as_posix() : puzzle.input_data or requests.get(puzzle.input_data_url).text,
+                (target_path / ".env").as_posix() : toml.dumps(cfg),
+                (target_path / "solve_utilities.py").as_posix() : (Path("templates") / "solve_utilities.py").read_text(),
             }
 
-        for _, v in files.items():
-            if not v["path"].exists():
-                v["path"].write_text(v["content"], encoding="utf-8")
+        for _path, content in files.items():
+            if not Path(_path).exists():
+                Path(_path).write_text(content, encoding="utf-8")
             
     else:
         if puzzle.examples[1]:
@@ -183,21 +163,29 @@ def build_defaults(target_path:Path, puzzle:aocd.models.Puzzle, cfg:dict):
         content = readme_text(puzzle)
         path.write_text(content)
         
-def build_puzzle(cfg:dict, args:dict): 
+def build_puzzle(cfg:dict):
     puzzle = aocd.models.Puzzle(
         year=cfg["puzzle"]["year"], 
         day=cfg["puzzle"]["day"], 
         user=aocd.models.User(config['user']['token'])
         )
 
-    year_folder = f"AOC {cfg["puzzle"]["year"]:04}"
-    day_folder = f"Day {cfg["puzzle"]["day"]:02}"    
-    day_to_build = Path(cfg["working_dirs"]['target']) / year_folder / day_folder
-    if not day_to_build.exists():
-        day_to_build.mkdir(parents=True)
+    year_folder = Path(cfg["working_dirs"]['target']) / f"AOC {cfg["puzzle"]["year"]:04}"
+    day_folder = year_folder / f"Day {cfg["puzzle"]["day"]:02}"
+
+    if not year_folder.exists():
+        year_folder.mkdir( exist_ok=True )
+        # year_folder.mkdir(parents=True, exist_ok=True)
+
+
+    if not day_folder.exists():
+        day_folder.mkdir( exist_ok=True )
+        # day_folder.mkdir(parents=True, exist_ok=True)
+        
+    print("Folders Created") if day_folder.exists() else print("Folders Not Created")
 
     su.save_config(cfg)
-    build_defaults(cfg=cfg, target_path=day_to_build, puzzle=puzzle)
+    build_defaults(cfg=cfg, target_path=day_folder, puzzle=puzzle)
     
       
 ###############################################################################

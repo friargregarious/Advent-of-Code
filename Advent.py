@@ -6,7 +6,8 @@ import time
 from datetime import date, datetime
 from pathlib import Path
 
-from PuzzleDayBuild import gparser, solve_utilities as su
+import build_days
+from templates import solve_utilities as su
 
 
 cfg = toml.loads(Path(".env").read_text(encoding="utf-8"))
@@ -198,7 +199,7 @@ if __name__ == "__main__":
 
     cfg = toml.loads(Path(".env").read_text(encoding="utf-8"))
     
-    print("Args:", ", ".join( [ f"{k} = {v}" for k, v in args.items() ] ) )
+    # print("Args:", ", ".join( [ f"{k} = {v}" for k, v in args.items() ] ) )
         
     if args["build"]:
         cfg["puzzle"] = {
@@ -207,7 +208,7 @@ if __name__ == "__main__":
             "path" : (Path(cfg["working_dirs"]["puzzles"]) / f"{args['year']:04}_{args['day']:02}.aocd").as_posix()
             }
 
-        gparser.build_puzzle( cfg, args )
+        build_days.build_puzzle( cfg )
     
     if args["refresh"]:
         refresh_core(args["year"], args["day"], CORE)
