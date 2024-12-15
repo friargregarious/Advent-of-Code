@@ -1929,6 +1929,14 @@
          },
          "title": "Restroom Redoubt",
          "url": "https://adventofcode.com/2024/day/14"
+      },
+      "15": {
+         "results": {
+            "A": "09 hours, 18 minutes",
+            "B": "17 hours, 15 minutes"
+         },
+         "title": "Warehouse Woes",
+         "url": "https://adventofcode.com/2024/day/15"
       }
    }
 }
