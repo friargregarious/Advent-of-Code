@@ -1254,8 +1254,8 @@
       },
       "06": {
          "results": {
-            "A": "N/A",
-            "B": "N/A"
+            "A": "24+ hours",
+            "B": "24+ hours"
          },
          "title": "Lanternfish",
          "url": "https://adventofcode.com/2021/day/6"
