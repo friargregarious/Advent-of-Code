@@ -8,7 +8,7 @@ Advent of Code is an **Advent Calendar** of small programming puzzles for a vari
 
 You don't need a computer science background to participate - just a little programming knowledge and some problem solving skills will get you pretty far. Nor do you need a fancy computer; every problem has a solution that completes in at most 15 seconds on ten-year-old hardware.
 
-> 💲 **[2024/support](https://adventofcode.com/2024/support)** 💲
+> 💲 **[2025/support](https://adventofcode.com/2025/support)** 💲
 >
 > We suggest that you support his cause by donating. Five ($5) dollars is a paltry fee to pay for the hours of hair-raising frustration, agony and epiphany he's providing for free.
 
@@ -24,7 +24,11 @@ We're just a group of interconnected friends and coders within a few hours drive
 > - "🤬": Completed between 12 and 24 hours. `12 hrs < Completed < 24 hrs`
 > - "😎": Completed in less than twelve hours. `< 12 hrs`
 
-## 🎈💃🏼 Current Event: 2024 - <https://adventofcode.com/2024> 🕺🏼🎉
+## 🎈💃🏼 Current Event: 2025 - <https://adventofcode.com/2025> 🕺🏼🎉
+
+- Day 01 [😎][🤬] [Secret Entrance](https://adventofcode.com/2025/day/1)
+
+## Previous AoC Event: 2024 - <https://adventofcode.com/2024>
 
 - Day 01 [😎][😎] [Historian Hysteria](https://adventofcode.com/2024/day/1)
 - Day 02 [😎][😎] [Red-Nosed Reports](https://adventofcode.com/2024/day/2)

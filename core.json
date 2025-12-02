@@ -1938,5 +1938,15 @@
          "title": "Warehouse Woes",
          "url": "https://adventofcode.com/2024/day/15"
       }
+   },
+   "2025": {
+      "01": {
+         "results": {
+            "A": "10 hours, 33 minutes",
+            "B": "19 hours, 54 minutes"
+         },
+         "title": "Secret Entrance",
+         "url": "https://adventofcode.com/2025/day/1"
+      }
    }
 }
