@@ -1,0 +1,154 @@
+day1_ts = 1638334800
+event = "2021"
+num_days = 25
+owner_id = 2588518
+
+[members.2586895]
+global_score = 0
+id = 2586895
+last_star_ts = 0
+local_score = 0
+name = "Miles Orrick"
+stars = 0
+
+[members.2588518]
+global_score = 0
+id = 2588518
+last_star_ts = 1734266508
+local_score = 8
+name = "friargregarious"
+stars = 2
+
+[members.3564991]
+global_score = 0
+id = 3564991
+last_star_ts = 0
+local_score = 0
+name = "GLotsapot"
+stars = 0
+
+[members.4414585]
+global_score = 0
+id = 4414585
+last_star_ts = 0
+local_score = 0
+name = "pixelgrass"
+stars = 0
+
+[members.997876]
+global_score = 0
+id = 997876
+last_star_ts = 1639541063
+local_score = 120
+name = "rjhelms"
+stars = 24
+
+[members.2586895.completion_day_level]
+
+[members.3564991.completion_day_level]
+
+[members.4414585.completion_day_level]
+
+[members.2588518.completion_day_level.6.1]
+get_star_ts = 1734266333
+star_index = 24
+
+[members.2588518.completion_day_level.6.2]
+get_star_ts = 1734266508
+star_index = 25
+
+[members.997876.completion_day_level.1.1]
+get_star_ts = 1638378588
+star_index = 0
+
+[members.997876.completion_day_level.1.2]
+get_star_ts = 1638378786
+star_index = 1
+
+[members.997876.completion_day_level.10.1]
+get_star_ts = 1639160848
+star_index = 18
+
+[members.997876.completion_day_level.10.2]
+get_star_ts = 1639161658
+star_index = 19
+
+[members.997876.completion_day_level.11.1]
+get_star_ts = 1639538666
+star_index = 20
+
+[members.997876.completion_day_level.11.2]
+get_star_ts = 1639538766
+star_index = 21
+
+[members.997876.completion_day_level.12.1]
+get_star_ts = 1639540223
+star_index = 22
+
+[members.997876.completion_day_level.12.2]
+get_star_ts = 1639541063
+star_index = 23
+
+[members.997876.completion_day_level.2.1]
+get_star_ts = 1638421535
+star_index = 2
+
+[members.997876.completion_day_level.2.2]
+get_star_ts = 1638421617
+star_index = 3
+
+[members.997876.completion_day_level.3.1]
+get_star_ts = 1638552593
+star_index = 4
+
+[members.997876.completion_day_level.3.2]
+get_star_ts = 1638592907
+star_index = 5
+
+[members.997876.completion_day_level.4.1]
+get_star_ts = 1638640216
+star_index = 6
+
+[members.997876.completion_day_level.4.2]
+get_star_ts = 1638640400
+star_index = 7
+
+[members.997876.completion_day_level.5.1]
+get_star_ts = 1638766278
+star_index = 8
+
+[members.997876.completion_day_level.5.2]
+get_star_ts = 1638766321
+star_index = 9
+
+[members.997876.completion_day_level.6.1]
+get_star_ts = 1638767426
+star_index = 10
+
+[members.997876.completion_day_level.6.2]
+get_star_ts = 1638768443
+star_index = 11
+
+[members.997876.completion_day_level.7.1]
+get_star_ts = 1638938615
+star_index = 12
+
+[members.997876.completion_day_level.7.2]
+get_star_ts = 1638940539
+star_index = 13
+
+[members.997876.completion_day_level.8.1]
+get_star_ts = 1639090410
+star_index = 14
+
+[members.997876.completion_day_level.8.2]
+get_star_ts = 1639094275
+star_index = 15
+
+[members.997876.completion_day_level.9.1]
+get_star_ts = 1639099405
+star_index = 16
+
+[members.997876.completion_day_level.9.2]
+get_star_ts = 1639104802
+star_index = 17
