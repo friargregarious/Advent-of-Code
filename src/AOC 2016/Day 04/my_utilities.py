@@ -5,6 +5,7 @@ from pathlib import Path
 ########## Loading Configuration
 cfg = toml.loads(Path(".env").read_text(encoding="utf-8"))
 
+
 ########## Saving and Loading puzzle files
 def pickle_me(title, data):
     """Saves the data with title as filename"""
@@ -22,6 +23,7 @@ def unpickle_me(file):
     #     data = pickle.load(pikd)
     # return data
 
+
 ########## Solving Puzzles
 def solve_me(part: str, answer=None):
     if part.lower() == "a":
@@ -30,7 +32,7 @@ def solve_me(part: str, answer=None):
         solve_b(answer)
     else:
         print("Could not solve puzzle.")
-        
+
 
 def solve_a(answer=None):
     if answer is not None:
@@ -69,13 +71,13 @@ def version_increment(file_to_increment: str, big: int = 0, med: int = 0, sml: i
             n_sml = o_sml + sml
 
             vs = ".".join(map(str, [n_big, n_med, n_sml]))
-            vstr = f'{new_line} = "{vs}" ' 
+            vstr = f'{new_line} = "{vs}" '
             new_text.append(vstr)
-            
+
         elif line.startswith("__build__"):
             new_line, old_build = line.split(" = ")
             new_build = int(old_build) + sum([big, med, sml])
-            new_text.append(f"{new_line} = {new_build}")            
+            new_text.append(f"{new_line} = {new_build}")
         else:
             new_text.append(line)
 

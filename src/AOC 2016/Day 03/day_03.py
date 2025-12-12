@@ -20,8 +20,15 @@ if __name__ == "__main__":
     # tri_pythagorus = {True: [], False: []}
     # tri_reddit_answer = {True: [], False: []}
 
-    print("Part 1: Add nosort:", sum([vals[0] + vals[1] > vals[2]
-          for vals in [sorted([int(x) for x in line.split()]) for line in source]]))
+    print(
+        "Part 1: Add nosort:",
+        sum(
+            [
+                vals[0] + vals[1] > vals[2]
+                for vals in [sorted([int(x) for x in line.split()]) for line in source]
+            ]
+        ),
+    )
 
     xcross = iter(source)
 
@@ -39,11 +46,30 @@ if __name__ == "__main__":
                 part_2_source.extend([nums1, nums2, nums3])
             except StopIteration as e:
                 if SAMPLE:
-                    print("Part 1: Add vertical sort:", sum([vals[0] + vals[1] > vals[2]
-                        for vals in [sorted([int(x) for x in line]) for line in sample]]))
+                    print(
+                        "Part 1: Add vertical sort:",
+                        sum(
+                            [
+                                vals[0] + vals[1] > vals[2]
+                                for vals in [
+                                    sorted([int(x) for x in line]) for line in sample
+                                ]
+                            ]
+                        ),
+                    )
                 else:
-                    print("Part 1: Add vertical sort:", sum([vals[0] + vals[1] > vals[2]
-                        for vals in [sorted([int(x) for x in line]) for line in part_2_source]]))
+                    print(
+                        "Part 1: Add vertical sort:",
+                        sum(
+                            [
+                                vals[0] + vals[1] > vals[2]
+                                for vals in [
+                                    sorted([int(x) for x in line])
+                                    for line in part_2_source
+                                ]
+                            ]
+                        ),
+                    )
 
-                breakhere = True 
+                breakhere = True
                 break

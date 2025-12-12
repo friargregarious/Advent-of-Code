@@ -1,4 +1,5 @@
 import sys
+
 SAMPLE = "sample" in sys.argv
 TEST = "test" in sys.argv
 
@@ -8,20 +9,12 @@ if SAMPLE:
     source = "sample.txt"
 
 
-DIRS = {
-    0: "NORTH",
-    90: "EAST",
-    180: "SOUTH",
-    270: "WEST",
-    "L": "LEFT",
-    "R": "RIGHT"
-
-}
+DIRS = {0: "NORTH", 90: "EAST", 180: "SOUTH", 270: "WEST", "L": "LEFT", "R": "RIGHT"}
 
 
 class Walker:
     def __init__(self):
-        self.direction = 0 ## start facing NORTH
+        self.direction = 0  ## start facing NORTH
         self._x = 0
         self._y = 0
         self.odometer = 0
@@ -31,7 +24,8 @@ class Walker:
             located {self.loc} 
             facing {self.facing} 
             distance traveled {self.odometer}.
-            """)
+            """
+        )
 
     @property
     def facing(self):
@@ -39,7 +33,10 @@ class Walker:
 
     @property
     def loc(self):
-        return (self._x, self._y,)
+        return (
+            self._x,
+            self._y,
+        )
 
     def status(self):
 
@@ -48,9 +45,10 @@ class Walker:
             located {self.loc} 
             facing {self.facing} 
             distance traveled {self.odometer}.
-            """)
+            """
+        )
 
-    def execute(self ,entry):
+    def execute(self, entry):
         direction = entry[0]
         distance = int(entry[1:])
         turned = self.turn(direction)
@@ -58,12 +56,12 @@ class Walker:
         return turned, *traveled
 
     def turn(self, direction):
-        if direction == "R": # turning right adds 90 to current direction
+        if direction == "R":  # turning right adds 90 to current direction
             self.direction += 90
             if self.direction >= 360:
                 self.direction -= 360
 
-        elif direction == "L": # turning left subtracts 90 from current direction
+        elif direction == "L":  # turning left subtracts 90 from current direction
             self.direction -= 90
             if self.direction < 0:
                 self.direction += 360
@@ -94,7 +92,10 @@ class Walker:
             return f"Failed to travel!!!"
 
         self.odometer += distance
-        return f"Traveled {self.facing} for {distance} blocks from {startingpoint} to {self.loc}.", steps
+        return (
+            f"Traveled {self.facing} for {distance} blocks from {startingpoint} to {self.loc}.",
+            steps,
+        )
 
 
 def revamp_route(from_spot, to_spot):
@@ -103,15 +104,12 @@ def revamp_route(from_spot, to_spot):
     from_x, from_y = 0, 0
     to_x, to_y = to_spot
 
-    distance = (abs(to_y) + from_y) + (abs(to_x)+from_x)
+    distance = (abs(to_y) + from_y) + (abs(to_x) + from_x)
     return distance
 
 
-
 if __name__ == "__main__":
-    data = str(
-        open(source).read()
-        ).strip().split(", ")
+    data = str(open(source).read()).strip().split(", ")
 
     if TEST:
         santa = Walker()
@@ -135,7 +133,6 @@ if __name__ == "__main__":
 
         santa.status()
 
-
     else:
         santa = Walker()
         starting = santa.loc
@@ -145,7 +142,7 @@ if __name__ == "__main__":
         for entry in data:
             turn_msg, dir_msg, steps_taken = santa.execute(entry)
             # print(msg)
- 
+
             print(f"Steps taken this turn: {steps_taken}")
             for step in steps_taken:
                 if step in sites_visited:
@@ -158,4 +155,5 @@ if __name__ == "__main__":
         ending = santa.loc
         santa.status()
         print(
-            f"total direct distance between points: {revamp_route(starting, ending)} ")
+            f"total direct distance between points: {revamp_route(starting, ending)} "
+        )

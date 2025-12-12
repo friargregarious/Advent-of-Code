@@ -48,12 +48,26 @@ else:
     #     A B C
     #       D
 
+
 def out_of_range(loc):
     y, x = loc
-    UNUSABLE = [(0, 0), (0, 1), (0, 3), (0, 4), (1, 0), (1, 4),
-                (3, 0), (3, 4), (4, 0), (4, 1), (4, 3), (4, 4)]
+    UNUSABLE = [
+        (0, 0),
+        (0, 1),
+        (0, 3),
+        (0, 4),
+        (1, 0),
+        (1, 4),
+        (3, 0),
+        (3, 4),
+        (4, 0),
+        (4, 1),
+        (4, 3),
+        (4, 4),
+    ]
 
     return (y in [-1, 5]) or (x in [-1, 5]) or (loc in UNUSABLE)
+
 
 P2_BUTTONS = {
     (0, 2): "1",
@@ -71,7 +85,7 @@ P2_BUTTONS = {
     (4, 2): "D",
 }
 
-# You still start at "5" and stop when you're at an edge, 
+# You still start at "5" and stop when you're at an edge,
 # but given the same instructions as above, the outcome is very different
 CENTER_BUTTON = (2, 0)
 
@@ -120,27 +134,42 @@ if __name__ == "__main__":
             # print(this_button)
             for move in this_button.strip():
                 row, col = finger_over_button
-                print(f"Moving to button {move}",end=" ")
+                print(f"Moving to button {move}", end=" ")
 
                 # U moves up
                 if move == "U":
-                    target_button = (row - 1, col,)
+                    target_button = (
+                        row - 1,
+                        col,
+                    )
                 # D moves down
                 elif move == "D":
-                    target_button = (row + 1, col,)
+                    target_button = (
+                        row + 1,
+                        col,
+                    )
                 # L moves left
                 elif move == "L":
-                    target_button = (row, col - 1,)
+                    target_button = (
+                        row,
+                        col - 1,
+                    )
                 # R moves right
                 elif move == "R":
-                    target_button = (row, col + 1,)
+                    target_button = (
+                        row,
+                        col + 1,
+                    )
                 else:
                     print("Instruction not currently within our capabilities.")
                     sys.exit()
 
                 if not out_of_range(target_button):
                     y, x = target_button
-                    finger_over_button = (y, x,)
+                    finger_over_button = (
+                        y,
+                        x,
+                    )
                     print(P2_BUTTONS[finger_over_button])
                 else:
                     print(f"That button is blank")
