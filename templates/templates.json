@@ -18,6 +18,6 @@
     "Header_Year" : {
         "lvl": 3,
         "txt" : "[Adventofcode.Com/({year})](Https://Adventofcode.Com/{year})"
-    }
+    },
     "day" : "- Day {day} [{solved_a}][{solved_b}] [{title}](https://adventofcode.com/{year}/day/{day})"
 }

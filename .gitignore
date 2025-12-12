@@ -1,7 +1,12 @@
-.env
+*.env
 .junk*
 .venv
 *.aocd
 *.zip
 __pycache__/*
 *.pyc
+*.lock
+.vscode/*
+.puzzles
+*.png
+*.back

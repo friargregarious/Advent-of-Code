@@ -1,0 +1,68 @@
+[
+   [
+      [
+         "-e",
+         "--example"
+      ],
+      {
+         "action": "store_true",
+         "default": false,
+         "help": "Bool Flag: Test code with example input instead of default 'input.txt'."
+      }
+   ],
+   [
+      [
+         "-s",
+         "--submit"
+      ],
+      {
+         "action": "store_true",
+         "default": false,
+         "help": "Bool Flag: Submit answer to server. (defaults to False)."
+      }
+   ],
+   [
+      [
+         "-b",
+         "--part_b"
+      ],
+      {
+         "action": "store_true",
+         "default": false,
+         "help": "Bool Flag: Choses parts 'A' or 'B' to run. (defaults to 'A')."
+      }
+   ],
+   [
+      [
+         "-r",
+         "--refresh"
+      ],
+      {
+         "action": "store_true",
+         "default": false,
+         "help": "Bool Flag: Refresh/update the readme.md file and exit."
+      }
+   ],
+   [
+      [
+         "-d",
+         "--discord"
+      ],
+      {
+         "action": "store_true",
+         "default": false,
+         "help": "Bool Flag: Send message to discord channel and exit."
+      }
+   ],
+   [
+      [
+         "-v",
+         "--verbose"
+      ],
+      {
+         "action": "store_true",
+         "default": false,
+         "help": "Bool Flag: allow in code print statements."
+      }
+   ]
+]

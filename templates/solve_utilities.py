@@ -1,9 +1,9 @@
+import os, sys
+import time
+import toml, json
+import requests
 import aocd
 import pickle
-import time
-import sys
-import requests
-import toml
 
 # import argparse
 
@@ -11,6 +11,57 @@ from markdownify import markdownify
 from bs4 import BeautifulSoup
 from pathlib import Path
 from datetime import datetime
+
+ARGS_LIST = [
+    (
+        ["-e", "--example"],
+        {
+            "help": "Bool Flag: Test code with example input instead of default 'input.txt'.",
+            "default": False,
+            "action": "store_true",
+        },
+    ),
+    (
+        ["-s", "--submit"],
+        {
+            "help": "Bool Flag: Submit answer to server. (defaults to False).",
+            "default": False,
+            "action": "store_true",
+        },
+    ),
+    (
+        ["-b", "--part_b"],
+        {
+            "help": "Bool Flag: Choses parts 'A' or 'B' to run. (defaults to 'A').",
+            "default": False,
+            "action": "store_true",
+        },
+    ),
+    (
+        ["-r", "--refresh"],
+        {
+            "help": "Bool Flag: Refresh/update the readme.md file and exit.",
+            "default": False,
+            "action": "store_true",
+        },
+    ),
+    (
+        ["-d", "--discord"],
+        {
+            "help": "Bool Flag: Send message to discord channel and exit.",
+            "default": False,
+            "action": "store_true",
+        },
+    ),
+    (
+        ["-v", "--verbose"],
+        {
+            "help": "Bool Flag: allow in code print statements.",
+            "default": False,
+            "action": "store_true",
+        },
+    ),
+]
 
 
 def print_args(args: dict):
@@ -41,6 +92,31 @@ def print_args(args: dict):
     print(bar)
 
 
+INI_PARTS = ["puzzle", "working_dirs", "user"]
+
+
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+
+def puzzle_file_name(year: int, day: int) -> str:
+    return f"{year}-{day:02}.aocd"
+
+
+def get_CORE(cfg: dict):
+    return json.loads(Path(cfg["working_dirs"]["core"]).read_text(encoding="utf-8"))
+
+
+def backup_CORE(CORE: dict, cfg: dict):
+    path = Path(cfg["working_dirs"]["core_bu"])
+    path.write_text(json.dumps(CORE, sort_keys=True, indent=3), encoding="utf-8")
+
+
+def save_CORE(CORE: dict, cfg: dict):
+    Path(cfg["working_dirs"]["core"]).write_text(
+        json.dumps(CORE, sort_keys=True, indent=3), encoding="utf-8"
+    )
+
+
 def get_user_results(user: aocd.models.User):
     """
     Retrieves user statistics for the current year from the Advent of Code servers.
@@ -65,14 +141,36 @@ def get_config() -> dict:
         A dictionary containing configuration data read from '.env'.
     """
 
-    cfg_path = Path(".env")
-    backup = "templates" / cfg_path
+    root_dir = Path(__file__)
+    while root_dir.name != "Advent-of-Code":
+        root_dir = root_dir.parent
 
-    try:
-        return toml.loads(cfg_path.read_text(encoding="utf-8"))
-    except FileNotFoundError as e:
-        print(f"Loading Config Template: {e}")
-        return toml.loads(backup.read_text(encoding="utf-8"))
+    global_env = root_dir / ".env"
+    template_env = root_dir / "Templates" / ".env"
+    local_env = Path(".env")
+
+    _temp = {}
+
+    # User Information
+    if global_env.exists(): 
+        _temp.update(
+            toml.loads(
+                global_env.read_text(encoding="UTF-8")
+                )
+            )
+    
+    # Default Working Directories and base puzzle info
+    if template_env.exists(): 
+        _loaded = toml.loads(template_env.read_text(encoding="UTF-8"))         
+        _temp["working_dirs"].update( _loaded["working_dirs"] )
+        _temp["puzzle"].update( _loaded["puzzle"] )
+
+    # Specific Puzzle Information
+    if local_env.exists(): 
+        _temp.update(toml.loads(local_env.read_text(encoding="UTF-8")))
+
+    # return toml.loads(cfg_path.read_text(encoding="utf-8"))
+    return _temp
 
 
 def save_config(config: dict):
@@ -88,11 +186,51 @@ def save_config(config: dict):
         Prints a failure message and exits the program if the save operation fails.
     """
     try:
-        Path(".env").write_text(toml.dumps(config))
-        print("save_config: Saved Config: .env")
-    except:
-        print("save_config: Failed to save Config: .env")
+        root_dir = Path(__file__)
+        while root_dir.name != "Advent-of-Code":
+            root_dir = root_dir.parent
+
+        global_env = root_dir / ".env"
+        template_env = root_dir / "Templates" / ".env"
+        local_env = Path(".env")
+
+        # Specific Puzzle Information
+        if local_env.exists(): 
+            _temp = toml.loads(local_env.read_text(encoding="UTF-8"))["puzzle"]
+            _temp.update(config["puzzle"])
+            local_env.write_text(toml.dumps({"puzzle": _temp}), encoding="UTF-8")
+        print("SAVED CONFIG: 'Local Puzzle'")
+
+        # Default Working Directories
+        if template_env.exists(): 
+            _temp = toml.loads(template_env.read_text(encoding="UTF-8"))["working_dirs"]
+            _temp.update(config["working_dirs"])
+            template_env.write_text(toml.dumps({"working_dirs": _temp}), encoding="UTF-8")
+        print("SAVED CONFIG: 'Directory Templates'")
+        
+        # User Information
+        if global_env.exists(): 
+            _temp = toml.loads(global_env.read_text(encoding="UTF-8"))["user"]
+            _temp.update(config["user"])
+            global_env.write_text(toml.dumps({"user": _temp}), encoding="UTF-8")
+        print("SAVED CONFIG: 'User Info'")
+        
+    except Exception as e:
+        print(f"save_config: Failed to save Config: .env\n{e}")
         sys.exit(0)
+
+
+    # if "AoC" in Path(__file__).as_posix():
+    #     cfg_path = Path(__file__).parent.parent.parent.parent / ".env"
+    # else:
+    #     cfg_path = Path(".env")
+
+    # try:
+    #     cfg_path.write_text(toml.dumps(config))
+    #     print("save_config: Saved Config: .env")
+    # except:
+    #     print("save_config: Failed to save Config: .env")
+    #     sys.exit(0)
 
 
 def save_puzzle(puzzle: aocd.models.Puzzle, cfg: dict):
@@ -106,23 +244,15 @@ def save_puzzle(puzzle: aocd.models.Puzzle, cfg: dict):
     Effects:
         Saves the puzzle object to disk and prints a message indicating success or failure
     """
-    _path: Path = Path(cfg["puzzle"]["path"])  # / cfg['puzzle']['path']
+
+    _path: Path = Path(cfg["working_dirs"]["root"]) / cfg["working_dirs"]["puzzles"] / puzzle_file_name(puzzle.year, puzzle.day)
+    # f"{puzzle.year}-{puzzle.day:02}.aocd"
     _parent = _path.parent
     # print(f"save_puzzle: Saving Puzzle: {_path} ...")
     try:
         # D:\Advent of Code\.puzzles
         if not _parent.is_dir():
-            print(f"save_puzzle: Directory does not exist: {_path.parent}")
-
-        # with _path.open('wb') as f:
-        #     pickle.dump(puzzle, f)
-
-        # with open(_path, "wb") as f:
-        #     pickle.dump(puzzle, f)
-
-        # _path.write_bytes(pickle.dumps(puzzle))
-
-        # pickle.dump(puzzle, _path.open("wb"))
+            print(f"save_puzzle: Directory does not exist: {_parent.as_posix()}")
 
         my_file = _path.open("wb")
         my_file.write(pickle.dumps(puzzle))
@@ -146,18 +276,23 @@ def open_puzzle(config: dict):
     Returns:
         Puzzle: The opened puzzle object.
     """
-    _puzzle_path = Path(config["working_dirs"]["puzzles"]) / config["puzzle"]["path"]
-    _year = config["puzzle"]["year"]
-    _day = config["puzzle"]["day"]
+    y, d = config["puzzle"]["year"], config["puzzle"]["day"]
+    _puzzle_path: Path = (
+        Path(config["working_dirs"]["root"])
+        / config["working_dirs"]["puzzles"]
+        / puzzle_file_name(y, d)
+    )
+    # _year = config["puzzle"]["year"]
+    # _day = config["puzzle"]["day"]
     _user = aocd.models.User(config["user"]["token"])
 
     def net_get():
-        puzzle = aocd.models.Puzzle(year=_year, day=_day, user=_user)
+        puzzle = aocd.models.Puzzle(year=y, day=d, user=_user)
         save_puzzle(puzzle, config)
         # print(f"net_get: Creating new puzzle file - {_puzzle_path}")
         return puzzle
 
-    if Path(config["puzzle"]["path"]).is_file():
+    if _puzzle_path.is_file():
         try:
             puzzle = pickle.load(open(_puzzle_path, "rb"))
             puzzle._user = _user
@@ -364,30 +499,21 @@ def update_header(puzzle: aocd.models.Puzzle):
     if solve_file.exists():
         text = solve_file.read_text().split("\n")
 
-    new_text = []
-
     day_done = datetime(
         year=puzzle.year, month=12, day=puzzle.day, hour=0, minute=0, second=0
     )
 
-    for line in text:
-        if line.startswith("# A SOLVED:"):
-            if puzzle.answered_a:
-                dt = day_done + puzzle.my_stats["a"]["time"]
-                done = dt.strftime("%Y-%m-%d %H:%M")
-                new_text.append(
-                    "# A SOLVED:".ljust(14) + f"{done}".ljust(80 - 15) + "#"
-                )
+    text[9] = "# A SOLVED:   N/A".ljust(40) + "#".rjust(40)
+    text[10] = "# B SOLVED:   N/A".ljust(40) + "#".rjust(40)
 
-        elif line.startswith("# B SOLVED:"):
-            if puzzle.answered_b:
-                dt = day_done + puzzle.my_stats["b"]["time"]
-                done = dt.strftime("%Y-%m-%d %H:%M")
-                new_text.append(
-                    "# B SOLVED:".ljust(14) + f"{done}".ljust(80 - 15) + "#"
-                )
+    if puzzle.answered_a:
+        dt = day_done + puzzle.my_stats["a"]["time"]
+        done = dt.strftime("%Y-%m-%d %H:%M")
+        text[9] = f"# A SOLVED:   {done}".ljust(40) + "#".rjust(40)
 
-        else:
-            new_text.append(line)
+    if puzzle.answered_b:
+        dt = day_done + puzzle.my_stats["b"]["time"]
+        done = dt.strftime("%Y-%m-%d %H:%M")
+        text[10] = f"# B SOLVED:   {done}".ljust(40) + "#".rjust(40)
 
-    solve_file.write_text("\n".join(new_text), encoding="utf-8")
+    solve_file.write_text("\n".join(text), encoding="utf-8")

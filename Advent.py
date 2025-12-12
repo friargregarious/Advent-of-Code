@@ -1,28 +1,104 @@
+from turtle import title
 import aocd
 import argparse
 import os, sys
+from aocd.get import get_puzzle
 import json, toml, pickle
 import time
+import requests
+
 from datetime import datetime
+from time import sleep
 from pathlib import Path
 
-import build_days
-from templates import solve_utilities as su
+from build_days import (
+    example_text,
+    solve_text,
+    readme_text,
+    build_defaults,
+    build_puzzle,
+)
+
+# from templates import solve_utilities as su
+from templates.solve_utilities import (
+    clear_screen,
+    get_config,
+    get_CORE,
+    save_config,
+    open_puzzle,
+    save_puzzle,
+    puzzle_file_name,
+    get_user_results,
+    refresh_readme,
+    update_header,
+    Discord,
+    submit_result,
+    report_puzzle,
+    print_args,
+)
 
 
-# toml.loads(Path(".env").read_text(encoding="utf-8"))
-cfg = su.get_config()
-cfg["working_dirs"]["templates"] = [
-    "aoc.md",
-    "qaoc.md",
-]
-su.save_config(cfg)
+cfg = toml.loads(Path(".env").read_text(encoding="utf-8"))
+# cfg = get_config()
+print(type(cfg), cfg)
+# cfg["working_dirs"]["templates"] = ["aoc.md", "qaoc.md"]
+
+# su.save_config(cfg)
 # Path(".env").write_text(toml.dumps(cfg), encoding="utf-8")
 
 NOW = datetime.now()
 YEARS = [2015 + x for x in range(NOW.year - 2015)]
-USER = aocd.models.User(cfg["user"]["token"])
+
+t = cfg["user"]["token"]
+
+USER = aocd.models.User(token=t)
 CORE = json.loads(Path(cfg["working_dirs"]["core"]).read_text(encoding="utf-8"))
+
+
+def fill_in_blanks(CORE: dict) -> None:
+    """
+    Fills in the missing puzzle information for the core data.
+
+    This function iterates over the years and days in the `CORE` dictionary and
+    populates the missing puzzle information for each day.
+    """
+    years = [2000 + x for x in range(15, NOW.year + 1 - 2000)]
+
+    template_day = {}
+    # "title": "",
+    # "url": "",
+    # "results": {"A": "N/A", "B": "N/A"},
+
+    temp = {
+        str(y): {
+            str(d): template_day.copy()
+            for d in [1 + x for x in range(25 if y < 2025 else 12)]
+        }
+        for y in years
+    }
+
+    for year in temp:
+        for day in temp[year]:
+            cfg = get_config()
+            cfg["puzzle"] = {
+                "year": int(year),
+                "day": int(day),
+                "path": puzzle_file_name(year, int(day))
+            }
+
+            Pz = open_puzzle(cfg)
+
+            if CORE[year][day]["title"] == "":
+                CORE[year][day]["title"] = Pz.title
+
+            if CORE[year][day]["url"] == "":
+                CORE[year][day]["url"] = Pz.url
+
+            sleep(4)
+
+    Path("core.json").write_text(
+        json.dumps(CORE, indent=3, sort_keys=True), encoding="utf-8"
+    )
 
 
 def refresh_core(year: int, day: int, CORE: dict) -> None:
@@ -51,8 +127,9 @@ def refresh_core(year: int, day: int, CORE: dict) -> None:
     stats = USER.get_stats(years=year)
 
     print(stats)
+
     day_key = f"{year}/{day:02}"
-    day_path = all_puzzles_path / f"{year:04}-{day:02}.aocd"
+    day_path = all_puzzles_path / puzzle_file_name(year, day)
 
     if day_path.exists():
         try:
@@ -191,7 +268,8 @@ def generate_readme():
 
 def auto_load():
     global CORE
-    CORE = json.loads(Path(cfg["working_dirs"]["core"]).read_text(encoding="utf-8"))
+    CORE = get_CORE(cfg)
+    # json.loads(Path(cfg["working_dirs"]["core"]).read_text(encoding="utf-8"))
 
     year = max(map(int, CORE.keys()))
     target_day = max(map(int, CORE[str(year)].keys())) + 1
@@ -199,21 +277,21 @@ def auto_load():
     while True:
         os.system("cls")
         now = datetime.now()
-        time.sleep(90)
         print(f"AUTO: Waiting... {now.strftime('%Y-%m-%d %H:%M:%S')}")
+        time.sleep(10)
         if now > datetime(year=year, month=12, day=target_day):
             try:
                 print(f"building puzzle for {year} {target_day}")
-                os.system(f"Advent.py -b -d={target_day}")
+                # os.system(f"Advent.py -b -d={target_day}")
                 print(f"Successfully built puzzle templates for {year} {target_day}")
                 sys.exit(0)
-            except:
-                print(f"failed to build puzzle for {year} {target_day}")
+            except Exception as e:
+                print(f"failed to build puzzle for {year} {target_day}\n", e)
                 sys.exit(1)
 
 
 if __name__ == "__main__":
-    os.system("cls")
+    clear_screen()
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -227,6 +305,13 @@ if __name__ == "__main__":
         "-r",
         "--refresh",
         help="Refresh the leaderboard data.",
+        default=False,
+        action="store_true",
+    )
+    parser.add_argument(
+        "-f",
+        "--fill",
+        help=f"Skim through ALL available puzzles and add any missing to the CORE json.",
         default=False,
         action="store_true",
     )
@@ -262,26 +347,29 @@ if __name__ == "__main__":
     )
 
     args = vars(parser.parse_args())
-    su.print_args(args=args)
+    print_args(args=args)
 
-    cfg = toml.loads(Path(".env").read_text(encoding="utf-8"))
-
-    # print("Args:", ", ".join( [ f"{k} = {v}" for k, v in args.items() ] ) )
+    cfg = get_config()
+    _fname = Path(cfg["working_dirs"]["puzzles"]) 
+    _fname = _fname / puzzle_file_name(
+        year=args["year"], day=args["day"]
+        )
+    _fname = _fname.resolve().as_posix()
 
     if args["build"]:
         cfg["puzzle"] = {
             "year": args["year"],
             "day": args["day"],
-            "path": (
-                Path(cfg["working_dirs"]["puzzles"])
-                / f"{args['year']:04}_{args['day']:02}.aocd"
-            ).as_posix(),
+            "path": _fname ,
         }
 
-        build_days.build_puzzle(cfg)
+        build_puzzle(cfg)
 
     if args["refresh"]:
         refresh_core(args["year"], args["day"], CORE)
+
+    if args["fill"]:
+        fill_in_blanks(CORE)
 
     if args["generate"]:
         generate_readme()
