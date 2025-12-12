@@ -1,0 +1,53 @@
+{
+   "day1_ts": 1543640400,
+   "event": "2018",
+   "members": {
+      "2586895": {
+         "completion_day_level": {},
+         "global_score": 0,
+         "id": 2586895,
+         "last_star_ts": 0,
+         "local_score": 0,
+         "name": "Miles Orrick",
+         "stars": 0
+      },
+      "2588518": {
+         "completion_day_level": {},
+         "global_score": 0,
+         "id": 2588518,
+         "last_star_ts": 0,
+         "local_score": 0,
+         "name": "friargregarious",
+         "stars": 0
+      },
+      "3564991": {
+         "completion_day_level": {},
+         "global_score": 0,
+         "id": 3564991,
+         "last_star_ts": 0,
+         "local_score": 0,
+         "name": "GLotsapot",
+         "stars": 0
+      },
+      "4414585": {
+         "completion_day_level": {},
+         "global_score": 0,
+         "id": 4414585,
+         "last_star_ts": 0,
+         "local_score": 0,
+         "name": "pixelgrass",
+         "stars": 0
+      },
+      "997876": {
+         "completion_day_level": {},
+         "global_score": 0,
+         "id": 997876,
+         "last_star_ts": 0,
+         "local_score": 0,
+         "name": "rjhelms",
+         "stars": 0
+      }
+   },
+   "num_days": 25,
+   "owner_id": 2588518
+}
