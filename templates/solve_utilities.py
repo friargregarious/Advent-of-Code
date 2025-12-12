@@ -162,8 +162,8 @@ def get_config() -> dict:
     # Default Working Directories and base puzzle info
     if template_env.exists(): 
         _loaded = toml.loads(template_env.read_text(encoding="UTF-8"))         
-        _temp["working_dirs"].update( _loaded["working_dirs"] )
-        _temp["puzzle"].update( _loaded["puzzle"] )
+        _temp["working_dirs"] = _loaded["working_dirs"] 
+        _temp["puzzle"] = _loaded["puzzle"] 
 
     # Specific Puzzle Information
     if local_env.exists(): 

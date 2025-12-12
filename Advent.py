@@ -1,11 +1,9 @@
-from turtle import title
 import aocd
 import argparse
 import os, sys
 from aocd.get import get_puzzle
 import json, toml, pickle
 import time
-import requests
 
 from datetime import datetime
 from time import sleep
@@ -19,8 +17,10 @@ from build_days import (
     build_puzzle,
 )
 
+
+
 # from templates import solve_utilities as su
-from templates.solve_utilities import (
+from Tools import (
     clear_screen,
     get_config,
     get_CORE,
