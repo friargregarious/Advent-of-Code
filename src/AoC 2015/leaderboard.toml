@@ -1,0 +1,158 @@
+day1_ts = 1448946000
+event = "2015"
+num_days = 25
+owner_id = 2588518
+
+[members.2586895]
+global_score = 0
+id = 2586895
+last_star_ts = 0
+local_score = 0
+name = "Miles Orrick"
+stars = 0
+
+[members.2588518]
+global_score = 0
+id = 2588518
+last_star_ts = 1700855502
+local_score = 53
+name = "friargregarious"
+stars = 13
+
+[members.3564991]
+global_score = 0
+id = 3564991
+last_star_ts = 0
+local_score = 0
+name = "GLotsapot"
+stars = 0
+
+[members.4414585]
+global_score = 0
+id = 4414585
+last_star_ts = 0
+local_score = 0
+name = "pixelgrass"
+stars = 0
+
+[members.997876]
+global_score = 0
+id = 997876
+last_star_ts = 1638151841
+local_score = 70
+name = "rjhelms"
+stars = 14
+
+[members.2586895.completion_day_level]
+
+[members.3564991.completion_day_level]
+
+[members.4414585.completion_day_level]
+
+[members.2588518.completion_day_level.1.1]
+get_star_ts = 1670280063
+star_index = 14
+
+[members.2588518.completion_day_level.1.2]
+get_star_ts = 1670280258
+star_index = 15
+
+[members.2588518.completion_day_level.2.1]
+get_star_ts = 1670350582
+star_index = 16
+
+[members.2588518.completion_day_level.2.2]
+get_star_ts = 1670352308
+star_index = 17
+
+[members.2588518.completion_day_level.25.1]
+get_star_ts = 1700855502
+star_index = 26
+
+[members.2588518.completion_day_level.3.1]
+get_star_ts = 1670706754
+star_index = 18
+
+[members.2588518.completion_day_level.3.2]
+get_star_ts = 1670708910
+star_index = 19
+
+[members.2588518.completion_day_level.4.1]
+get_star_ts = 1670712588
+star_index = 20
+
+[members.2588518.completion_day_level.4.2]
+get_star_ts = 1670712907
+star_index = 21
+
+[members.2588518.completion_day_level.5.1]
+get_star_ts = 1670716086
+star_index = 22
+
+[members.2588518.completion_day_level.5.2]
+get_star_ts = 1670717607
+star_index = 23
+
+[members.2588518.completion_day_level.6.1]
+get_star_ts = 1670728405
+star_index = 24
+
+[members.2588518.completion_day_level.6.2]
+get_star_ts = 1670728968
+star_index = 25
+
+[members.997876.completion_day_level.1.1]
+get_star_ts = 1638134787
+star_index = 0
+
+[members.997876.completion_day_level.1.2]
+get_star_ts = 1638134921
+star_index = 1
+
+[members.997876.completion_day_level.2.1]
+get_star_ts = 1638135678
+star_index = 2
+
+[members.997876.completion_day_level.2.2]
+get_star_ts = 1638135970
+star_index = 3
+
+[members.997876.completion_day_level.3.1]
+get_star_ts = 1638136520
+star_index = 4
+
+[members.997876.completion_day_level.3.2]
+get_star_ts = 1638136894
+star_index = 5
+
+[members.997876.completion_day_level.4.1]
+get_star_ts = 1638137520
+star_index = 6
+
+[members.997876.completion_day_level.4.2]
+get_star_ts = 1638137750
+star_index = 7
+
+[members.997876.completion_day_level.5.1]
+get_star_ts = 1638139784
+star_index = 8
+
+[members.997876.completion_day_level.5.2]
+get_star_ts = 1638140097
+star_index = 9
+
+[members.997876.completion_day_level.6.1]
+get_star_ts = 1638141949
+star_index = 10
+
+[members.997876.completion_day_level.6.2]
+get_star_ts = 1638142035
+star_index = 11
+
+[members.997876.completion_day_level.7.1]
+get_star_ts = 1638151081
+star_index = 12
+
+[members.997876.completion_day_level.7.2]
+get_star_ts = 1638151841
+star_index = 13

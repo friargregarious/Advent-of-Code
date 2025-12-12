@@ -11,12 +11,14 @@ _u = Path(".me.aocd")
 _p = Path(f".puzzle-{_YEAR_}-{_DAY_}.aocd")
 _c = Path(".env")
 
+
 def save_cfg(cfg):
     try:
         _c.write_bytes(toml.dumps(cfg).encode("utf-8"))
         return f"SUCCESS: Save Config: {_c}"
     except:
         return f"FAILURE: Save Config: {_c}"
+
 
 def load_cfg():
     try:
@@ -25,11 +27,14 @@ def load_cfg():
         _token = Path("D:/Advent of Code") / ".env"
         cfg = {
             "aoc": {
-                "AoC_SESSION" : toml.loads(_token.read_text(encoding="utf-8"))["user"]["token"]
-                }
+                "AoC_SESSION": toml.loads(_token.read_text(encoding="utf-8"))["user"][
+                    "token"
+                ]
             }
-        
+        }
+
     return cfg
+
 
 ###### SETUP #################################################################
 
@@ -63,9 +68,8 @@ cfg["aoc"]["example_answer"] = _PUZZLE_.examples[0]
 save_cfg(cfg)
 
 
-
 # def refresh_cfg():
-    
+
 #     try:
 #         cfg = toml.loads(_c.read_text(encoding="utf-8"))
 #         return cfg

@@ -16,6 +16,7 @@ log = []
 
 ###### HELPERS ###############################################################
 
+
 def AND_OR(data_line, ans, instructions):
     # at AND az -> bb
     # 44 AND 12 -> 234
@@ -62,7 +63,6 @@ def AND_OR(data_line, ans, instructions):
     # return ans[target]
 
 
-
 def PUT_NOT(data_line, ans, instructions):
 
     if "NOT" in data_line:
@@ -90,7 +90,7 @@ def PUT_NOT(data_line, ans, instructions):
                 b += "0"
             else:
                 b += "1"
-        
+
         ans[target] = int(b, base=2)
         log.append(f"NOT {subject} -> {target} = {ans[target]}")
 
@@ -98,6 +98,7 @@ def PUT_NOT(data_line, ans, instructions):
         ans[target] = subject
         log.append(f"{subject} -> {target} = {subject}")
     # print(ans[target])
+
 
 def SHIFT(data_line: str, ans: dict, instructions: list):
     # dt LSHIFT 15 -> dx
@@ -115,7 +116,7 @@ def SHIFT(data_line: str, ans: dict, instructions: list):
 
     pos = int(positions)
     to_shift = bin(subject)[2:].rjust(16, "0")
-    
+
     if _shift == "RSHIFT":
         #    01110000 (decimal 5)
         # RSHIFT 2
@@ -172,7 +173,7 @@ def part1(instructions):
             print(f"Completed: 100%")
 
     _a = sorted(answers.keys())
-    answers = {a: answers[a] for a in _a}    
+    answers = {a: answers[a] for a in _a}
     return answers
 
 
@@ -204,7 +205,6 @@ def main(args):
     return answer
 
 
-
 if __name__ == "__main__":
     import argparse
 
@@ -233,15 +233,17 @@ if __name__ == "__main__":
     elif args.part == 1:
         solve_utils.Path("part1_output.toml").write_text(toml.dumps(a))
         print("**** RESULTS ****\n", "\n".join(log))
-        
+
     elif args.part == 2:
         solve_utils.Path("part2_output.toml").write_text(toml.dumps(b))
     else:
         solve_utils.Path("part1_output.toml").write_text(toml.dumps(a))
         solve_utils.Path("part2_output.toml").write_text(toml.dumps(b))
-        
+
     if isinstance(a, dict):
-        print(f"Found {sum([1 for x in a.values() if x > 0])} values in {len(a)} answers.")
+        print(
+            f"Found {sum([1 for x in a.values() if x > 0])} values in {len(a)} answers."
+        )
         if a["a"] > 0:
             print(f"SUCCESS: Part 1: {a['a']}")
         else:
