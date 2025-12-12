@@ -16,6 +16,7 @@
 #
 ###############################################################################
 """
+
 ###############################################################################
 # imports, globals and helper functions/classes
 
@@ -79,8 +80,6 @@ class CalVal:
             sort_key = sorted(self.all_numbers.keys())
             for key in sort_key:
                 result += self.all_numbers[key]
-
-        
 
         log.submit(f"CALVAL.digit_str({self.original}) RETURNS: {result}")
 

@@ -17,21 +17,66 @@ class WordType(enum.Enum):
 
 class Token(object):
     # Static init code (only executed once and not for each token instance)
-    UNITS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
-    TEENS = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen',
-             'nineteen']
-    TENS = ['twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
-    SCALES = ['hundred', 'thousand', 'million', 'billion', 'trillion']
-    SCALE_VALUES = [100, 1_000, 10_000, 1_000_000, 10_000_000, 1_000_000_000, 100_000_000_000, 1_000_000_000_000]  # used for has_large_scale
-    INDIAN_SCALES = ['lakh', 'crore', 'arab', 'kharab']
-    CONJUNCTION = ['and']
-    ORDINAL_WORDS = {'oh': 'zero', 'first': 'one', 'second': 'two', 'third': 'three', 'fifth': 'five',
-                     'eighth': 'eight', 'ninth': 'nine', 'twelfth': 'twelve'}
-    ORDINAL_ENDINGS = [('ieth', 'y'), ('th', '')]
-
-    numwords = {
-        'and': (1, 0)  # (scale, value)
+    UNITS = [
+        "zero",
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+    ]
+    TEENS = [
+        "ten",
+        "eleven",
+        "twelve",
+        "thirteen",
+        "fourteen",
+        "fifteen",
+        "sixteen",
+        "seventeen",
+        "eighteen",
+        "nineteen",
+    ]
+    TENS = [
+        "twenty",
+        "thirty",
+        "forty",
+        "fifty",
+        "sixty",
+        "seventy",
+        "eighty",
+        "ninety",
+    ]
+    SCALES = ["hundred", "thousand", "million", "billion", "trillion"]
+    SCALE_VALUES = [
+        100,
+        1_000,
+        10_000,
+        1_000_000,
+        10_000_000,
+        1_000_000_000,
+        100_000_000_000,
+        1_000_000_000_000,
+    ]  # used for has_large_scale
+    INDIAN_SCALES = ["lakh", "crore", "arab", "kharab"]
+    CONJUNCTION = ["and"]
+    ORDINAL_WORDS = {
+        "oh": "zero",
+        "first": "one",
+        "second": "two",
+        "third": "three",
+        "fifth": "five",
+        "eighth": "eight",
+        "ninth": "nine",
+        "twelfth": "twelve",
     }
+    ORDINAL_ENDINGS = [("ieth", "y"), ("th", "")]
+
+    numwords = {"and": (1, 0)}  # (scale, value)
     for idx, word in enumerate(UNITS):
         numwords[word] = (1, idx)
     for idx, word in enumerate(TEENS):
@@ -54,7 +99,7 @@ class Token(object):
         self.glue = glue
 
         # Basic preprocessing of the word to find the type
-        self._word = word.lower().replace(',', '')
+        self._word = word.lower().replace(",", "")
 
         # Try to match ordinal numbers and then treat them as cardinal ones
         self.ordinal_ending = None  # We need to keep a reference to the original ending in case the user wants to preserve it
@@ -64,7 +109,7 @@ class Token(object):
 
         for ending, replacement in Token.ORDINAL_ENDINGS:
             if self._word.endswith(ending):
-                replaced = self._word[:-len(ending)] + replacement
+                replaced = self._word[: -len(ending)] + replacement
                 if replaced in Token.numwords:
                     self.ordinal_ending = self._word[-2:]
                     self._word = replaced
@@ -80,15 +125,15 @@ class Token(object):
             self.type = WordType.SCALES
         elif self._word in Token.CONJUNCTION:
             self.type = WordType.CONJUNCTION
-        elif re.search(r'^\d+\.\d*|\d*\.\d+$', self._word):
+        elif re.search(r"^\d+\.\d*|\d*\.\d+$", self._word):
             self.type = WordType.LITERAL_FLOAT
-        elif re.search(r'^\d+$', self._word):
+        elif re.search(r"^\d+$", self._word):
             self.type = WordType.LITERAL_INT
         else:
             self.type = WordType.OTHER
 
     def __repr__(self) -> str:
-        return f'{self._word} ({self.type})'
+        return f"{self._word} ({self.type})"
 
     def is_ordinal(self) -> bool:
         return self.ordinal_ending is not None
@@ -132,7 +177,12 @@ class Token(object):
         """
         Returns the textual (digit) representation of the token (e.g. twelve -> 12).
         """
-        if self.type in [WordType.LITERAL_INT, WordType.LITERAL_FLOAT, WordType.CONJUNCTION, WordType.OTHER]:
+        if self.type in [
+            WordType.LITERAL_INT,
+            WordType.LITERAL_FLOAT,
+            WordType.CONJUNCTION,
+            WordType.OTHER,
+        ]:
             # Keep the original representation of the literal in case there were e.g. some thousand separators
             return self.word_raw
         elif self.type == WordType.SCALES:

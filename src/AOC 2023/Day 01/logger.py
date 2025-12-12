@@ -1,4 +1,5 @@
-""" doc placeholder """
+"""doc placeholder"""
+
 from datetime import datetime
 
 
@@ -52,7 +53,7 @@ class Logger(dict):
     @property
     def time_stamp(self):
         """doc placeholder"""
-        return str(datetime.now().timestamp()).replace(".", "").ljust(16,"0")
+        return str(datetime.now().timestamp()).replace(".", "").ljust(16, "0")
         # return datetime.now().strftime("%Y-%m-%d-%H%M%S")
 
     def report(self):

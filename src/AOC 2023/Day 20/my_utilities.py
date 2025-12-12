@@ -1,4 +1,5 @@
 """doc string"""
+
 import pickle
 import configparser
 
@@ -7,7 +8,6 @@ import aocd
 
 class AOCMException(Exception):
     """doc string"""
-
 
 
 def path(*args) -> str:

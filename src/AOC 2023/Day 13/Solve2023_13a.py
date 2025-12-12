@@ -29,38 +29,41 @@ __run_on_example__ = True
 # GATHER_TOOLS ################################################################
 ###############################################################################
 
-def parse_input(source:str='input.txt') -> list:
-	""" For parsing source string into usable content"""
-	pass
+
+def parse_input(source: str = "input.txt") -> list:
+    """For parsing source string into usable content"""
+    pass
 
 
 ###############################################################################
 # SOLVE PART A ################################################################
 ###############################################################################
 
+
 def solve_a(data):
-	""" For solving PART a of day 13's puzzle."""
-	pass
+    """For solving PART a of day 13's puzzle."""
+    pass
 
 
 ###############################################################################
 # MAIN ENTRY POINT FOR SUBMITTING AND BENCHMARKING ############################
 ###############################################################################
 
+
 def main(source):
-	""" Main entry point"""
-	solution = Solve_a(source)
+    """Main entry point"""
+    solution = Solve_a(source)
 
 
 ###############################################################################
 # RUNNING_FROM_HOME ###########################################################
 ###############################################################################
 
-if __name__ == '__main__':
-	my_utils.version_increment('a', sml=1)
-	if __run_on_example__ :
-		answer = main(parse('example.txt'), __example_answer__)
-	else:
-		answer = main(parse('input.txt'))
-	my_utils.version_increment('a', sml=1)
-	my_utils.solve_me(answer, 'a')
+if __name__ == "__main__":
+    my_utils.version_increment("a", sml=1)
+    if __run_on_example__:
+        answer = main(parse("example.txt"), __example_answer__)
+    else:
+        answer = main(parse("input.txt"))
+    my_utils.version_increment("a", sml=1)
+    my_utils.solve_me(answer, "a")

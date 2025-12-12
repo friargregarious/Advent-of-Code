@@ -15,8 +15,8 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     keywords="text2numbers words2numbers digits numbers",
     project_urls={
-        'Funding': "https://www.paypal.me/careless25",
-        'Source': "https://github.com/careless25/text2digits"
+        "Funding": "https://www.paypal.me/careless25",
+        "Source": "https://github.com/careless25/text2digits",
     },
     classifiers=[
         "Programming Language :: Python :: 3",

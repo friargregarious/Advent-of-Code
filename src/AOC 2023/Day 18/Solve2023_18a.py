@@ -177,7 +177,6 @@ def solve_a(data):
                 print(" ", end="")
         print()
 
-
     return 0
 
 

@@ -1,9 +1,5 @@
-
-
 for character in [".", "\\", "/", "|", "-"]:
-    print(character,"=", ord(character))
-
-
+    print(character, "=", ord(character))
 
 
 # from random import randint, choice

@@ -100,7 +100,7 @@ def around_me(grid, loc):
 def parse_input(source: str = "input.txt") -> list:
     """For parsing source string into usable content"""
     info = []
-    for row in open(source,"r").read().splitlines():
+    for row in open(source, "r").read().splitlines():
         info.append(list(row.strip()))
 
     return info

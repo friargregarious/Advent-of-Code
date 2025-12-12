@@ -1,4 +1,5 @@
 import os
+
 # import colr
 import turtle
 import Solve2023_18a as slv
@@ -11,15 +12,12 @@ grid = slv.map_trenches(my_inst)
 grid = slv.recenter(grid)
 
 
-
-
 deep, wide = slv.maximums(grid)
 grid_dict = {}
 for left, right in grid:
     grid_dict[left] = right
 
 grid_dict = dict(sorted(grid_dict.items()))
-
 
 
 # for key, val in grid_dict.items():

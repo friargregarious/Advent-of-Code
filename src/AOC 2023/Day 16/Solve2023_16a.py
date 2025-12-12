@@ -1,4 +1,5 @@
-""" module doc string """
+"""module doc string"""
+
 ###############################################################################
 #          ADVENT OF CODE | 2023 | THE FLOOR WILL BE LAVA | PART [A]          #
 #                         adventofcode.com/2023/day/16                        #
@@ -59,6 +60,7 @@ def compass(direction):
     }
     return directions[direction]
 
+
 ###############################################################################
 # GATHER_TOOLS ################################################################
 ###############################################################################
@@ -101,7 +103,6 @@ class Grid(list):
         string = self[m_row]
         charfound = string[m_col]
         return ord(charfound)
-
 
 
 def mover_agent(c_loc: tuple, c_dir: tuple, str: int = 0) -> dict:

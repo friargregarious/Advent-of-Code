@@ -1,4 +1,5 @@
-""" Doc placeholder """
+"""Doc placeholder"""
+
 import os
 import math
 from termcolor import colored
@@ -91,7 +92,7 @@ for g_ame in my_workset.games.values():
     val, msg = g_ame.power()
     print(msg)
     print(f"Running Total: {total+val} = [{total}+{val}]")
-    print("*"*50)
+    print("*" * 50)
     total += val
 
 # print(my_workset.get_answer)

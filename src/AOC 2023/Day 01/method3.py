@@ -1,4 +1,5 @@
-""" new attempt to get it right """
+"""new attempt to get it right"""
+
 import os
 import json
 from num2words import num2words as n2w
@@ -7,6 +8,7 @@ os.system("cls")
 
 data = open("input.txt", encoding="UTF-8").read().split("\n")
 # data = open("example.txt", encoding="UTF-8").read().split("\n")
+
 
 class CalibrationValue:
     """class doc placeholder"""

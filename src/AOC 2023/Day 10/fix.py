@@ -3,6 +3,7 @@ from collections import namedtuple
 from dataclasses import dataclass, astuple, asdict
 from random import randint
 
+
 # @dataclass
 class Loc:
     row: int
@@ -17,13 +18,13 @@ class Loc:
 
     def __str__(self) -> str:
         return f"({self.row},{self.col})"
-    
+
     def __add__(self, other):
         return Loc(self.row + other.row, self.col + other.col)
 
     def __eq__(self, other) -> bool:
         return (self.row, self.col) == (other.row, other.col)
-        
+
     def __gt__(self, other) -> bool:
         return (self.row, self.col) > (other.row, other.col)
 
@@ -36,14 +37,12 @@ class Loc:
     def __gte__(self, other) -> bool:
         return (self.row, self.col) >= (other.row, other.col)
 
-list_locs=[]
+
+list_locs = []
 for _ in range(25):
-    x = randint(1,10)
-    y = randint(1,10)
-    list_locs.append(Loc(x,y))
+    x = randint(1, 10)
+    y = randint(1, 10)
+    list_locs.append(Loc(x, y))
 
 print(list_locs)
 print(sorted(list_locs))
-
-
-

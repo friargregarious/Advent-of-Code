@@ -6,7 +6,9 @@ from text2digits.text_processing_helpers import split_glues, find_similar_word
 
 
 class Text2Digits(object):
-    def __init__(self, similarity_threshold=1.0, convert_ordinals=True, add_ordinal_ending=False):
+    def __init__(
+        self, similarity_threshold=1.0, convert_ordinals=True, add_ordinal_ending=False
+    ):
         """
         This class can be used to convert text representations of numbers to digits. That is, it replaces all occurrences of numbers (e.g. forty-two) to the digit representation (e.g. 42).
 
@@ -24,7 +26,7 @@ class Text2Digits(object):
         self.similarity_threshold = similarity_threshold
 
         if self.similarity_threshold < 0 or self.similarity_threshold > 1:
-            raise ValueError('The similarity_threshold must be in the range [0, 1]')
+            raise ValueError("The similarity_threshold must be in the range [0, 1]")
 
         self.convert_ordinals = convert_ordinals
         self.add_ordinal_ending = add_ordinal_ending
@@ -65,7 +67,9 @@ class Text2Digits(object):
         for i, (word, glue) in enumerate(split_glues(text)):
             # Address spelling corrections
             if self.similarity_threshold != 1:
-                matched_num = find_similar_word(word, Token.numwords.keys(), self.similarity_threshold)
+                matched_num = find_similar_word(
+                    word, Token.numwords.keys(), self.similarity_threshold
+                )
                 if matched_num is not None:
                     word = matched_num
 
@@ -78,7 +82,10 @@ class Text2Digits(object):
 
         # A word should only have the type WordType.CONJUNCTION when it actually combines two digits and not some other words in the sentence
         for i in conjunctions:
-            if i >= len(tokens) - 1 or tokens[i + 1].type in [WordType.CONJUNCTION, WordType.OTHER]:
+            if i >= len(tokens) - 1 or tokens[i + 1].type in [
+                WordType.CONJUNCTION,
+                WordType.OTHER,
+            ]:
                 tokens[i].type = WordType.OTHER
 
         return tokens
@@ -107,7 +114,7 @@ class Text2Digits(object):
                     n_match = rule.match(tokens[i:])
                     if n_match > 0:
                         # ... and then merge these tokens into a new one (e.g. a token representing the digit)
-                        token = rule.action(tokens[i:i + n_match])
+                        token = rule.action(tokens[i : i + n_match])
                         new_tokens.append(token)
                         i += n_match
                     else:
@@ -120,7 +127,7 @@ class Text2Digits(object):
             tokens = new_tokens
 
         # Combine the tokens back to a string (with special handling of ordinal numbers)
-        text = ''
+        text = ""
         for token in tokens:
             if token.is_ordinal() and not self.convert_ordinals:
                 text += token.word_raw

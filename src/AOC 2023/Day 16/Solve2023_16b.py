@@ -1,4 +1,5 @@
-""" module doc string """
+"""module doc string"""
+
 ###############################################################################
 #          ADVENT OF CODE | 2023 | THE FLOOR WILL BE LAVA | PART [B]          #
 #                         adventofcode.com/2023/day/16                        #

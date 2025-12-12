@@ -103,6 +103,9 @@ os.system("cls")
 my_predictions = [Prediction(page).answer for page in mybooks]
 print("My Predictions:", my_predictions)
 for pgnum, page in enumerate(mybooks):
-    print(f"The answer to #{pgnum} is: [{Prediction(page).answer:,}]".ljust(35), page[::-1])
+    print(
+        f"The answer to #{pgnum} is: [{Prediction(page).answer:,}]".ljust(35),
+        page[::-1],
+    )
 
 print("The final Solution:", sum(my_predictions))

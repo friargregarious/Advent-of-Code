@@ -39,7 +39,14 @@ class CombinationRule(Rule):
     """
 
     def __init__(self):
-        self.valid_types = [WordType.LITERAL_INT, WordType.LITERAL_FLOAT, WordType.UNITS, WordType.TEENS, WordType.TENS, WordType.SCALES]
+        self.valid_types = [
+            WordType.LITERAL_INT,
+            WordType.LITERAL_FLOAT,
+            WordType.UNITS,
+            WordType.TEENS,
+            WordType.TENS,
+            WordType.SCALES,
+        ]
 
     def match(self, tokens: List[Token]) -> int:
         class MatchType(enum.Enum):
@@ -66,13 +73,25 @@ class CombinationRule(Rule):
                 first = tokens[consumed_tokens + consumed_conjunctions]
 
             # Same for the second considered token. However, it is a bit more complicated in this case since we may reach the end of the string
-            second = tokens[consumed_tokens + consumed_conjunctions + 1] if consumed_tokens < len(tokens) - consumed_conjunctions - 1 else NoneToken()
+            second = (
+                tokens[consumed_tokens + consumed_conjunctions + 1]
+                if consumed_tokens < len(tokens) - consumed_conjunctions - 1
+                else NoneToken()
+            )
             if second.type == WordType.CONJUNCTION:
                 consumed_conjunctions = 1
-                second = tokens[consumed_tokens + consumed_conjunctions + 1] if consumed_tokens < len(tokens) - consumed_conjunctions - 1 else NoneToken()
+                second = (
+                    tokens[consumed_tokens + consumed_conjunctions + 1]
+                    if consumed_tokens < len(tokens) - consumed_conjunctions - 1
+                    else NoneToken()
+                )
 
             # Now the tricky part: we need to decide how many tokens we need to combine
-            if last_match != MatchType.DUAL_HUNDRED and first.type == WordType.TENS and second.type == WordType.UNITS:
+            if (
+                last_match != MatchType.DUAL_HUNDRED
+                and first.type == WordType.TENS
+                and second.type == WordType.UNITS
+            ):
                 # e.g. twenty one -> consume both
                 consumed_tokens += 2
                 last_match = MatchType.DUAL_HUNDRED
@@ -81,7 +100,9 @@ class CombinationRule(Rule):
                 consumed_tokens += 2
                 last_match = MatchType.DUAl_SCALE
                 last_scale = second.scale()
-            elif first.has_large_scale() and (second.type in self.valid_types or last_match == MatchType.DUAL_HUNDRED):
+            elif first.has_large_scale() and (
+                second.type in self.valid_types or last_match == MatchType.DUAL_HUNDRED
+            ):
                 # e.g. *hundred two -> consume hundred
                 # e.g. twenty one *hundred -> twenty one already consumed by the first condition
 
@@ -89,7 +110,10 @@ class CombinationRule(Rule):
                 consumed_tokens += 1
                 last_match = MatchType.SCALE
                 last_scale = first.scale()
-            elif last_match in [MatchType.SCALE, MatchType.DUAl_SCALE] and first.has_large_scale():
+            elif (
+                last_match in [MatchType.SCALE, MatchType.DUAl_SCALE]
+                and first.has_large_scale()
+            ):
                 # Two consecutive scales are only allowed when the scale increases
                 # e.g. hundred thousand -> ok
                 # e.g. thousand hundred -> no valid number
@@ -98,7 +122,10 @@ class CombinationRule(Rule):
                     last_match = MatchType.SCALE
                 else:
                     last_match = None
-            elif last_match in [MatchType.SCALE, MatchType.DUAl_SCALE] and first.type in self.valid_types:
+            elif (
+                last_match in [MatchType.SCALE, MatchType.DUAl_SCALE]
+                and first.type in self.valid_types
+            ):
                 # e.g. hundred *two -> consume two
                 consumed_tokens += 1
                 last_match = MatchType.SINGLE
@@ -113,16 +140,18 @@ class CombinationRule(Rule):
         return consumed_tokens
 
     def action(self, tokens: List[Token]) -> CombinedToken:
-        assert len(tokens) >= 2, 'At least two tokens are required'
+        assert len(tokens) >= 2, "At least two tokens are required"
 
         current = Decimal(0)
         result = Decimal(0)
-        last_glue = ''
+        last_glue = ""
         prev_scale = 1
         all_scales = [token.scale() for token in tokens]
 
         for index, token in enumerate(tokens):
-            assert token.type != WordType.OTHER, 'Invalid token type (only numbers are allowed here)'
+            assert (
+                token.type != WordType.OTHER
+            ), "Invalid token type (only numbers are allowed here)"
 
             if token.has_large_scale():
                 # Multiply the scale at least with a value of 1 (and not 0)
@@ -142,12 +171,20 @@ class CombinationRule(Rule):
 
         return CombinedToken(tokens, result, last_glue)
 
+
 class ConcatenationRule(Rule):
     """
     This rule handles all the "year cases" like twenty twenty where we simply concatenate the numbers together. The numbers are already transformed to digits by the CombinationRule.
     """
+
     def __init__(self):
-        self.valid_types = [WordType.UNITS, WordType.TEENS, WordType.TENS, WordType.SCALES, WordType.REPLACED]
+        self.valid_types = [
+            WordType.UNITS,
+            WordType.TEENS,
+            WordType.TENS,
+            WordType.SCALES,
+            WordType.REPLACED,
+        ]
 
     def match(self, tokens: List[Union[Token, CombinedToken]]) -> int:
         i = 0
@@ -163,10 +200,10 @@ class ConcatenationRule(Rule):
         return i
 
     def action(self, tokens: List[Union[Token, CombinedToken]]) -> ConcatenatedToken:
-        assert len(tokens) >= 1, 'At least one token is required'
+        assert len(tokens) >= 1, "At least one token is required"
 
-        last_glue = ''
-        result = ''
+        last_glue = ""
+        result = ""
 
         for token in tokens:
             result += token.text()

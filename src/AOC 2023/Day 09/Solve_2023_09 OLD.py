@@ -40,6 +40,7 @@ from tools import Prediction, line_results
 class my_runner:
     total = 0
 
+
 def solve_a(source):
     """Oasis And Sand Instability Sensor"""
     # first we extrapolate till zeros

@@ -1,4 +1,5 @@
-""" new attempt to get it right """
+"""new attempt to get it right"""
+
 import os
 import json
 from num2words import num2words as n2w

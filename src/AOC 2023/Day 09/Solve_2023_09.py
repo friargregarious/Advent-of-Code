@@ -39,6 +39,7 @@ from tools import Prediction, line_results
 # PART A ######################################################################
 ###############################################################################
 
+
 def solve_a(source):
     """Oasis And Sand Instability Sensor"""
     prediction_sum = 0
@@ -46,7 +47,9 @@ def solve_a(source):
 
         while True:
             # Calculate the differences between consecutive numbers in the sequence
-            differences = [sequence[i] - sequence[i-1] for i in range(1, len(sequence))]
+            differences = [
+                sequence[i] - sequence[i - 1] for i in range(1, len(sequence))
+            ]
 
             # If the differences are all zeroes, we can predict the next value
             if all(d == 0 for d in differences):
@@ -59,6 +62,7 @@ def solve_a(source):
             sequence = differences
 
     return prediction_sum
+
 
 ###############################################################################
 # PART B ######################################################################
@@ -79,8 +83,8 @@ def parse(source):
         # print(reading)
         # if len(reading) > 1:
         converted = list(map(int, reading.split(" ")))
-        # print(converted)        
-        sensor_history.append( converted )
+        # print(converted)
+        sensor_history.append(converted)
     return sensor_history
 
 

@@ -19,7 +19,7 @@ class RuleToken(ABC):
         self.ordinal_ending = self.original_tokens[-1].ordinal_ending
 
         # Build a representation of the original word consisting of all tokens
-        self.word_raw = ''
+        self.word_raw = ""
         for i, token in enumerate(self.original_tokens):
             self.word_raw += token.word_raw
             if i < len(self.original_tokens) - 1:
@@ -58,7 +58,11 @@ class CombinedToken(RuleToken):
         number = self.value()
 
         # Remove tailing zeros, e.g. 1.2345 hundred -> 123.4500 -> 123.45
-        number = number.to_integral() if number == number.to_integral() else number.normalize()
+        number = (
+            number.to_integral()
+            if number == number.to_integral()
+            else number.normalize()
+        )
 
         return str(number)
 

@@ -51,7 +51,7 @@ def find_similar_word(word: str, collection: List, threshold: float) -> str:
     return match
 
 
-def split_glues(text: str, separator=r'\s+|(?<=\D)[.,;:\-_](?=\D)') -> Iterator[str]:
+def split_glues(text: str, separator=r"\s+|(?<=\D)[.,;:\-_](?=\D)") -> Iterator[str]:
     """
     Splits a string and preserves the glue, i.e. the separator fragments.
     This is useful when words of a sentence should be processed while still
@@ -68,10 +68,10 @@ def split_glues(text: str, separator=r'\s+|(?<=\D)[.,;:\-_](?=\D)') -> Iterator[
         match = re.search(separator, text)
         if not match:
             # The last word does not have a glue
-            yield text, ''
+            yield text, ""
             break
 
-        yield text[:match.start()], match.group()
+        yield text[: match.start()], match.group()
 
         # Proceed with the remaining string
-        text = text[match.end():]
+        text = text[match.end() :]

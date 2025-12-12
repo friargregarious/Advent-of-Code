@@ -1,4 +1,5 @@
-""" Doc placeholder """
+"""Doc placeholder"""
+
 import os
 import math
 from termcolor import colored

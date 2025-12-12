@@ -130,10 +130,10 @@ def solve_b(data):
 
         print(box_msg, end=" ")
         slot = 0
-        for  lens, focus in contents.items():
+        for lens, focus in contents.items():
             slot += 1
             print(colored(f"[{lens} {focus}]", "green"), end=" ")
-            
+
             box_results.append([box + 1, slot, focus])
 
     # still have to do the multiplication on the final values
@@ -154,7 +154,9 @@ def solve_b(data):
         print("\n\n")
         for row in box_results:
             print(row, math.prod(row))
-            print(f"Final Answer: {solution:,} = {__example_answer__} : {solution==__example_answer__}")
+            print(
+                f"Final Answer: {solution:,} = {__example_answer__} : {solution==__example_answer__}"
+            )
 
     return solution
 

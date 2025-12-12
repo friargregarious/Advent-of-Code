@@ -1,4 +1,5 @@
-""" module doc string """
+"""module doc string"""
+
 ###############################################################################
 #          ADVENT OF CODE | 2023 | THE FLOOR WILL BE LAVA | PART [A]          #
 #                         adventofcode.com/2023/day/16                        #
@@ -242,7 +243,7 @@ def decide(mvr: dict, grid: Grid) -> list:
         moved = move_me(this_mvr.copy())
 
         if grid.is_legal(moved) and this_mvr["str"] > 0:
-            
+
             new_positions.append(this_mvr)
         # if not legal, mover_agent collected into bit-bucket.
 
@@ -307,7 +308,6 @@ def solve_a(data):
                 temp = beam
                 temp["str"] -= 1
                 movers_to_move.append(temp)
-
 
         # movers_to_move = movers_that_moved
 

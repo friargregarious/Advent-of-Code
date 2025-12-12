@@ -1,4 +1,5 @@
 """# The almanac starts by listing which seeds need to be planted:"""
+
 import os
 from configparser import ConfigParser
 import aocd
@@ -125,10 +126,7 @@ if __name__ == "__main__":
 
     print(f"nearest_location is {my_almanac.nearest_location}")
 
-
     final_answer_a = my_almanac.nearest_location
-
-
 
     cfg = ConfigParser()
     cfg.read("C:/Advent of Code/.env")
@@ -136,4 +134,3 @@ if __name__ == "__main__":
     me = aocd.models.User(token=token)
     this_puzzle = aocd.models.Puzzle(year=2023, day=5, user=me)
     this_puzzle.answer_a = final_answer_a
-

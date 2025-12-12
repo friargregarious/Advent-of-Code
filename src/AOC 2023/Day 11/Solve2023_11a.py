@@ -56,7 +56,6 @@ def galaxy_expansion(source_map):
             for i, symbol in enumerate(row):
                 if symbol == "#":
                     blank_cols.add(i)
-                
 
     # for the example, blank_cols should = [2, 5, 8]
 
@@ -81,7 +80,7 @@ def solve_a(data):
 ###############################################################################
 
 
-def main(source, example_answer:str="a"):
+def main(source, example_answer: str = "a"):
     """Main entry point"""
     solution = solve_a(source)
     return solution
