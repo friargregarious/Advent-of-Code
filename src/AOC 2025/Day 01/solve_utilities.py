@@ -1,20 +1,67 @@
-import os
+import os, sys
+import time
+import toml, json
+import requests
 import aocd
 import pickle
-import time
-import sys
-import requests
-import toml
-import argparse
+
+# import argparse
 
 from markdownify import markdownify
 from bs4 import BeautifulSoup
 from pathlib import Path
 from datetime import datetime
 
-
-def clear_screen():
-    os.system("cls" if os.name == "nt" else "clear")
+ARGS_LIST = [
+    (
+        ["-e", "--example"],
+        {
+            "help": "Bool Flag: Test code with example input instead of default 'input.txt'.",
+            "default": False,
+            "action": "store_true",
+        },
+    ),
+    (
+        ["-s", "--submit"],
+        {
+            "help": "Bool Flag: Submit answer to server. (defaults to False).",
+            "default": False,
+            "action": "store_true",
+        },
+    ),
+    (
+        ["-b", "--part_b"],
+        {
+            "help": "Bool Flag: Choses parts 'A' or 'B' to run. (defaults to 'A').",
+            "default": False,
+            "action": "store_true",
+        },
+    ),
+    (
+        ["-r", "--refresh"],
+        {
+            "help": "Bool Flag: Refresh/update the readme.md file and exit.",
+            "default": False,
+            "action": "store_true",
+        },
+    ),
+    (
+        ["-d", "--discord"],
+        {
+            "help": "Bool Flag: Send message to discord channel and exit.",
+            "default": False,
+            "action": "store_true",
+        },
+    ),
+    (
+        ["-v", "--verbose"],
+        {
+            "help": "Bool Flag: allow in code print statements.",
+            "default": False,
+            "action": "store_true",
+        },
+    ),
+]
 
 
 def print_args(args: dict):
@@ -45,6 +92,28 @@ def print_args(args: dict):
     print(bar)
 
 
+INI_PARTS = ["puzzle", "working_dirs", "user"]
+
+
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+
+
+def get_CORE(cfg: dict):
+    return json.loads(Path(cfg["working_dirs"]["core"]).read_text(encoding="utf-8"))
+
+
+def backup_CORE(CORE: dict, cfg: dict):
+    path = Path(cfg["working_dirs"]["core_bu"])
+    path.write_text(json.dumps(CORE, sort_keys=True, indent=3), encoding="utf-8")
+
+
+def save_CORE(CORE: dict, cfg: dict):
+    Path(cfg["working_dirs"]["core"]).write_text(
+        json.dumps(CORE, sort_keys=True, indent=3), encoding="utf-8"
+    )
+
+
 def get_user_results(user: aocd.models.User):
     """
     Retrieves user statistics for the current year from the Advent of Code servers.
@@ -69,14 +138,12 @@ def get_config() -> dict:
         A dictionary containing configuration data read from '.env'.
     """
 
-    cfg_path = Path(".env")
-    backup = "templates" / cfg_path
+    if "AoC" in Path(__file__).as_posix():
+        cfg_path = Path(__file__).parent.parent.parent.parent / ".env"
+    else:
+        cfg_path = Path(".env")
 
-    try:
-        return toml.loads(cfg_path.read_text(encoding="utf-8"))
-    except FileNotFoundError as e:
-        print(f"Loading Config Template: {e}")
-        return toml.loads(backup.read_text(encoding="utf-8"))
+    return toml.loads(cfg_path.read_text(encoding="utf-8"))
 
 
 def save_config(config: dict):
@@ -91,8 +158,14 @@ def save_config(config: dict):
         Prints a success message if the file is saved successfully.
         Prints a failure message and exits the program if the save operation fails.
     """
+
+    if "AoC" in Path(__file__).as_posix():
+        cfg_path = Path(__file__).parent.parent.parent.parent / ".env"
+    else:
+        cfg_path = Path(".env")
+
     try:
-        Path(".env").write_text(toml.dumps(config))
+        cfg_path.write_text(toml.dumps(config))
         print("save_config: Saved Config: .env")
     except:
         print("save_config: Failed to save Config: .env")
@@ -110,25 +183,15 @@ def save_puzzle(puzzle: aocd.models.Puzzle, cfg: dict):
     Effects:
         Saves the puzzle object to disk and prints a message indicating success or failure
     """
-    _path: Path = Path(cfg["puzzle"]["path"])  # / cfg['puzzle']['path']
+
+    _path: Path = Path(cfg["working_dirs"]["root"]) / cfg["working_dirs"]["puzzles"] / f"{puzzle.year}-{puzzle.day:02}.aocd"
     _parent = _path.parent
     # print(f"save_puzzle: Saving Puzzle: {_path} ...")
     try:
         # D:\Advent of Code\.puzzles
         if not _parent.is_dir():
-            print(f"save_puzzle: Directory does not exist: {_path.parent}")
+            print(f"save_puzzle: Directory does not exist: {_parent.as_posix()}")
 
-        # with _path.open('wb') as f:
-        #     pickle.dump(puzzle, f)
-
-        # with open(_path, "wb") as f:
-        #     pickle.dump(puzzle, f)
-
-        # _path.write_bytes(pickle.dumps(puzzle))
-
-        # pickle.dump(puzzle, _path.open("wb"))
-
-        puzzle._last_resp.connection.close()
         my_file = _path.open("wb")
         my_file.write(pickle.dumps(puzzle))
         my_file.close()
@@ -137,6 +200,10 @@ def save_puzzle(puzzle: aocd.models.Puzzle, cfg: dict):
 
     except Exception as e:
         print(f"save_puzzle: Failed to save puzzle: {_path}\n --> {e}")
+
+
+def puzzle_file(year: int, day: int) -> str:
+    return f"{year}-{day:02}.aocd"
 
 
 def open_puzzle(config: dict):
@@ -151,18 +218,23 @@ def open_puzzle(config: dict):
     Returns:
         Puzzle: The opened puzzle object.
     """
-    _puzzle_path = Path(config["working_dirs"]["puzzles"]) / config["puzzle"]["path"]
-    _year = config["puzzle"]["year"]
-    _day = config["puzzle"]["day"]
+    y, d = config["puzzle"]["year"], config["puzzle"]["day"]
+    _puzzle_path: Path = (
+        Path(config["working_dirs"]["root"])
+        / config["working_dirs"]["puzzles"]
+        / puzzle_file(y, d)
+    )
+    # _year = config["puzzle"]["year"]
+    # _day = config["puzzle"]["day"]
     _user = aocd.models.User(config["user"]["token"])
 
     def net_get():
-        puzzle = aocd.models.Puzzle(year=_year, day=_day, user=_user)
+        puzzle = aocd.models.Puzzle(year=y, day=d, user=_user)
         save_puzzle(puzzle, config)
         # print(f"net_get: Creating new puzzle file - {_puzzle_path}")
         return puzzle
 
-    if Path(config["puzzle"]["path"]).is_file():
+    if _puzzle_path.is_file():
         try:
             puzzle = pickle.load(open(_puzzle_path, "rb"))
             puzzle._user = _user
@@ -175,29 +247,6 @@ def open_puzzle(config: dict):
     else:
         print(f"open_puzzle: No puzzle file found: {_puzzle_path}")
         return net_get()
-
-
-def get_data(puzzle: aocd.models.Puzzle, example=False):
-    # print(puzzle.input_data)
-    if example:
-        data = puzzle.example_data
-        _data = "input_example.txt"
-    else:
-        data = puzzle.input_data
-        _data = "input.txt"
-
-    try:
-        if Path(_data).exists():
-            print(f"Found {_data}, using it...")
-            return Path(_data).read_text(encoding="utf-8")
-
-        else:
-            print(f"Creating {_data}...")
-            Path(_data).write_text(data, encoding="utf-8")
-            print(f"Saved Input: {_data}")
-        return puzzle.input_data
-    except Exception as e:
-        print(f"Error Saving {_data}: ", e)
 
 
 def refresh_readme(puzzle: aocd.models.Puzzle):
@@ -228,7 +277,7 @@ def refresh_readme(puzzle: aocd.models.Puzzle):
     except:
         print("refresh_readme: Failed to refresh README.md")
 
-    # sys.exit(0)
+    sys.exit(0)
 
 
 def submit_result(puzzle: aocd.models.Puzzle, result: int, part: str, cfg: dict):
@@ -284,11 +333,7 @@ def report_puzzle(puzzle: aocd.models.Puzzle, result, part: str):
         if puzzle.answered_b:
             print(f"Part B is completed: {puzzle.answer_b}")
         else:
-
-            wrong_msg = (
-                "(wrong Answer)" if result in puzzle.submit_results else "(submitted)"
-            )
-            print("Part B:", wrong_msg)
+            print("Part B:", result, "(Completed)")
 
 
 def Discord(config: dict, puzzle: aocd.models.Puzzle):
@@ -396,30 +441,21 @@ def update_header(puzzle: aocd.models.Puzzle):
     if solve_file.exists():
         text = solve_file.read_text().split("\n")
 
-    new_text = []
-
     day_done = datetime(
         year=puzzle.year, month=12, day=puzzle.day, hour=0, minute=0, second=0
     )
 
-    for line in text:
-        if line.startswith("# A SOLVED:"):
-            if puzzle.answered_a:
-                dt = day_done + puzzle.my_stats["a"]["time"]
-                done = dt.strftime("%Y-%m-%d %H:%M")
-                new_text.append(
-                    "# A SOLVED:".ljust(14) + f"{done}".ljust(80 - 15) + "#"
-                )
+    text[9] = "# A SOLVED:   N/A".ljust(40) + "#".rjust(40)
+    text[10] = "# B SOLVED:   N/A".ljust(40) + "#".rjust(40)
 
-        elif line.startswith("# B SOLVED:"):
-            if puzzle.answered_b:
-                dt = day_done + puzzle.my_stats["b"]["time"]
-                done = dt.strftime("%Y-%m-%d %H:%M")
-                new_text.append(
-                    "# B SOLVED:".ljust(14) + f"{done}".ljust(80 - 15) + "#"
-                )
+    if puzzle.answered_a:
+        dt = day_done + puzzle.my_stats["a"]["time"]
+        done = dt.strftime("%Y-%m-%d %H:%M")
+        text[9] = f"# A SOLVED:   {done}".ljust(40) + "#".rjust(40)
 
-        else:
-            new_text.append(line)
+    if puzzle.answered_b:
+        dt = day_done + puzzle.my_stats["b"]["time"]
+        done = dt.strftime("%Y-%m-%d %H:%M")
+        text[10] = f"# B SOLVED:   {done}".ljust(40) + "#".rjust(40)
 
-    solve_file.write_text("\n".join(new_text), encoding="utf-8")
+    solve_file.write_text("\n".join(text), encoding="utf-8")
