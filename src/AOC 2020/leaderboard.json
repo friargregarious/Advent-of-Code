@@ -1,0 +1,234 @@
+{
+   "day1_ts": 1606798800,
+   "event": "2020",
+   "members": {
+      "2586895": {
+         "completion_day_level": {},
+         "global_score": 0,
+         "id": 2586895,
+         "last_star_ts": 0,
+         "local_score": 0,
+         "name": "Miles Orrick",
+         "stars": 0
+      },
+      "2588518": {
+         "completion_day_level": {},
+         "global_score": 0,
+         "id": 2588518,
+         "last_star_ts": 0,
+         "local_score": 0,
+         "name": "friargregarious",
+         "stars": 0
+      },
+      "3564991": {
+         "completion_day_level": {},
+         "global_score": 0,
+         "id": 3564991,
+         "last_star_ts": 0,
+         "local_score": 0,
+         "name": "GLotsapot",
+         "stars": 0
+      },
+      "4414585": {
+         "completion_day_level": {},
+         "global_score": 0,
+         "id": 4414585,
+         "last_star_ts": 0,
+         "local_score": 0,
+         "name": "pixelgrass",
+         "stars": 0
+      },
+      "997876": {
+         "completion_day_level": {
+            "1": {
+               "1": {
+                  "get_star_ts": 1606875382,
+                  "star_index": null
+               },
+               "2": {
+                  "get_star_ts": 1606876174,
+                  "star_index": null
+               }
+            },
+            "10": {
+               "1": {
+                  "get_star_ts": 1607578272,
+                  "star_index": 16
+               },
+               "2": {
+                  "get_star_ts": 1607582551,
+                  "star_index": 17
+               }
+            },
+            "11": {
+               "1": {
+                  "get_star_ts": 1607709831,
+                  "star_index": 18
+               },
+               "2": {
+                  "get_star_ts": 1607711646,
+                  "star_index": 19
+               }
+            },
+            "12": {
+               "1": {
+                  "get_star_ts": 1607749692,
+                  "star_index": 20
+               },
+               "2": {
+                  "get_star_ts": 1607750135,
+                  "star_index": 21
+               }
+            },
+            "13": {
+               "1": {
+                  "get_star_ts": 1607838297,
+                  "star_index": 22
+               },
+               "2": {
+                  "get_star_ts": 1607843216,
+                  "star_index": 23
+               }
+            },
+            "14": {
+               "1": {
+                  "get_star_ts": 1607999173,
+                  "star_index": 24
+               },
+               "2": {
+                  "get_star_ts": 1608000471,
+                  "star_index": 25
+               }
+            },
+            "15": {
+               "1": {
+                  "get_star_ts": 1608076476,
+                  "star_index": 26
+               },
+               "2": {
+                  "get_star_ts": 1608076699,
+                  "star_index": 27
+               }
+            },
+            "16": {
+               "1": {
+                  "get_star_ts": 1608186042,
+                  "star_index": 28
+               },
+               "2": {
+                  "get_star_ts": 1608187901,
+                  "star_index": 29
+               }
+            },
+            "17": {
+               "1": {
+                  "get_star_ts": 1608238236,
+                  "star_index": 30
+               },
+               "2": {
+                  "get_star_ts": 1608239779,
+                  "star_index": 31
+               }
+            },
+            "18": {
+               "1": {
+                  "get_star_ts": 1608870489,
+                  "star_index": 32
+               },
+               "2": {
+                  "get_star_ts": 1608871152,
+                  "star_index": 33
+               }
+            },
+            "2": {
+               "1": {
+                  "get_star_ts": 1606923398,
+                  "star_index": 0
+               },
+               "2": {
+                  "get_star_ts": 1606923706,
+                  "star_index": 1
+               }
+            },
+            "3": {
+               "1": {
+                  "get_star_ts": 1606972973,
+                  "star_index": 2
+               },
+               "2": {
+                  "get_star_ts": 1606973171,
+                  "star_index": 3
+               }
+            },
+            "4": {
+               "1": {
+                  "get_star_ts": 1607062682,
+                  "star_index": 4
+               },
+               "2": {
+                  "get_star_ts": 1607063417,
+                  "star_index": 5
+               }
+            },
+            "5": {
+               "1": {
+                  "get_star_ts": 1607221083,
+                  "star_index": 6
+               },
+               "2": {
+                  "get_star_ts": 1607221251,
+                  "star_index": 7
+               }
+            },
+            "6": {
+               "1": {
+                  "get_star_ts": 1607231403,
+                  "star_index": 8
+               },
+               "2": {
+                  "get_star_ts": 1607231638,
+                  "star_index": 9
+               }
+            },
+            "7": {
+               "1": {
+                  "get_star_ts": 1607320900,
+                  "star_index": 10
+               },
+               "2": {
+                  "get_star_ts": 1607321442,
+                  "star_index": 11
+               }
+            },
+            "8": {
+               "1": {
+                  "get_star_ts": 1607406118,
+                  "star_index": 12
+               },
+               "2": {
+                  "get_star_ts": 1607407101,
+                  "star_index": 13
+               }
+            },
+            "9": {
+               "1": {
+                  "get_star_ts": 1607573380,
+                  "star_index": 14
+               },
+               "2": {
+                  "get_star_ts": 1607573885,
+                  "star_index": 15
+               }
+            }
+         },
+         "global_score": 0,
+         "id": 997876,
+         "last_star_ts": 1608871152,
+         "local_score": 170,
+         "name": "rjhelms",
+         "stars": 36
+      }
+   },
+   "num_days": 25,
+   "owner_id": 2588518
+}
