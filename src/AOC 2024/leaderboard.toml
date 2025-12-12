@@ -1,0 +1,464 @@
+day1_ts = 1733029200
+event = "2024"
+num_days = 25
+owner_id = 2588518
+
+[members.2586895]
+global_score = 0
+id = 2586895
+last_star_ts = 1733274933
+local_score = 16
+name = "Miles Orrick"
+stars = 5
+
+[members.2588518]
+global_score = 0
+id = 2588518
+last_star_ts = 1735218418
+local_score = 152
+name = "friargregarious"
+stars = 33
+
+[members.3564991]
+global_score = 0
+id = 3564991
+last_star_ts = 1734121195
+local_score = 4
+name = "GLotsapot"
+stars = 4
+
+[members.4414585]
+global_score = 0
+id = 4414585
+last_star_ts = 1733978303
+local_score = 37
+name = "pixelgrass"
+stars = 13
+
+[members.997876]
+global_score = 0
+id = 997876
+last_star_ts = 1735773355
+local_score = 226
+name = "rjhelms"
+stars = 50
+
+[members.2586895.completion_day_level.1.1]
+get_star_ts = 1733075457
+star_index = 4
+
+[members.2586895.completion_day_level.1.2]
+get_star_ts = 1733076566
+star_index = 5
+
+[members.2586895.completion_day_level.2.1]
+get_star_ts = 1733192342
+star_index = 14
+
+[members.2586895.completion_day_level.3.1]
+get_star_ts = 1733273101
+star_index = 17
+
+[members.2586895.completion_day_level.3.2]
+get_star_ts = 1733274933
+star_index = 18
+
+[members.2588518.completion_day_level.1.1]
+get_star_ts = 1733071193
+star_index = 2
+
+[members.2588518.completion_day_level.1.2]
+get_star_ts = 1733072021
+star_index = 3
+
+[members.2588518.completion_day_level.10.1]
+get_star_ts = 1733877115
+star_index = 53
+
+[members.2588518.completion_day_level.10.2]
+get_star_ts = 1733877947
+star_index = 54
+
+[members.2588518.completion_day_level.11.1]
+get_star_ts = 1733923022
+star_index = 57
+
+[members.2588518.completion_day_level.11.2]
+get_star_ts = 1734008877
+star_index = 62
+
+[members.2588518.completion_day_level.12.1]
+get_star_ts = 1734039297
+star_index = 65
+
+[members.2588518.completion_day_level.12.2]
+get_star_ts = 1734063149
+star_index = 67
+
+[members.2588518.completion_day_level.13.1]
+get_star_ts = 1734115974
+star_index = 68
+
+[members.2588518.completion_day_level.13.2]
+get_star_ts = 1734145980
+star_index = 70
+
+[members.2588518.completion_day_level.14.1]
+get_star_ts = 1734203017
+star_index = 71
+
+[members.2588518.completion_day_level.14.2]
+get_star_ts = 1734207705
+star_index = 72
+
+[members.2588518.completion_day_level.15.1]
+get_star_ts = 1734272339
+star_index = 78
+
+[members.2588518.completion_day_level.15.2]
+get_star_ts = 1734300914
+star_index = 80
+
+[members.2588518.completion_day_level.17.1]
+get_star_ts = 1734631132
+star_index = 81
+
+[members.2588518.completion_day_level.2.1]
+get_star_ts = 1733141246
+star_index = 8
+
+[members.2588518.completion_day_level.2.2]
+get_star_ts = 1733150646
+star_index = 9
+
+[members.2588518.completion_day_level.24.1]
+get_star_ts = 1735099638
+star_index = 98
+
+[members.2588518.completion_day_level.25.1]
+get_star_ts = 1735218418
+star_index = 100
+
+[members.2588518.completion_day_level.3.1]
+get_star_ts = 1733243418
+star_index = 15
+
+[members.2588518.completion_day_level.3.2]
+get_star_ts = 1733267699
+star_index = 16
+
+[members.2588518.completion_day_level.4.1]
+get_star_ts = 1733337927
+star_index = 21
+
+[members.2588518.completion_day_level.4.2]
+get_star_ts = 1733347789
+star_index = 22
+
+[members.2588518.completion_day_level.5.1]
+get_star_ts = 1733378944
+star_index = 23
+
+[members.2588518.completion_day_level.5.2]
+get_star_ts = 1733414104
+star_index = 24
+
+[members.2588518.completion_day_level.6.1]
+get_star_ts = 1733490875
+star_index = 27
+
+[members.2588518.completion_day_level.6.2]
+get_star_ts = 1734062259
+star_index = 66
+
+[members.2588518.completion_day_level.7.1]
+get_star_ts = 1733585965
+star_index = 34
+
+[members.2588518.completion_day_level.7.2]
+get_star_ts = 1733590275
+star_index = 36
+
+[members.2588518.completion_day_level.8.1]
+get_star_ts = 1733641648
+star_index = 42
+
+[members.2588518.completion_day_level.8.2]
+get_star_ts = 1733675484
+star_index = 43
+
+[members.2588518.completion_day_level.9.1]
+get_star_ts = 1733788785
+star_index = 46
+
+[members.2588518.completion_day_level.9.2]
+get_star_ts = 1733806017
+star_index = 47
+
+[members.3564991.completion_day_level.1.1]
+get_star_ts = 1733806259
+star_index = 48
+
+[members.3564991.completion_day_level.1.2]
+get_star_ts = 1733807496
+star_index = 49
+
+[members.3564991.completion_day_level.2.1]
+get_star_ts = 1734019517
+star_index = 64
+
+[members.3564991.completion_day_level.3.1]
+get_star_ts = 1734121195
+star_index = 69
+
+[members.4414585.completion_day_level.1.1]
+get_star_ts = 1733082857
+star_index = 6
+
+[members.4414585.completion_day_level.1.2]
+get_star_ts = 1733085646
+star_index = 7
+
+[members.4414585.completion_day_level.2.1]
+get_star_ts = 1733185203
+star_index = 12
+
+[members.4414585.completion_day_level.2.2]
+get_star_ts = 1733187018
+star_index = 13
+
+[members.4414585.completion_day_level.3.1]
+get_star_ts = 1733280809
+star_index = 19
+
+[members.4414585.completion_day_level.3.2]
+get_star_ts = 1733281936
+star_index = 20
+
+[members.4414585.completion_day_level.4.1]
+get_star_ts = 1733545576
+star_index = 32
+
+[members.4414585.completion_day_level.4.2]
+get_star_ts = 1733546765
+star_index = 33
+
+[members.4414585.completion_day_level.5.1]
+get_star_ts = 1733873893
+star_index = 50
+
+[members.4414585.completion_day_level.5.2]
+get_star_ts = 1733873943
+star_index = 51
+
+[members.4414585.completion_day_level.6.1]
+get_star_ts = 1733876811
+star_index = 52
+
+[members.4414585.completion_day_level.7.1]
+get_star_ts = 1733977849
+star_index = 60
+
+[members.4414585.completion_day_level.7.2]
+get_star_ts = 1733978303
+star_index = 61
+
+[members.997876.completion_day_level.1.1]
+get_star_ts = 1733069070
+star_index = 0
+
+[members.997876.completion_day_level.1.2]
+get_star_ts = 1733069217
+star_index = 1
+
+[members.997876.completion_day_level.10.1]
+get_star_ts = 1733891152
+star_index = 55
+
+[members.997876.completion_day_level.10.2]
+get_star_ts = 1733892935
+star_index = 56
+
+[members.997876.completion_day_level.11.1]
+get_star_ts = 1733949212
+star_index = 58
+
+[members.997876.completion_day_level.11.2]
+get_star_ts = 1733951135
+star_index = 59
+
+[members.997876.completion_day_level.12.1]
+get_star_ts = 1734018048
+star_index = 63
+
+[members.997876.completion_day_level.12.2]
+get_star_ts = 1735765129
+star_index = 101
+
+[members.997876.completion_day_level.13.1]
+get_star_ts = 1734232582
+star_index = 73
+
+[members.997876.completion_day_level.13.2]
+get_star_ts = 1734232624
+star_index = 74
+
+[members.997876.completion_day_level.14.1]
+get_star_ts = 1734234082
+star_index = 75
+
+[members.997876.completion_day_level.14.2]
+get_star_ts = 1734235996
+star_index = 76
+
+[members.997876.completion_day_level.15.1]
+get_star_ts = 1734241408
+star_index = 77
+
+[members.997876.completion_day_level.15.2]
+get_star_ts = 1734287597
+star_index = 79
+
+[members.997876.completion_day_level.16.1]
+get_star_ts = 1734799725
+star_index = 82
+
+[members.997876.completion_day_level.16.2]
+get_star_ts = 1734801341
+star_index = 83
+
+[members.997876.completion_day_level.17.1]
+get_star_ts = 1734804663
+star_index = 84
+
+[members.997876.completion_day_level.17.2]
+get_star_ts = 1734807518
+star_index = 85
+
+[members.997876.completion_day_level.18.1]
+get_star_ts = 1734825319
+star_index = 86
+
+[members.997876.completion_day_level.18.2]
+get_star_ts = 1734826718
+star_index = 87
+
+[members.997876.completion_day_level.19.1]
+get_star_ts = 1734885383
+star_index = 88
+
+[members.997876.completion_day_level.19.2]
+get_star_ts = 1734887933
+star_index = 89
+
+[members.997876.completion_day_level.2.1]
+get_star_ts = 1733181558
+star_index = 10
+
+[members.997876.completion_day_level.2.2]
+get_star_ts = 1733182428
+star_index = 11
+
+[members.997876.completion_day_level.20.1]
+get_star_ts = 1734890857
+star_index = 90
+
+[members.997876.completion_day_level.20.2]
+get_star_ts = 1734893841
+star_index = 91
+
+[members.997876.completion_day_level.21.1]
+get_star_ts = 1734897987
+star_index = 92
+
+[members.997876.completion_day_level.21.2]
+get_star_ts = 1735767776
+star_index = 102
+
+[members.997876.completion_day_level.22.1]
+get_star_ts = 1734900039
+star_index = 93
+
+[members.997876.completion_day_level.22.2]
+get_star_ts = 1734905004
+star_index = 94
+
+[members.997876.completion_day_level.23.1]
+get_star_ts = 1734975039
+star_index = 95
+
+[members.997876.completion_day_level.23.2]
+get_star_ts = 1734976936
+star_index = 96
+
+[members.997876.completion_day_level.24.1]
+get_star_ts = 1735061328
+star_index = 97
+
+[members.997876.completion_day_level.24.2]
+get_star_ts = 1735772959
+star_index = 103
+
+[members.997876.completion_day_level.25.1]
+get_star_ts = 1735105457
+star_index = 99
+
+[members.997876.completion_day_level.25.2]
+get_star_ts = 1735773355
+star_index = 104
+
+[members.997876.completion_day_level.3.1]
+get_star_ts = 1733418062
+star_index = 25
+
+[members.997876.completion_day_level.3.2]
+get_star_ts = 1733418567
+star_index = 26
+
+[members.997876.completion_day_level.4.1]
+get_star_ts = 1733498585
+star_index = 28
+
+[members.997876.completion_day_level.4.2]
+get_star_ts = 1733525607
+star_index = 29
+
+[members.997876.completion_day_level.5.1]
+get_star_ts = 1733526713
+star_index = 30
+
+[members.997876.completion_day_level.5.2]
+get_star_ts = 1733527167
+star_index = 31
+
+[members.997876.completion_day_level.6.1]
+get_star_ts = 1733589609
+star_index = 35
+
+[members.997876.completion_day_level.6.2]
+get_star_ts = 1733605453
+star_index = 37
+
+[members.997876.completion_day_level.7.1]
+get_star_ts = 1733607572
+star_index = 38
+
+[members.997876.completion_day_level.7.2]
+get_star_ts = 1733608284
+star_index = 39
+
+[members.997876.completion_day_level.8.1]
+get_star_ts = 1733634806
+star_index = 40
+
+[members.997876.completion_day_level.8.2]
+get_star_ts = 1733635092
+star_index = 41
+
+[members.997876.completion_day_level.9.1]
+get_star_ts = 1733762209
+star_index = 44
+
+[members.997876.completion_day_level.9.2]
+get_star_ts = 1733765951
+star_index = 45

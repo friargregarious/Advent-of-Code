@@ -16,6 +16,7 @@
 #                                                                              #
 ################################################################################
 """
+
 ###############################################################################
 # imports, globals and helper functions/classes
 
@@ -25,51 +26,53 @@ from pathlib import Path
 from time import sleep
 from markdownify import markdownify
 
-def data(input_text_path:Path=Path("input.txt")):
+
+def data(input_text_path: Path = Path("input.txt")):
     raw_rules, raw_updates = input_text_path.read_text(encoding="UTF-8").split("\n\n")
 
     rules = raw_rules.split("\n")
     updates = [row.split(",") for row in raw_updates.split("\n")]
 
-    return {"rules" : rules, "updates" : updates}
+    return {"rules": rules, "updates": updates}
 
 
 ###############################################################################
 # PART A
 ###############################################################################
-def solve_a(source:dict):
+def solve_a(source: dict):
     """for solving Part A"""
     rules = source["rules"]
     updates = source["updates"]
 
     ordered = []
     disordered = []
-        
+
     for update in updates:
         rules_passed = []
-        working_rules = [] 
+        working_rules = []
         for r in rules:
             x, y = r.split("|")
-            if x in update and y in update: working_rules.append(r)
-        
+            if x in update and y in update:
+                working_rules.append(r)
+
         for rule in working_rules:
             before, after = rule.split("|")
             before_index = update.index(before)
             after_index = update.index(after)
-            
+
             # print("rule:", rule, "update:", update, before_index < after_index)
-            rules_passed.append( before_index < after_index )
+            rules_passed.append(before_index < after_index)
 
         # print("rules passed:", rules_passed, all(rules_passed))
         if all(rules_passed) and len(rules_passed) > 0:
             ordered.append(update)
         else:
             disordered.append(update)
-    
+
     middle_sum = 0
     for update in ordered:
         # print("vetted update:", update)
-        middle_sum += int( update[int(len(update) // 2)] )
+        middle_sum += int(update[int(len(update) // 2)])
 
     # Path("disordered.json").write_text(json.dumps(disordered))
     return middle_sum
@@ -85,21 +88,22 @@ def solve_b(source):
 
     ordered = []
     disordered = []
-        
+
     for update in updates:
         rules_passed = []
-        working_rules = [] 
+        working_rules = []
         for r in rules:
             x, y = r.split("|")
-            if x in update and y in update: working_rules.append(r)
-        
+            if x in update and y in update:
+                working_rules.append(r)
+
         for rule in working_rules:
             before, after = rule.split("|")
             before_index = update.index(before)
             after_index = update.index(after)
-            
+
             # print("rule:", rule, "update:", update, before_index < after_index)
-            rules_passed.append( before_index < after_index )
+            rules_passed.append(before_index < after_index)
 
         # print("rules passed:", rules_passed, all(rules_passed))
         if all(rules_passed) and len(rules_passed) > 0:
@@ -110,10 +114,11 @@ def solve_b(source):
 
     # reordering the messes
     for update in disordered:
-        working_rules = [] 
+        working_rules = []
         for r in rules:
             x, y = r.split("|")
-            if x in update and y in update: working_rules.append(r)
+            if x in update and y in update:
+                working_rules.append(r)
 
         # pages = update.split(",")
         passed_rules = []
@@ -142,9 +147,7 @@ def solve_b(source):
     middle_sum = 0
     for update in ordered:
         # print("vetted update:", update)
-        middle_sum += int( update[int(len(update) // 2)] )
-
-
+        middle_sum += int(update[int(len(update) // 2)])
 
     return middle_sum
 
@@ -153,36 +156,66 @@ def solve_b(source):
 # command line interface
 ###############################################################################
 if __name__ == "__main__":
-    os.system('cls')
-    
+    os.system("cls")
+
     # Collect command line arguments
     arg = argparse.ArgumentParser()
-    arg.add_argument("-e", "--example", help="Bool Flag: Test code with example input instead of default 'input.txt'.", default=False, action="store_true")
-    arg.add_argument("-s", "--submit", help="Bool Flag: Submit answer to server. (defaults to False).", default=False, action="store_true")
-    arg.add_argument("-b", "--part_b", help="Bool Flag: Choses parts 'A' or 'B' to run. (defaults to 'A').", default=False, action="store_true")
-    arg.add_argument("-r", "--refresh", help="Bool Flag: Refresh/update the readme.md file and exit.", default=False, action="store_true")
-    arg.add_argument("-d", "--discord", help="Bool Flag: Send message to discord channel and exit.", default=False, action="store_true")
+    arg.add_argument(
+        "-e",
+        "--example",
+        help="Bool Flag: Test code with example input instead of default 'input.txt'.",
+        default=False,
+        action="store_true",
+    )
+    arg.add_argument(
+        "-s",
+        "--submit",
+        help="Bool Flag: Submit answer to server. (defaults to False).",
+        default=False,
+        action="store_true",
+    )
+    arg.add_argument(
+        "-b",
+        "--part_b",
+        help="Bool Flag: Choses parts 'A' or 'B' to run. (defaults to 'A').",
+        default=False,
+        action="store_true",
+    )
+    arg.add_argument(
+        "-r",
+        "--refresh",
+        help="Bool Flag: Refresh/update the readme.md file and exit.",
+        default=False,
+        action="store_true",
+    )
+    arg.add_argument(
+        "-d",
+        "--discord",
+        help="Bool Flag: Send message to discord channel and exit.",
+        default=False,
+        action="store_true",
+    )
     args = arg.parse_args()
-    
+
     su.print_args(vars(args))
 
     # Load puzzle parameters
-    config = toml.load(Path('.env'))
-    _puzzle_path = config['puzzle']['path']
-    
+    config = toml.load(Path(".env"))
+    _puzzle_path = config["puzzle"]["path"]
+
     DO_A = not args.part_b
     DO_B = args.part_b
     DO_EXAMPLE = args.example
     SUBMIT_PUZZLE = args.submit
     REFRESH = args.refresh
     DISCORD = args.discord
-    
+
     # open puzzle info
     puzzle = su.open_puzzle(config)
 
     if DISCORD:
         su.send_discord(config, puzzle)
-    
+
     if REFRESH:
         su.refresh_readme(puzzle)
 

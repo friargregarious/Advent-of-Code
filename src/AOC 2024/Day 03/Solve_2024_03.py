@@ -16,6 +16,7 @@
 #
 ###############################################################################
 """
+
 ###############################################################################
 # imports, globals and helper functions/classes
 
@@ -24,14 +25,16 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 
-def data(input_text_path:Path=Path("input.txt")):
+def data(input_text_path: Path = Path("input.txt")):
 
     text_source_list = input_text_path.read_text(encoding="UTF-8").split("\n")
 
     return text_source_list
- 
-def mul(a:str, b:str)->int:
-     return int(a) * int(b)
+
+
+def mul(a: str, b: str) -> int:
+    return int(a) * int(b)
+
 
 ###############################################################################
 # PART A
@@ -41,10 +44,12 @@ def solve_a(source):
 
     # xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))
     # pattern = re.Pattern()
-    pattern=r'mul\(([0-9]{1,3}),([0-9]{1,3})\)'
+    pattern = r"mul\(([0-9]{1,3}),([0-9]{1,3})\)"
     if _EXAMPLE:
-        print(f"a --> pattern: {pattern}\nShould Find: mul(2,4) mul(5,5) mul(11,8) mul(8,5)")
-    
+        print(
+            f"a --> pattern: {pattern}\nShould Find: mul(2,4) mul(5,5) mul(11,8) mul(8,5)"
+        )
+
     all_res = []
     total = 0
 
@@ -55,8 +60,8 @@ def solve_a(source):
         if _EXAMPLE:
             print(f"a --> Row: {row}")
             print(f"a --> {res}")
-        
-        total += sum([mul(a,b) for a, b in res])
+
+        total += sum([mul(a, b) for a, b in res])
 
     return total
 
@@ -72,7 +77,7 @@ def solve_b(source):
         text = Path("example_b.txt").read_text(encoding="UTF-8")
     else:
         text = Path("input.txt").read_text(encoding="UTF-8")
-    
+
     matches = re.findall(pattern, text)
     print("\n".join(map(str, matches)))
     mul_enabled = True
@@ -95,7 +100,7 @@ def solve_b(source):
 def main(source, do_a=False, do_b=False):
     """ENTRY POINT FOR SUBMITTING & BENCHMARKING"""
     solution_a = solve_a(source=data(source)) if do_a else 0
-    solution_b = solve_b(source=data(source)) if do_b else 0    
+    solution_b = solve_b(source=data(source)) if do_b else 0
 
     return (solution_a, solution_b)
 
@@ -103,22 +108,37 @@ def main(source, do_a=False, do_b=False):
 ###############################################################################
 # command line interface
 if __name__ == "__main__":
-    os.system('cls')
-    config = toml.load(Path('.env'))
-    _year = config['puzzle']['year']
-    _day = config['puzzle']['day']
-    _puzzle_path = config['puzzle']['path']
-    _user = aocd.models.User(config['user']['token'])
-    
+    os.system("cls")
+    config = toml.load(Path(".env"))
+    _year = config["puzzle"]["year"]
+    _day = config["puzzle"]["day"]
+    _puzzle_path = config["puzzle"]["path"]
+    _user = aocd.models.User(config["user"]["token"])
+
     arg = argparse.ArgumentParser()
-    arg.add_argument("--example", help="Test code with example input instead of default 'input.txt'.", type=bool, default=False)
-    arg.add_argument("--parts", help="Chose parts 'A' or 'B' to run. (defaults to both: 'AB').", type=str, default="AB")
-    arg.add_argument("--submit", help="Submit answer to server. (defaults to False).", type=bool, default=False)
+    arg.add_argument(
+        "--example",
+        help="Test code with example input instead of default 'input.txt'.",
+        type=bool,
+        default=False,
+    )
+    arg.add_argument(
+        "--parts",
+        help="Chose parts 'A' or 'B' to run. (defaults to both: 'AB').",
+        type=str,
+        default="AB",
+    )
+    arg.add_argument(
+        "--submit",
+        help="Submit answer to server. (defaults to False).",
+        type=bool,
+        default=False,
+    )
     args = arg.parse_args()
-    
+
     # save puzzle info
-    
-    if Path(config['puzzle']['path']).is_file():
+
+    if Path(config["puzzle"]["path"]).is_file():
         puzzle = pickle.load(open(_puzzle_path, "rb"))
         puzzle._user = _user
         print(f"Found existing puzzle file: {_puzzle_path}")
@@ -126,7 +146,7 @@ if __name__ == "__main__":
         puzzle = aocd.models.Puzzle(year=_year, day=_day, user=_user)
         pickle.dump(puzzle, open(_puzzle_path, "wb"))
         print(f"Creating new puzzle file: {_puzzle_path}")
-    
+
     DOA = "A" in args.parts.upper()
     DOB = "B" in args.parts.upper()
 
@@ -139,29 +159,28 @@ if __name__ == "__main__":
         source_input = Path("input.txt")
 
     part_a, part_b = main(source_input, do_a=True, do_b=True)
-    
+
     if DOA and args.submit and puzzle.answered_a:
-        soup = BeautifulSoup( puzzle._get_prose().encode("utf-8"), "html.parser" )
-        articles = "\n".join( [str(x) for x in soup.find_all("article")] )
-        md_articles = markdownify.markdownify( articles, heading_style="ATX" )
-        Path("README.md").write_text( md_articles )
+        soup = BeautifulSoup(puzzle._get_prose().encode("utf-8"), "html.parser")
+        articles = "\n".join([str(x) for x in soup.find_all("article")])
+        md_articles = markdownify.markdownify(articles, heading_style="ATX")
+        Path("README.md").write_text(md_articles)
 
     if DOA and args.submit and not puzzle.answered_a:
-        puzzle.answer_a = part_a # type: ignore
+        puzzle.answer_a = part_a  # type: ignore
         pickle.dump(puzzle, open(_puzzle_path, "wb"))
-            
+
     if DOB and args.submit and not puzzle.answered_b:
         time.sleep(5) if DOA else None
-        puzzle.answer_b = part_b # type: ignore
+        puzzle.answer_b = part_b  # type: ignore
         pickle.dump(puzzle, open(_puzzle_path, "wb"))
-        
+
     if puzzle.answered_a:
         print(f"Part A is completed: {puzzle.answer_a}")
     else:
-        print( "             Part A:", part_a)
+        print("             Part A:", part_a)
 
     if puzzle.answered_b:
         print(f"Part B is completed: {puzzle.answer_b}")
     else:
-        print( "             Part B:", part_b)
-    
+        print("             Part B:", part_b)

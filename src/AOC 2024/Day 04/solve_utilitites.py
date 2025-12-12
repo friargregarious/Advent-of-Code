@@ -13,23 +13,24 @@ from pathlib import Path
 from datetime import datetime
 
 
-def print_args(args:dict):
+def print_args(args: dict):
     bar = "*" * 50
-    print( bar, f"{' Args ':*^50}", bar, sep="\n" )
+    print(bar, f"{' Args ':*^50}", bar, sep="\n")
 
-    for param in [ f"{ k.rjust(12) }: { v }" for k, v in args.items() ]:
+    for param in [f"{ k.rjust(12) }: { v }" for k, v in args.items()]:
         print("-->", param)
 
-    print( bar )
+    print(bar)
 
 
-def get_user_results(user:aocd.models.User):
+def get_user_results(user: aocd.models.User):
     this_year = datetime.now().year
     possible_years = [2015 + x for x in range(this_year - 2015)]
     user_stats = user.get_stats(years=possible_years)
     return user_stats
 
-def save_config(config:dict):
+
+def save_config(config: dict):
     try:
         Path(".env").write_text(toml.dumps(config))
         print("RESULT: Save Config: .env")
@@ -37,55 +38,57 @@ def save_config(config:dict):
         print("RESULT: Failed to save Config: .env")
         sys.exit(0)
 
-def save_puzzle(puzzle: aocd.models.Puzzle, path:Path):
+
+def save_puzzle(puzzle: aocd.models.Puzzle, path: Path):
     try:
         pickle.dump(puzzle, open(path, "wb"))
         print("RESULT: Saved Puzzle: " + str(path))
     except:
         print("RESULT: Failed to save Puzzle: " + str(path))
 
-def open_puzzle(config:dict):
-    _puzzle_path = Path(config['puzzle']['path'])
-    _year = config['puzzle']['year']
-    _day = config['puzzle']['day']
-    _user = aocd.models.User(config['user']['token'])
+
+def open_puzzle(config: dict):
+    _puzzle_path = Path(config["puzzle"]["path"])
+    _year = config["puzzle"]["year"]
+    _day = config["puzzle"]["day"]
+    _user = aocd.models.User(config["user"]["token"])
 
     def net_get():
-        puzzle = aocd.models.Puzzle( year=_year, day=_day, user=_user )
+        puzzle = aocd.models.Puzzle(year=_year, day=_day, user=_user)
         print(f"Creating new puzzle file: {_puzzle_path}")
         save_puzzle(puzzle, _puzzle_path)
         return puzzle
-        
-    if Path(config['puzzle']['path']).is_file():
+
+    if Path(config["puzzle"]["path"]).is_file():
         try:
             puzzle = pickle.load(open(_puzzle_path, "rb"))
             puzzle._user = _user
-            print( f"Found existing puzzle file: {_puzzle_path}" )
+            print(f"Found existing puzzle file: {_puzzle_path}")
             return puzzle
         except:
-            print( f"Existing File Corrupted: {_puzzle_path}" )
+            print(f"Existing File Corrupted: {_puzzle_path}")
             return net_get()
 
     else:
-        print( f"No puzzle file found: {_puzzle_path}" )
+        print(f"No puzzle file found: {_puzzle_path}")
         return net_get()
 
 
-def refresh_readme(puzzle:aocd.models.Puzzle):
+def refresh_readme(puzzle: aocd.models.Puzzle):
     try:
         puzzle._request_puzzle_page()
-        soup = BeautifulSoup( puzzle._get_prose().encode("utf-8"), "html.parser" )
-        articles = "\n".join( [str(x) for x in soup.find_all("article")] )
-        articles = articles.replace( r"\-" ,"-" )
-        md_articles = markdownify( articles, heading_style="ATX" )
-        Path( "README.md" ).write_text( md_articles )
-        print( "RESULT: Refreshed README.md" )
+        soup = BeautifulSoup(puzzle._get_prose().encode("utf-8"), "html.parser")
+        articles = "\n".join([str(x) for x in soup.find_all("article")])
+        articles = articles.replace(r"\-", "-")
+        md_articles = markdownify(articles, heading_style="ATX")
+        Path("README.md").write_text(md_articles)
+        print("RESULT: Refreshed README.md")
     except:
-        print( "RESULT: Failed to refresh README.md" )
+        print("RESULT: Failed to refresh README.md")
     sys.exit(0)
 
 
-def submit_result(puzzle: aocd.models.Puzzle, result:int, part:str, path:Path):    
+def submit_result(puzzle: aocd.models.Puzzle, result: int, part: str, path: Path):
     """
     Submits the result of a puzzle to AoC servers.
 
@@ -101,17 +104,17 @@ def submit_result(puzzle: aocd.models.Puzzle, result:int, part:str, path:Path):
     time.sleep(3)
 
     if part.upper() == "A" and not puzzle.answered_a:
-        puzzle.answer_a = result # type: ignore
+        puzzle.answer_a = result  # type: ignore
         if puzzle.answered_a:
             save_puzzle(puzzle, path)
-            
+
     elif part.upper() == "B" and not puzzle.answered_b:
-        puzzle.answer_b = result # type: ignore
+        puzzle.answer_b = result  # type: ignore
         if puzzle.answered_b:
             save_puzzle(puzzle, path)
 
 
-def report_puzzle(puzzle: aocd.models.Puzzle, result:int, part:str):
+def report_puzzle(puzzle: aocd.models.Puzzle, result: int, part: str):
     """
     Reports the result of the puzzle to the console.
 
@@ -125,15 +128,19 @@ def report_puzzle(puzzle: aocd.models.Puzzle, result:int, part:str):
     """
 
     if part.upper() == "A":
-        if puzzle.answered_a: print(f"Part A is completed: {puzzle.answer_a}")
-        else: print( "Part A:", result, "(Completed)")
+        if puzzle.answered_a:
+            print(f"Part A is completed: {puzzle.answer_a}")
+        else:
+            print("Part A:", result, "(Completed)")
 
     elif part.upper() == "B":
-        if puzzle.answered_b: print(f"Part B is completed: {puzzle.answer_b}")
-        else: print( "Part B:", result, "(Completed)")
+        if puzzle.answered_b:
+            print(f"Part B is completed: {puzzle.answer_b}")
+        else:
+            print("Part B:", result, "(Completed)")
 
 
-def Discord(config:dict, puzzle:aocd.models.Puzzle):
+def Discord(config: dict, puzzle: aocd.models.Puzzle):
     """
     Posts a message to the specified Discord channel to gloat about
     completing both parts of the puzzle.
@@ -149,12 +156,12 @@ def Discord(config:dict, puzzle:aocd.models.Puzzle):
     Returns:
         None
     """
-    _year = config['puzzle']["year"]
-    _day = config['puzzle']["day"]
-    _general = config['discord']['general']
-    _token = config['discord']['token']
-    
-    if config['discord']['last_msg']:
+    _year = config["puzzle"]["year"]
+    _day = config["puzzle"]["day"]
+    _general = config["discord"]["general"]
+    _token = config["discord"]["token"]
+
+    if config["discord"]["last_msg"]:
         print("RESULT: You have already posted your message to discord.")
 
     elif puzzle.answered_a and puzzle.answered_b:
@@ -167,17 +174,19 @@ def Discord(config:dict, puzzle:aocd.models.Puzzle):
         content = {"content": msg, "mention_everyone": True}
         header = {"Authorization": _token}
 
-        res = requests.post(url, data=content, headers=header )
-        
+        res = requests.post(url, data=content, headers=header)
+
         if res.status_code != 200:
             print("RESULT: Discord Message Failed!")
 
         elif res.status_code == 200:
             print("RESULT: Discord Message Sent!")
-            config['discord']['last_msg'] = True
+            config["discord"]["last_msg"] = True
             save_config(config)
 
     else:
-        print("RESULT: You have not yet completed both parts of the puzzle.\nNo gloating till you're finished!")
-        
+        print(
+            "RESULT: You have not yet completed both parts of the puzzle.\nNo gloating till you're finished!"
+        )
+
     sys.exit(0)
